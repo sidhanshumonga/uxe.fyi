@@ -53,7 +53,7 @@ export default function Footer() {
         </div>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 64, paddingTop: 24, borderTop: '1px solid var(--border)', flexWrap: 'wrap', gap: 16 }}>
           <div className="mono" style={{ fontSize: 12, color: 'var(--muted)' }}>
-            <span style={{ color: 'var(--accent)' }}>●</span> built in the open · MIT · v0.4.2
+            <span style={{ color: 'var(--accent)' }}>●</span> built in the open
           </div>
           <div className="mono" style={{ fontSize: 12, color: 'var(--muted)' }}>
             uxe.fyi — engineering the <span className="serif-italic" style={{ color: 'var(--ink-dim)', fontSize: 14 }}>feel</span> of software
