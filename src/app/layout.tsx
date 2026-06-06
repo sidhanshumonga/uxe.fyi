@@ -41,6 +41,22 @@ export default function RootLayout({
 
   return (
     <html lang="en" className={fontClasses}>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  var theme = localStorage.getItem('uxe-theme');
+                  if (theme === 'light') {
+                    document.documentElement.classList.add('theme-light');
+                  }
+                } catch (e) {}
+              })();
+            `,
+          }}
+        />
+      </head>
       <body className="grain">
         <ThemeProvider>
           <div className="shell">

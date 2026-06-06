@@ -102,7 +102,7 @@ export default function BreakdownsPage() {
                   marginBottom: 64,
                 }}
               >
-                {liveFiltered.map((d, i) => {
+                {liveFiltered.map((d) => {
                   const DemoComponent = d.C;
                   return (
                     <div key={d.t} style={{ position: 'relative' }}>

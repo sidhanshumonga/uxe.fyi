@@ -50,7 +50,6 @@ const LEARNING_TRACKS = [
   },
 ];
 
-type LevelType = 'starter' | 'mid' | 'advanced';
 
 const LevelDot: React.FC<{ lvl: string }> = ({ lvl }) => {
   const c = lvl === 'starter' ? '#9EE493' : lvl === 'mid' ? '#FFB46D' : '#FF7A59';
@@ -117,7 +116,7 @@ export default function LearningPage() {
             ].map((f) => (
               <button
                 key={f.id}
-                onClick={() => setFilter(f.id as any)}
+                onClick={() => setFilter(f.id as typeof filter)}
                 style={{
                   padding: '7px 14px',
                   background: filter === f.id ? 'var(--ink)' : 'transparent',

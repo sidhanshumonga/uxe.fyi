@@ -1,11 +1,11 @@
 'use client';
 
 import React from 'react';
-import { Icon } from './Icon';
 
 export interface AvatarData {
   i: string;
   c: string;
+  url?: string;
 }
 
 export const AVATARS: AvatarData[] = [
@@ -18,7 +18,7 @@ export const Avatar: React.FC<{ a: AvatarData; size?: number }> = ({ a, size = 3
       width: size,
       height: size,
       borderRadius: '50%',
-      background: a.c,
+      background: a.url ? 'transparent' : a.c,
       color: '#0B0B0A',
       display: 'grid',
       placeItems: 'center',
@@ -27,9 +27,14 @@ export const Avatar: React.FC<{ a: AvatarData; size?: number }> = ({ a, size = 3
       fontWeight: 700,
       border: '2px solid var(--bg)',
       flexShrink: 0,
+      overflow: 'hidden',
     }}
   >
-    {a.i}
+    {a.url ? (
+      <img src={a.url} alt={a.i} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+    ) : (
+      a.i
+    )}
   </div>
 );
 
@@ -39,6 +44,7 @@ export interface ActivityItem {
   what: string;
   when: string;
   kind: 'merge' | 'rfc' | 'ship' | 'review' | 'essay';
+  avatarUrl?: string;
 }
 
 export const ACTIVITY: ActivityItem[] = [
@@ -105,7 +111,9 @@ export const ActivityFeed: React.FC<ActivityFeedProps> = ({
       )}
       <div>
         {list.map((a, i) => {
-          const av = AVATARS[i % AVATARS.length];
+          const av = a.avatarUrl
+            ? { i: a.who[0].toUpperCase(), c: 'var(--accent)', url: a.avatarUrl }
+            : AVATARS[i % AVATARS.length];
           return (
             <div
               key={i}

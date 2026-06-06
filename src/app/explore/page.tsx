@@ -1,7 +1,11 @@
-'use client';
-
 import React from 'react';
+import type { Metadata } from 'next';
 import { PageHeader } from '@/components/PageHeader';
+
+export const metadata: Metadata = {
+  title: 'explore the discipline — uxe.fyi',
+  description: 'What is UX Engineering? How companies define it, how it differs from frontend/design, and a day in the life of a UXE.',
+};
 
 const DEFINITIONS = [
   { co: 'Vercel', def: 'engineers who work at the intersection of design and frontend, focused on the craft of the interface itself.' },

@@ -56,16 +56,11 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   }, [accent]);
 
   useEffect(() => {
-    const body = document.body;
-    if (body) {
-      if (theme === 'light') {
-        body.classList.add('theme-light');
-      } else {
-        body.classList.remove('theme-light');
-      }
-      
-      // Keep grain enabled by default
-      body.classList.add('grain');
+    const root = document.documentElement;
+    if (theme === 'light') {
+      root.classList.add('theme-light');
+    } else {
+      root.classList.remove('theme-light');
     }
     localStorage.setItem('uxe-theme', theme);
   }, [theme]);

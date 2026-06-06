@@ -81,7 +81,7 @@ export default function ThinkingPage() {
 
           {/* Essay Row List */}
           <div style={{ borderTop: '1px solid var(--border)' }}>
-            {filtered.map((e, i) => (
+            {filtered.map((e) => (
               <a
                 key={e.num}
                 href="https://github.com/sidhanshumonga/uxe.fyi/issues"
