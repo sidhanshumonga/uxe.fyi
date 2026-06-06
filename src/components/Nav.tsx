@@ -21,12 +21,30 @@ export default function Nav() {
   const pathname = usePathname();
   const { theme, accent, setTheme, setAccent, accentOptions } = useTheme();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [stars, setStars] = useState<number | null>(null);
   const coffeeUrl = "https://buymeacoffee.com/sidhanshu";
 
   // Close mobile menu on route change
   useEffect(() => {
     setMobileMenuOpen(false);
   }, [pathname]);
+
+  // Fetch GitHub stars on mount
+  useEffect(() => {
+    fetch('https://api.github.com/repos/sidhanshumonga/uxe.fyi')
+      .then((res) => {
+        if (res.ok) return res.json();
+        throw new Error('Rate limit or offline');
+      })
+      .then((data) => {
+        if (typeof data.stargazers_count === 'number') {
+          setStars(data.stargazers_count);
+        }
+      })
+      .catch(() => {
+        // Silently fall back to default
+      });
+  }, []);
 
   return (
     <nav className="nav">
@@ -63,7 +81,7 @@ export default function Nav() {
           />
           <a className="gh-badge" href="https://github.com/sidhanshumonga/uxe.fyi" target="_blank" rel="noopener noreferrer">
             <Icon name="github" size={13} />
-            <span>star</span>
+            <span>{stars !== null ? `${stars}` : 'star'}</span>
             <span className="star">★</span>
           </a>
           <a className="coffee-btn" href={coffeeUrl} target="_blank" rel="noopener noreferrer">
