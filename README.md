@@ -20,6 +20,7 @@
 </p>
 
 <p align="center">
+  <a href="https://github.com/sidhanshumonga/uxe.fyi/actions/workflows/ci.yml"><img alt="CI" src="https://img.shields.io/github/actions/workflow/status/sidhanshumonga/uxe.fyi/ci.yml?branch=main&style=flat-square&label=CI&labelColor=0B0B0A&color=FF3D88"></a>
   <a href="LICENSE"><img alt="Code: MIT" src="https://img.shields.io/badge/code-MIT-FF3D88?style=flat-square&labelColor=0B0B0A"></a>
   <a href="LICENSE-CONTENT"><img alt="Content: CC BY-SA 4.0" src="https://img.shields.io/badge/content-CC%20BY--SA%204.0-FF3D88?style=flat-square&labelColor=0B0B0A"></a>
   <a href="CONTRIBUTING.md"><img alt="PRs welcome" src="https://img.shields.io/badge/PRs-welcome-FF3D88?style=flat-square&labelColor=0B0B0A"></a>
@@ -69,7 +70,7 @@ Start with **[CONTRIBUTING.md](CONTRIBUTING.md)**, or browse the [good first iss
 
 ## 🛠️ Run it locally
 
-You'll need **Node.js 20+**.
+You'll need **Node.js 20+** (22 recommended; there's an `.nvmrc`, so `nvm use` works).
 
 ```bash
 git clone https://github.com/sidhanshumonga/uxe.fyi.git
