@@ -1,0 +1,36 @@
+uxe.fyi content license
+=======================
+
+Copyright (c) 2026 Sidhanshu Monga and uxe.fyi contributors
+
+uxe.fyi uses two licenses:
+
+  * Code: everything that makes the site run (components, pages, styles,
+    scripts, configuration, and the code inside interactive demos) is
+    licensed under the MIT License. See LICENSE.
+
+  * Content: the written material (essays, lessons, roadmaps, breakdown
+    write-ups, resource reviews, and other prose, whether it lives in
+    content/ or in page copy) is licensed under the Creative Commons
+    Attribution-ShareAlike 4.0 International License (CC BY-SA 4.0).
+
+You are free to share and adapt the content for any purpose, including
+commercially, as long as you:
+
+  1. Attribute: credit the original author(s) and uxe.fyi, link to the
+     source, and indicate if changes were made.
+  2. Share alike: distribute your adaptation under the same license.
+
+Summary:    https://creativecommons.org/licenses/by-sa/4.0/
+Legal code: https://creativecommons.org/licenses/by-sa/4.0/legalcode
+
+The legal code at the URL above is the binding text; this summary does not
+replace it.
+
+By contributing content to uxe.fyi, you agree to license your contribution
+under CC BY-SA 4.0, and code under the MIT License. Authors keep the
+copyright to their work.
+
+Third-party names, logos, and trademarks mentioned on the site (for
+example, companies whose interfaces are discussed in breakdowns) belong to
+their respective owners and are not covered by either license.
