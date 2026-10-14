@@ -1,0 +1,51 @@
+name: 🗺️ Share your path into UX Engineering
+description: How you actually got here. Real stories shape the roadmaps.
+title: "path: "
+labels: ["roadmap-story", "content"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Roadmaps written in the abstract are mostly guesses. Yours isn't. Answer whatever you're comfortable with. Short answers are completely fine, and we'll only publish your story with your permission and credit.
+  - type: dropdown
+    id: from
+    attributes:
+      label: Where did you start?
+      options:
+        - Engineering (frontend, full-stack, mobile, …)
+        - Design (product, visual, interaction, …)
+        - School or bootcamp, straight into UXE
+        - Somewhere else entirely
+    validations:
+      required: true
+  - type: input
+    id: now
+    attributes:
+      label: What do you do now? (optional)
+      placeholder: Design engineer at a fintech · UX Engineer on a design systems team · …
+  - type: textarea
+    id: story
+    attributes:
+      label: How did the switch happen?
+      description: The turning points. A project, a person, a job, or a moment it clicked.
+    validations:
+      required: true
+  - type: textarea
+    id: order
+    attributes:
+      label: What did you learn, and in what order?
+  - type: textarea
+    id: skip
+    attributes:
+      label: What would you skip if you did it again?
+  - type: textarea
+    id: wish
+    attributes:
+      label: What do you wish someone had told you at the start?
+  - type: checkboxes
+    id: consent
+    attributes:
+      label: Publishing
+      options:
+        - label: uxe.fyi may quote or adapt my answers in a roadmap, credited to my GitHub handle, under CC BY-SA 4.0
+          required: true

@@ -1,0 +1,50 @@
+name: 💡 Suggest a topic
+description: An essay, lesson, resource, breakdown, or site idea that uxe.fyi should have.
+title: "idea: "
+labels: ["suggestion", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Rough ideas are welcome. You don't have to write it yourself. A good pitch is just: **what**, **who it's for**, and **why it matters**.
+  - type: dropdown
+    id: kind
+    attributes:
+      label: What kind of thing is it?
+      options:
+        - Essay (Thinking)
+        - Lesson (Learning)
+        - Resource (book, talk, tool, podcast)
+        - Breakdown (an interaction to take apart)
+        - Roadmap (a path into UX Engineering)
+        - Site feature or improvement
+    validations:
+      required: true
+  - type: textarea
+    id: pitch
+    attributes:
+      label: The pitch
+      description: A few sentences. What's the idea, and why should a UX Engineer care?
+      placeholder: Most loading states treat waiting as a technical problem. This essay argues that waiting is an emotional one, and that the fix is often what the user sees in the first 100ms, not raw speed.
+    validations:
+      required: true
+  - type: input
+    id: audience
+    attributes:
+      label: Who is it for?
+      placeholder: Frontend engineers moving toward UXE · designers learning to code · everyone
+  - type: textarea
+    id: references
+    attributes:
+      label: References
+      description: Links, talks, products, or people that shaped the idea.
+  - type: dropdown
+    id: author
+    attributes:
+      label: Would you like to write or build it?
+      options:
+        - Yes, I'd like to take it on
+        - Maybe, with some help
+        - No, just suggesting
+    validations:
+      required: true

@@ -1,0 +1,54 @@
+name: 🧪 Propose a breakdown
+description: Take apart one real interaction, with a live demo and the reasoning behind it.
+title: "breakdown: "
+labels: ["breakdown"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Breakdowns are the heart of uxe.fyi. Take a look at the [six live ones](https://uxe.fyi/breakdowns) and the [demo checklist](https://github.com/sidhanshumonga/uxe.fyi/blob/main/CONTRIBUTING.md#building-a-breakdown) before you start.
+  - type: input
+    id: interaction
+    attributes:
+      label: The interaction
+      placeholder: Optimistic like buttons
+    validations:
+      required: true
+  - type: textarea
+    id: seen
+    attributes:
+      label: Where is it done well?
+      description: Name the product(s) and describe the behavior precisely. Links help.
+      placeholder: On X/Twitter, the heart fills and the count goes up instantly. If the request fails, it quietly reverts and shows a small toast…
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: Why does it work?
+      description: The perceptual, cognitive, or trust principle behind it, in a sentence or two.
+    validations:
+      required: true
+  - type: textarea
+    id: demo
+    attributes:
+      label: Demo plan
+      description: What will people be able to play with? A before/after toggle works well (for example spinner vs skeleton).
+      placeholder: A list of 5 posts with like buttons and a toggle for "wait for server" vs "optimistic", plus a "simulate failure" switch to show the rollback.
+    validations:
+      required: true
+  - type: textarea
+    id: edge-cases
+    attributes:
+      label: When shouldn't you use it? (optional)
+  - type: checkboxes
+    id: agree
+    attributes:
+      label: Before you start
+      options:
+        - label: My demo will use theme tokens, work with a keyboard, respect reduced motion, and work at phone width
+          required: true
+        - label: I agree my code is MIT and my write-up is CC BY-SA 4.0
+          required: true
+        - label: I'll follow the [Code of Conduct](https://github.com/sidhanshumonga/uxe.fyi/blob/main/CODE_OF_CONDUCT.md)
+          required: true

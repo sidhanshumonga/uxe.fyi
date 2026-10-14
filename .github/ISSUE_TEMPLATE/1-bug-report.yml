@@ -1,0 +1,64 @@
+name: 🐛 Bug report
+description: Something on uxe.fyi is broken, looks wrong, or feels off.
+title: "bug: "
+labels: ["bug", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report this. On a site about how interfaces *feel*, "it feels janky" counts as a bug too.
+  - type: input
+    id: url
+    attributes:
+      label: Page
+      description: Which page did it happen on?
+      placeholder: https://uxe.fyi/breakdowns
+    validations:
+      required: true
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: What did you see? What did you expect to see instead?
+      placeholder: When I close the appearance menu with Escape, focus jumps to the top of the page instead of returning to the button.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Go to …
+        2. Click …
+        3. See …
+  - type: dropdown
+    id: browser
+    attributes:
+      label: Browser
+      multiple: true
+      options:
+        - Chrome / Edge / Arc (Chromium)
+        - Safari (macOS)
+        - Safari (iOS)
+        - Firefox
+        - Chrome (Android)
+        - Other
+  - type: input
+    id: env
+    attributes:
+      label: Device and OS
+      placeholder: MacBook Air, macOS 15 · iPhone 15, iOS 18 · …
+  - type: checkboxes
+    id: context
+    attributes:
+      label: Anything special about your setup?
+      options:
+        - label: Light theme
+        - label: A non-default accent color
+        - label: Reduced motion turned on
+        - label: Keyboard-only or screen reader
+  - type: textarea
+    id: media
+    attributes:
+      label: Screenshot or recording
+      description: Drag and drop here. For interaction bugs, a short screen recording helps most.

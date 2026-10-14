@@ -1,0 +1,68 @@
+name: ✍️ Claim a piece to write
+description: Take an essay, lesson, resource, or roadmap from a wishlist (or your own idea) and write it.
+title: "write: "
+labels: ["content"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for writing for uxe.fyi! Opening this issue tells everyone the piece is taken, so nobody else starts the same thing.
+        Before you start, skim the [writing guide](https://github.com/sidhanshumonga/uxe.fyi/blob/main/CONTRIBUTING.md#writing-content). It's short.
+  - type: dropdown
+    id: kind
+    attributes:
+      label: Type
+      options:
+        - Essay
+        - Lesson
+        - Resource write-up
+        - Roadmap
+    validations:
+      required: true
+  - type: input
+    id: title
+    attributes:
+      label: Working title
+      description: Use the wishlist title if you're claiming one from the site.
+      placeholder: Invisible friction
+    validations:
+      required: true
+  - type: textarea
+    id: outline
+    attributes:
+      label: Rough outline
+      description: Bullet points are plenty. This is where we can help shape it before you write everything.
+      placeholder: |
+        - Open with a real example: the checkout form that asks for your country twice
+        - The idea: friction you can't see still costs attention
+        - Three kinds: …
+        - What to do about it
+    validations:
+      required: true
+  - type: textarea
+    id: why-you
+    attributes:
+      label: Why you? (optional)
+      description: What experience do you bring to this topic? Not a gate, it just helps us edit with you.
+  - type: dropdown
+    id: eta
+    attributes:
+      label: When do you think you'll have a first draft?
+      options:
+        - Within a week
+        - Within 2 weeks
+        - Within a month
+        - Not sure yet
+    validations:
+      required: true
+  - type: checkboxes
+    id: agree
+    attributes:
+      label: Before you start
+      options:
+        - label: I've read the [contributing guide](https://github.com/sidhanshumonga/uxe.fyi/blob/main/CONTRIBUTING.md)
+          required: true
+        - label: I agree my writing will be published under [CC BY-SA 4.0](https://github.com/sidhanshumonga/uxe.fyi/blob/main/LICENSE-CONTENT). I keep the copyright, and others can share it with credit.
+          required: true
+        - label: I'll follow the [Code of Conduct](https://github.com/sidhanshumonga/uxe.fyi/blob/main/CODE_OF_CONDUCT.md)
+          required: true

@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: 📘 Contributing guide
+    url: https://github.com/sidhanshumonga/uxe.fyi/blob/main/CONTRIBUTING.md
+    about: How to claim work, the content format, and what reviewers look for.
+  - name: 🛡️ Report a Code of Conduct concern privately
+    url: https://github.com/sidhanshumonga/uxe.fyi/blob/main/CODE_OF_CONDUCT.md#enforcement
+    about: Please don't open a public issue. Email the maintainer at the address listed here.
