@@ -28,6 +28,10 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://uxe.fyi"),
+  alternates: {
+    types: { "application/rss+xml": [{ url: "/feed.xml", title: "uxe.fyi — UX Engineering Thinking" }] },
+  },
   title: "uxe.fyi — the open-source home for UX Engineering",
   description: "A living handbook, a career bridge, and a community for the discipline of UX Engineering — making interfaces feel inevitable.",
 };

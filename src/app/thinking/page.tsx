@@ -4,17 +4,7 @@ import React, { useState } from 'react';
 import { PageHeader } from '@/components/PageHeader';
 import { EmptyState } from '@/components/EmptyState';
 import { Icon } from '@/components/Icon';
-
-export const ESSAYS = [
-  { num: '01', kicker: 'attention', t: 'Invisible friction', d: 'The cost of every extra click, every loading spinner, every form field that asks for something you already know.', author: 'Maya Chen', when: '2 days ago', mins: 6 },
-  { num: '02', kicker: 'attention', t: 'Calm interfaces', d: 'Designing software that does not demand your attention — it earns it, briefly, and gives it back.', author: 'Lin Park', when: '5 days ago', mins: 8 },
-  { num: '03', kicker: 'time',      t: 'Emotional latency', d: 'Time is not measured in milliseconds. It is measured in feelings — and feelings have their own physics.', author: 'A. Foster', when: '1 week ago', mins: 11 },
-  { num: '04', kicker: 'trust',     t: 'The trust contract', d: 'Every interface makes promises. Every load, every error, every undo button is a promise being kept or broken.', author: 'Nivedita Rao', when: '2 weeks ago', mins: 9 },
-  { num: '05', kicker: 'time',      t: 'Optimism as a feature', d: 'Showing the result before the server confirms it. A small lie in service of a much bigger truth.', author: 'JP Dev', when: '3 weeks ago', mins: 7 },
-  { num: '06', kicker: 'craft',     t: 'Affordance is a verb', d: 'A button is not affordance. Looking like something you can press at this moment — that is.', author: 'Sora K.', when: '1 month ago', mins: 5 },
-  { num: '07', kicker: 'craft',     t: 'On the cursor', d: 'A meditation on the most important pixel on the screen — and how rarely we design for it.', author: 'D. Sato', when: '1 month ago', mins: 10 },
-  { num: '08', kicker: 'trust',     t: 'Undo as a feeling', d: 'The best feature you can add to a destructive action is the courage to do it.', author: 'Maya Chen', when: '5 weeks ago', mins: 6 },
-];
+import { ESSAYS } from '@/data/essays';
 
 export default function ThinkingPage() {
   const [filter, setFilter] = useState<'all' | 'attention' | 'time' | 'trust' | 'craft'>('all');
