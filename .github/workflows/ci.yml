@@ -30,6 +30,9 @@ jobs:
       - name: Lint
         run: npm run lint
 
+      - name: Check content
+        run: npm run content:check
+
       # next build also runs the TypeScript check
       - name: Build
         run: npm run build

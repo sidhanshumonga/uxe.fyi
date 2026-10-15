@@ -86,6 +86,7 @@ Then open **http://localhost:3000**.
 | `npm run dev` | Start the dev server with hot reload |
 | `npm run build` | Production build (run this before opening a PR) |
 | `npm run lint` | ESLint |
+| `npm run content:check` | Validate every file in `content/` (frontmatter, file placement, slugs) |
 | `node scripts/generate-readme-banner.mjs` | Regenerate the banner at the top of this README |
 
 ## 🧱 How it's built
@@ -97,10 +98,13 @@ src/
 ├── app/                 # one folder per section (explore, learning, roadmaps, …)
 │   ├── globals.css      # design tokens: colors, type, radii; dark + light themes
 │   └── feed.xml/        # RSS feed
-└── components/
-    ├── Demos.tsx        # the interactive breakdown demos
-    ├── Nav.tsx, Footer.tsx, ThemeProvider.tsx
-    └── EmptyState.tsx, DraftCard.tsx, PageHeader.tsx, …
+├── components/
+│   ├── Demos.tsx        # the interactive breakdown demos
+│   ├── Nav.tsx, Footer.tsx, ThemeProvider.tsx
+│   └── EmptyState.tsx, DraftCard.tsx, PageHeader.tsx, …
+├── lib/content/         # loads and validates content/ (frontmatter schemas in schema.ts)
+└── data/                # wishlist data not yet moved to content/
+content/                 # essays, lessons, roadmaps, resources, breakdowns (MDX), plus _templates/
 context/                 # the original prototype and the gap roadmap (roadmap.md)
 scripts/                 # repo tooling
 ```

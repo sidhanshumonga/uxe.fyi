@@ -78,6 +78,7 @@ docs: clarify the breakdown checklist
 
 ```bash
 npm run lint
+npm run content:check   # if you touched content/
 npm run build
 ```
 
@@ -105,6 +106,8 @@ content/
     ├── index.mdx
     └── Demo.tsx
 ```
+
+**To start, copy a template** from [`content/_templates/`](content/_templates) and rename it to your slug. Then run `npm run content:check`. It validates your frontmatter and tells you exactly what to fix.
 
 > **Heads up:** we're still wiring the site up to render from `content/`. Until that lands, your PR may only add the `.mdx` file, and a maintainer will hook it into the page. Write it in this format anyway so nothing needs redoing.
 

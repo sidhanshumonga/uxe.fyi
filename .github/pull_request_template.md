@@ -30,7 +30,7 @@ Closes #
 - [ ] Respects `prefers-reduced-motion`
 
 <!-- For content, also: -->
-- [ ] Frontmatter is filled in, including `authors` with my GitHub handle
+- [ ] `npm run content:check` passes, and `authors` includes my GitHub handle
 - [ ] Sources are linked for any claims, numbers, or borrowed ideas
 
 ---
