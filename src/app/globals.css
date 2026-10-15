@@ -864,7 +864,7 @@ section.tight { padding: clamp(32px, 5vw, 64px) 0; }
 .breakdown-card { display: flex; flex-direction: column; gap: 10px; }
 /* Equal-height cards: the demo area grows to fill the grid row, the link stays at the bottom. */
 .breakdown-card-demo { position: relative; flex: 1 1 auto; display: flex; flex-direction: column; }
-.breakdown-card-link { display: inline-flex; align-items: center; gap: 8px; align-self: flex-start; padding: 2px 4px; font-family: var(--font-mono); font-size: 12px; color: var(--ink-dim); transition: color 140ms; }
+.breakdown-card-link { display: inline-flex; align-items: center; gap: 8px; height: 24px; align-self: flex-start; padding: 2px 4px; font-family: var(--font-mono); font-size: 12px; color: var(--ink-dim); transition: color 140ms; }
 .breakdown-card-link:hover { color: var(--accent); }
 .breakdown-card-link .arr { transition: transform 160ms; }
 .breakdown-card-link:hover .arr { transform: translateX(3px); }

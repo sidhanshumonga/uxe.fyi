@@ -1,0 +1,39 @@
+---
+title: Rubber-band edges
+description: Resistance that grows past the edge, then a spring back, tells you where the end is without breaking direct manipulation.
+authors: [sidhanshumonga]
+status: review
+tags: [motion]
+seen: iOS scroll
+date: 2026-10-14
+---
+
+## What it is
+
+When you drag something past the end of its range, it keeps following your finger, but less and less the further you go. When you let go, it springs back into place. Drag the block past either edge above, in both modes.
+
+## Why it works
+
+A hard stop breaks direct manipulation: the finger keeps moving but the content doesn't, so it feels like the interface stopped listening. Rubber-banding keeps the content attached to the gesture while making it clear you've reached the end. The growing resistance communicates "there's nothing more here" without a message.
+
+## How it's built
+
+Inside the range, the block follows the pointer exactly. Past the edge, the overshoot goes through a curve with diminishing returns:
+
+```ts
+// The further past the edge, the less extra movement you get.
+const band = (over: number, dimension: number) =>
+  (1 - 1 / ((over * 0.55) / dimension + 1)) * dimension;
+
+if (raw < 0) x = -band(-raw, 120);
+else if (raw > max) x = max + band(raw - max, 120);
+else x = raw;
+```
+
+On release, snap back to the nearest valid position with an easing curve that slightly overshoots, like `cubic-bezier(0.34, 1.56, 0.64, 1)`, so the return feels physical. Use pointer events with `setPointerCapture`, and `touch-action: none` on the draggable element so the browser doesn't scroll the page at the same time.
+
+Give it a keyboard path too: arrow keys can nudge with the same overshoot and settle.
+
+## When not to use it
+
+Skip the bounce for people who have asked for reduced motion; a plain stop is fine. And don't rubber-band things that aren't being directly manipulated: a button click that bounces at a limit just feels broken.

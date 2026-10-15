@@ -1,0 +1,49 @@
+---
+title: Hover intent
+description: Wait a beat before the first tooltip opens, then open its neighbours instantly while the user is browsing.
+authors: [sidhanshumonga]
+status: review
+tags: [attention]
+seen: GitHub avatars
+date: 2026-10-14
+---
+
+## What it is
+
+A small delay before a hover tooltip opens, plus a "warm" state: once one tooltip has opened, moving to a neighbour opens the next one immediately. Sweep the cursor across the row above in both modes.
+
+## Why it works
+
+A cursor crossing a row of avatars on its way somewhere else isn't asking for anything. Opening a tooltip for every element it passes makes the interface flicker and steals attention. A short delay (around 400ms) filters out passing movement and only responds when the cursor stops.
+
+Once the user has shown intent by stopping on one item, they're probably browsing the group. Making them wait again on every neighbour would feel sluggish, so the group stays "warm" and opens the next tooltip straight away until the cursor leaves.
+
+## How it's built
+
+Two timers: one delays the first open, one keeps the group warm briefly after the cursor leaves.
+
+```tsx
+const enter = (i: number) => {
+  clearTimeout(openTimer.current);
+  clearTimeout(coolTimer.current);
+  if (warm.current) return setOpen(i); // browsing: open now
+  openTimer.current = setTimeout(() => {
+    setOpen(i);
+    warm.current = true;
+  }, 400);
+};
+
+const leave = () => {
+  clearTimeout(openTimer.current);
+  setOpen(null);
+  coolTimer.current = setTimeout(() => (warm.current = false), 300);
+};
+```
+
+Keyboard users should get the tooltip on focus with no delay: focus is already a deliberate act. Link the tooltip with `aria-describedby` and give it `role="tooltip"`.
+
+## When not to use it
+
+Don't put anything essential only in a hover tooltip. Touch screens have no hover, and some people can't hold a pointer still for long. If the content matters, show it in the page or behind a click.
+
+For menus that open sideways (a flyout or mega menu), a delay alone isn't enough: users move diagonally towards the submenu and cross other items on the way. That needs a different technique, which predicts where the cursor is heading.

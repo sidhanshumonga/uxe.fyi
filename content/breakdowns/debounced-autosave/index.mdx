@@ -1,0 +1,44 @@
+---
+title: Debounced autosave
+description: Save after the typing stops, not on every keystroke, and say so quietly.
+authors: [sidhanshumonga]
+status: review
+tags: [time]
+seen: Notion
+date: 2026-10-14
+---
+
+## What it is
+
+The editor saves on its own a moment after you stop typing, and a small status line says what's happening: editing, saving, saved. Type in both modes above.
+
+## Why it works
+
+A save button makes the user responsible for not losing their own work, and the cost of forgetting is high. Autosave removes that job. Waiting for a pause, rather than saving on every keystroke, avoids flooding the server and avoids a status line that flickers constantly.
+
+The status line matters as much as the saving. People need to trust that their work is safe, so tell them, briefly and without demanding attention.
+
+## How it's built
+
+Debounce the save: every keystroke resets a short timer, and the save only runs when the timer completes.
+
+```tsx
+const change = (value: string) => {
+  setText(value);
+  setStatus('editing');
+  clearTimeout(timer.current);
+  timer.current = setTimeout(async () => {
+    setStatus('saving');
+    await save(value);
+    setStatus('saved');
+  }, 800);
+};
+```
+
+Put the status in a `role="status"` region so screen readers hear it without being interrupted. Also save when the page is about to be hidden (`visibilitychange`), so a quick close doesn't lose the last few words.
+
+## When not to use it
+
+Some changes shouldn't apply the moment they're typed: a published article, a message to other people, or settings with side effects. For those, autosave a private draft and keep an explicit publish or send step.
+
+Handle failure out loud. If a save fails, the status should say so and keep retrying, because the user now believes their work is safe.
