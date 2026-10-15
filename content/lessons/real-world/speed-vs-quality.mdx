@@ -1,0 +1,46 @@
+---
+title: Speed vs quality
+description: When to ship rough, when to polish.
+authors: [sidhanshumonga]
+status: published
+track: real-world
+level: advanced
+date: 2026-10-15
+learn:
+  - Separate reversible decisions from expensive ones
+  - Decide where polish pays off and where it doesn't
+  - Ship rough without leaving a mess
+exercise: List the open work on your current project. Mark each item as easy or hard to change later, and as high or low traffic. Spend your polish time on the hard-to-change, high-traffic items and write down what you're consciously leaving rough.
+takeaways:
+  - Move fast on what's easy to change
+  - Be careful with what's hard to undo
+  - Rough is fine; broken and inaccessible are not
+---
+
+There's never time to polish everything. The skill is knowing which details matter now, which can wait, and which can be skipped entirely, and being deliberate about it.
+
+## Reversible vs expensive
+
+Some decisions are cheap to change later: copy, colours, the order of a menu, a transition's duration. Ship those fast and adjust with real usage. Others are expensive: data models, URLs, public APIs, component contracts used across a codebase. Slow down on those.
+
+## Where polish pays
+
+Polish has the most value where many people pass through and where trust is at stake:
+
+- Sign-up, onboarding and the core task
+- Payments, deletes and anything with data at risk
+- Errors and recovery paths
+
+Low-traffic admin screens and internal tools can stay plain.
+
+## A quality floor
+
+Shipping rough doesn't mean shipping broken. Agree on a floor that every release meets regardless of deadline: it works with a keyboard, has visible focus and sufficient contrast, handles errors without losing data, and doesn't shift layout. Above the floor, trade freely.
+
+## Write down what you skipped
+
+When you deliberately leave something rough, note it in an issue or the PR description. Conscious debt is easy to pay back later; forgotten debt becomes the way things are.
+
+## Revisit
+
+Polish what real usage shows matters. Analytics, support tickets and watching people use the product will tell you which rough edges people actually hit.
