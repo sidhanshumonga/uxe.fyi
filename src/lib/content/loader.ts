@@ -83,6 +83,7 @@ function discover(collection: CollectionName, problems: string[]): RawFile[] {
       if (!index) { stray(abs, 'missing index.mdx'); continue; }
       const demo = path.join(abs, 'Demo.tsx');
       if (!fs.existsSync(demo)) stray(abs, 'missing Demo.tsx');
+      else if (!/export\s+default\b/.test(fs.readFileSync(demo, 'utf8'))) stray(demo, 'Demo.tsx needs a default export (export default function Demo…)');
       files.push({ abs: index, slug: d.name, demo: fs.existsSync(demo) ? rel(demo) : undefined });
       continue;
     }

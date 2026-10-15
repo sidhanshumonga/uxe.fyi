@@ -17,11 +17,15 @@
     "node": ">=20.9.0"
   },
   "scripts": {
+    "predev": "npm run content:registry --silent",
     "dev": "next dev",
+    "prebuild": "npm run content:registry --silent",
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "content:check": "tsx scripts/check-content.ts"
+    "content:check": "npm run content:registry --silent && tsx scripts/check-content.ts",
+    "content:registry": "tsx scripts/generate-breakdown-registry.ts",
+    "postinstall": "npm run content:registry --silent"
   },
   "dependencies": {
     "gray-matter": "^4.0.3",

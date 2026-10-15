@@ -45,7 +45,7 @@ If two or more of those landed, **this project is for you.** UX Engineering is t
 | | Section | What it is | Status |
 |---|---|---|---|
 | 🔭 | [**Explore**](https://uxe.fyi/explore) | What UX Engineering is, how it differs from frontend, design and product engineering, and a day in the life | ✅ live |
-| 🧪 | [**Breakdowns**](https://uxe.fyi/breakdowns) | Real interactions taken apart, with **live demos you can play with**: optimistic UI, skeletons vs spinners, fuzzy search, easing curves, form choreography, empty states | ✅ 6 live · 12 queued |
+| 🧪 | [**Breakdowns**](https://uxe.fyi/breakdowns) | Real interactions taken apart, with **live demos you can play with**: optimistic UI, skeletons vs spinners, fuzzy search, easing curves, form choreography, empty states | ✅ 6 live with write-ups · 12 queued |
 | 📚 | [**Learning**](https://uxe.fyi/learning) | A handbook of short, finishable lessons across foundations, engineering and experience design | ✍️ 22 lessons outlined |
 | 🗺️ | [**Roadmaps**](https://uxe.fyi/roadmaps) | Three paths into the role: from engineering, from design, from school | ✍️ 3 drafting |
 | 💭 | [**Thinking**](https://uxe.fyi/thinking) | Short, opinionated essays: *invisible friction*, *emotional latency*, *undo as a feeling* | ✅ 2 published · 8 on the wishlist |
@@ -99,12 +99,12 @@ src/
 │   ├── globals.css      # design tokens: colors, type, radii; dark + light themes
 │   └── feed.xml/        # RSS feed
 ├── components/
-│   ├── Demos.tsx        # the interactive breakdown demos
+│   ├── demo-kit.tsx     # shared frame + toggle for breakdown demos
 │   ├── Nav.tsx, Footer.tsx, ThemeProvider.tsx
 │   └── EmptyState.tsx, DraftCard.tsx, PageHeader.tsx, …
 ├── lib/content/         # loads and validates content/ (frontmatter schemas in schema.ts)
 └── data/                # wishlist data not yet moved to content/
-content/                 # essays, lessons, roadmaps, resources, breakdowns (MDX), plus _templates/
+content/                 # essays, lessons, roadmaps, resources, breakdowns (MDX + Demo.tsx), plus _templates/
 context/                 # the original prototype and the gap roadmap (roadmap.md)
 scripts/                 # repo tooling
 ```

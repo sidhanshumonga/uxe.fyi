@@ -67,6 +67,8 @@ export const schemas = {
   breakdowns: z.strictObject({
     ...base,
     tags: z.array(z.enum(ESSAY_TAGS)).min(1),
+    // A real product where the interaction is done well, e.g. "Linear inbox".
+    seen: z.string().trim().min(1).max(60).optional(),
   }),
 } satisfies Record<CollectionName, z.ZodType>;
 

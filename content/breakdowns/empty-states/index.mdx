@@ -1,0 +1,46 @@
+---
+title: Empty states
+description: "“No items found” is a dead end. A good empty state says what will be here and offers one next step."
+authors: [sidhanshumonga]
+status: published
+tags: [trust]
+seen: Figma boards
+date: 2026-10-14
+---
+
+## What it is
+
+The screen people see when there's nothing to show. Most products treat it like an error. The best ones treat it as a **first impression**, often the very first screen a new user sees in that part of the product.
+
+## Why it works
+
+"No items found." is accurate, but it's a dead end. The helpful version, in the demo above, does three jobs:
+
+1. **Says what will be here:** "Your saved articles will appear here."
+2. **Sets the tone:** "Nothing here yet" sounds like a beginning, not a failure.
+3. **Offers one next step:** "Add a sample" turns a blank screen into a guided tour.
+
+## How it's built
+
+The code is simple. The work is in the thinking, so make that thinking part of the component's API:
+
+```ts
+type EmptyStateProps = {
+  title: string;          // what this space is for
+  description: string;    // why it's empty / what will appear
+  action?: { label: string; onClick: () => void }; // one next step
+};
+```
+
+If `description` is required, nobody on the team can ship "No items found." without at least noticing they skipped it.
+
+## When not to use it
+
+There isn't just *one* empty state, so don't reuse one for every case:
+
+- A **first-use** empty state ("nothing here yet") needs onboarding.
+- A **no-results** empty state ("nothing matches 'xyz'") needs a way out, such as clearing filters or checking spelling.
+- A **cleared** empty state ("inbox zero!") deserves a small celebration.
+- An **error** empty state needs a retry.
+
+Design all four.

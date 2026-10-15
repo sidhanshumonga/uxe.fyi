@@ -3,15 +3,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { Icon, IconName } from '@/components/Icon';
-import {
-  OptimisticDemo,
-  SkeletonDemo,
-  SearchDemo,
-  EasingDemo,
-  FormDemo,
-  EmptyStateDemo,
-} from '@/components/Demos';
+import { BREAKDOWN_DEMOS } from '@/generated/breakdown-demos';
 import { Avatar, AVATARS, ActivityFeed } from '@/components/CommunityComponents';
+
+const HOME_BREAKDOWNS = ['optimistic-ui', 'skeleton-vs-spinner', 'fuzzy-search', 'easing-curves', 'form-choreography', 'empty-states'];
 
 // ── Hero Section Word Swaps ────────────────────────────────────────────────
 const HERO_FILLS = [
@@ -629,16 +624,14 @@ function BreakdownsSection() {
           gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
           gap: 14,
         }}>
-          <OptimisticDemo />
-          <SkeletonDemo />
-          <SearchDemo />
-          <EasingDemo />
-          <FormDemo />
-          <EmptyStateDemo />
+          {HOME_BREAKDOWNS.map((slug) => {
+            const Demo = BREAKDOWN_DEMOS[slug];
+            return Demo ? <Demo key={slug} /> : null;
+          })}
         </div>
         <div style={{ marginTop: 32, display: 'flex', justifyContent: 'center' }}>
           <Link href="/breakdowns" className="btn">
-            The full library — 38 interactions
+            All breakdowns, and how they&rsquo;re built
             <Icon name="arrow" size={14} />
           </Link>
         </div>

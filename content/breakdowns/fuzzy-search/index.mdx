@@ -1,0 +1,49 @@
+---
+title: Fuzzy search
+description: Match what the user means, not what they typed, and show them why each result matched.
+authors: [sidhanshumonga]
+status: published
+tags: [craft]
+seen: Linear ⌘K
+date: 2026-10-14
+---
+
+## What it is
+
+Search that forgives skipped letters, abbreviations and typos. Try `otmsc` above: it finds **O**p**t**i**m**i**s**ti**c**. Neither that nor `erormsg` → **Er**r**or** **m**e**s**sa**g**e anatomy is a substring, but both are obviously what the user meant.
+
+## Why it works
+
+People skip letters, abbreviate and misspell. A search that only accepts exact substrings punishes them for it. Matching intent instead of characters makes the interface feel like it's on the user's side.
+
+## How it's built
+
+The simplest version is *subsequence matching*: every typed character must appear in the result, in order, but not necessarily next to each other. The demo uses about 15 lines:
+
+```ts
+function fuzzy(needle: string, hay: string) {
+  const n = needle.toLowerCase();
+  const h = hay.toLowerCase();
+  const hits: number[] = [];
+  let ni = 0;
+  for (let i = 0; i < h.length && ni < n.length; i++) {
+    if (h[i] === n[ni]) {
+      hits.push(i);
+      ni++;
+    }
+  }
+  if (ni < n.length) return null; // not every character was found
+  // Earlier final match = tighter match = higher score
+  return { score: 1 - hits[hits.length - 1] / h.length, hits };
+}
+```
+
+The `hits` array does double duty. It also drives the highlighting, so the user can see *why* each result matched. That builds trust in the results.
+
+## When not to use it
+
+Ranking matters more than matching. Production matchers (think ⌘K command palettes) give extra points for **consecutive characters** and for **matches at the start of words**, so `ui` ranks "**U**ser **I**nterface" above "b**ui**ld".
+
+Subsequence matching also can't handle transposed letters like "teh". For that you need an edit-distance approach, which libraries such as Fuse.js provide. And for exact lookups like order numbers or emails, fuzzy matching gets in the way: users expect precision there.
+
+When nothing matches, don't just print "No results". That's an [empty state](/breakdowns/empty-states).

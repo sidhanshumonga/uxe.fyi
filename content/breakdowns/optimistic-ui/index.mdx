@@ -1,0 +1,60 @@
+---
+title: Optimistic UI
+description: Show the result before the server confirms it, and admit it out loud when it fails.
+authors: [sidhanshumonga]
+status: published
+tags: [time]
+seen: Linear inbox
+date: 2026-10-14
+---
+
+## What it is
+
+For actions that almost always succeed, don't make the user wait for the network. Show the result immediately and confirm with the server in the background.
+
+Try both modes above. In optimistic mode the heart fills on click. In "wait for server" mode there's a dimmed button and a *saving…* label for almost a second. Both are correct, but only one feels instant.
+
+## Why it works
+
+Most likes, toggles and renames succeed. Making the user wait for a round trip that will almost certainly say "yes" spends their attention on nothing. Applying the change right away matches the speed of their intent, and the server catches up quietly.
+
+## How it's built
+
+The pattern is *snapshot → apply → reconcile → roll back if needed*:
+
+```tsx
+async function toggleLike() {
+  const prev = { liked, count };
+  // 1. Apply immediately
+  setLiked(!liked);
+  setCount((c) => c + (liked ? -1 : 1));
+  try {
+    // 2. Reconcile in the background
+    await api.setLike(postId, !prev.liked);
+  } catch {
+    // 3. Roll back and say so
+    setLiked(prev.liked);
+    setCount(prev.count);
+    toast("Couldn't save your like. Try again?");
+  }
+}
+```
+
+React 19 has this built in with `useOptimistic`. While an action is in flight, the component renders the optimistic value. When the action settles, React switches back to the real state:
+
+```tsx
+const [optimisticLiked, setOptimisticLiked] = useOptimistic(liked);
+
+const toggle = () =>
+  startTransition(async () => {
+    setOptimisticLiked(!optimisticLiked);
+    await saveLike(!optimisticLiked); // on failure, the real state was never changed
+    setLiked(!optimisticLiked);
+  });
+```
+
+## When not to use it
+
+Optimism is a promise you're making to the user, so **failure has to be visible**. If you quietly revert a like the user saw land, they lose trust in every other number on the screen.
+
+Use it for likes, toggles, reordering and renames. Don't use it for payments, deletes, or anything the user would be upset to find never happened.

@@ -109,7 +109,7 @@ content/
 
 **To start, copy a template** from [`content/_templates/`](content/_templates) and rename it to your slug. Then run `npm run content:check`. It validates your frontmatter and tells you exactly what to fix.
 
-> **Preview as you write:** essays already render at `/thinking/<slug>`. Run `npm run dev` and open your page; `draft` and `review` pieces show locally with a banner and never in production. Lessons, roadmaps, resources and breakdowns are still being wired up, so for those a maintainer will hook your file into the page.
+> **Preview as you write:** essays render at `/thinking/<slug>` and breakdowns at `/breakdowns/<slug>`. Run `npm run dev` and open your page; `draft` and `review` pieces show locally with a banner and never in production. Lessons, roadmaps and resources are still being wired up, so for those a maintainer will hook your file into the page.
 
 ### Frontmatter
 
@@ -130,7 +130,7 @@ Cross-posting something you published elsewhere first? Add `original: <url>`. ux
 
 **Images** go in `public/<collection>/<slug>/` (for example `public/essays/invisible-friction/hero.png`). Reference them as `![What the image shows](/essays/invisible-friction/hero.png "Optional caption")`. The alt text describes the image for people who can't see it, and the quoted title becomes a visible caption.
 
-**Live demos:** an essay can embed any of the breakdown demos with `<Demo name="optimistic" caption="…" />` (names: `optimistic`, `skeleton`, `search`, `easing`, `form`, `empty`).
+**Live demos:** an essay can embed any breakdown's demo with `<Demo name="<breakdown-slug>" caption="…" />`, for example `<Demo name="optimistic-ui" />`.
 
 Lessons also take `track:` (`foundations`, `engineering`, or `experience-design`). Resources also take `kind:` (`book`, `talk`, `tool`, `podcast`, `article`) and `link:`.
 
@@ -162,12 +162,12 @@ You're welcome to use AI to help with outlining, editing, or checking grammar. B
 
 ## Building a breakdown
 
-Breakdowns are the heart of uxe.fyi: one real interaction, taken apart, with a demo people can play with. The [six live ones](https://uxe.fyi/breakdowns) in [`src/components/Demos.tsx`](src/components/Demos.tsx) are the reference. Read a couple before you start.
+Breakdowns are the heart of uxe.fyi: one real interaction, taken apart, with a demo people can play with. The [six live ones](https://uxe.fyi/breakdowns) in [`content/breakdowns/`](content/breakdowns) are the reference. Read a couple before you start, then copy [`content/_templates/breakdown/`](content/_templates/breakdown) to `content/breakdowns/<your-slug>/`.
 
 **A breakdown has two parts:**
 
-1. **`Demo.tsx`**: a self-contained React component that recreates the interaction, ideally with a toggle that shows the "before" and "after" (for example spinner vs skeleton, or linear vs eased).
-2. **`index.mdx`**: the write-up:
+1. **`Demo.tsx`**: a self-contained React component (a **default export**) that recreates the interaction, ideally with a toggle that shows the "before" and "after" (for example spinner vs skeleton, or linear vs eased). Wrap it in `DemoFrame` from `@/components/demo-kit` so it matches the other cards. It's picked up automatically; if `npm run dev` was already running, restart it.
+2. **`index.mdx`**: the write-up. It's published at `/breakdowns/<slug>` with the demo on top. Add `seen: Product name` to the frontmatter for a real product that does it well. The write-up covers:
    - **What it is**: the interaction, and where you've seen it done well
    - **Why it works**: the perceptual, cognitive, or trust principle behind it
    - **How it's built**: the key engineering decisions, timings and edge cases, with short code snippets

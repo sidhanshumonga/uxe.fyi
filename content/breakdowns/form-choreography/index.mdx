@@ -1,0 +1,52 @@
+---
+title: Form choreography
+description: Errors arrive late and leave early. Don't shout at people while they're still typing.
+authors: [sidhanshumonga]
+status: published
+tags: [trust]
+seen: Stripe checkout
+date: 2026-10-14
+---
+
+## What it is
+
+Validation timed around the user instead of around the keystroke. An error on the first keystroke ("that's not a valid email!" after typing `s`) is technically correct and completely unhelpful. The demo above follows one rule: **errors arrive late and leave early.**
+
+1. While the user types in an untouched field, show nothing.
+2. On blur (when they leave the field), validate. If it's wrong, show a soft warning.
+3. Once the field has been touched, re-validate on every keystroke, so the error disappears the moment it's fixed.
+
+## Why it works
+
+Early errors interrupt someone who hasn't finished. Late-arriving errors respect that they're mid-thought, and errors that clear instantly reward the fix. The form feels patient instead of pedantic.
+
+## How it's built
+
+```tsx
+const [value, setValue] = useState("");
+const [touched, setTouched] = useState(false);
+const valid = isEmail(value);
+const showError = touched && value !== "" && !valid;
+
+<label htmlFor="email">Email</label>
+<input
+  id="email"
+  type="email"
+  value={value}
+  onChange={(e) => setValue(e.target.value)}
+  onBlur={() => setTouched(true)}
+  aria-invalid={showError}
+  aria-describedby={showError ? "email-error" : undefined}
+/>
+<p id="email-error" aria-live="polite" hidden={!showError}>
+  That doesn't look like an email. Check for a typo?
+</p>
+```
+
+The error has to reach everyone, not just people who can see a red border. `aria-invalid` tells assistive technology the field is invalid, `aria-describedby` links the message to the input, and `aria-live="polite"` announces it without interrupting.
+
+## When not to use it
+
+Some checks belong *before* blur: a password-strength meter or a character counter should update live, because they're guidance, not errors. And on submit, validate everything at once and move focus to the first problem.
+
+Look at the copy too: "Check for a typo?" helps, while "Invalid input" only blames. (The demo's email check is deliberately loose. In production, rely on `type="email"` plus server-side validation rather than a hand-rolled regex.)

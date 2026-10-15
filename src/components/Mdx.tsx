@@ -1,7 +1,7 @@
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import remarkGfm from 'remark-gfm';
 import { Children, isValidElement, type ComponentProps } from 'react';
-import { EssayDemo } from './EssayDemo';
+import { MdxDemo } from './BreakdownDemo';
 
 // Contributed MDX is rendered with JavaScript expressions blocked (next-mdx-remote's
 // default blockJS: true): Markdown, GFM and the components below with plain
@@ -29,7 +29,7 @@ function P({ children, ...props }: ComponentProps<'p'>) {
   return <p {...props}>{children}</p>;
 }
 
-const components = { a: A, img: Img, p: P, Demo: EssayDemo };
+const components = { a: A, img: Img, p: P, Demo: MdxDemo };
 
 export function Mdx({ source }: { source: string }) {
   return (

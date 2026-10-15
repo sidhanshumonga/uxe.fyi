@@ -1,0 +1,49 @@
+---
+title: Easing curves
+description: Same distance, same duration, four very different feels. The curve decides how something moves.
+authors: [sidhanshumonga]
+status: published
+tags: [motion]
+seen: Apple Music
+date: 2026-10-14
+---
+
+## What it is
+
+Every box above travels the same distance in the same 850 ms. Only the easing curve changes, and each one feels completely different:
+
+- **linear** moves at a constant speed. It feels mechanical, like a conveyor belt.
+- **ease-out** starts fast and settles gently, like a car braking. It feels responsive.
+- **spring** overshoots slightly and settles back. It feels playful.
+- **snap** gets most of the way quickly, then glides. It feels confident.
+
+## Why it works
+
+Nothing in the physical world starts or stops instantly. Curves that accelerate and decelerate read as natural, and they tell the user something: an element that arrives fast and settles feels like it's responding to them.
+
+## How it's built
+
+These are cubic-bezier curves. Define them once as tokens and reuse them everywhere:
+
+```css
+:root {
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-snap: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --dur-fast: 150ms;
+  --dur-base: 240ms;
+}
+
+.menu {
+  transition: transform var(--dur-base) var(--ease-out),
+              opacity var(--dur-fast) linear;
+}
+```
+
+To read a curve, look at the four numbers. They're two control points, `(x1, y1, x2, y2)`. A large first `y` means a fast start. A `y` above `1`, like the spring's `1.56`, means the value *overshoots* its target before settling.
+
+## When not to use it
+
+Match the curve to the *direction* of the movement. Things **entering** or responding to the user should ease out, so they arrive fast and settle. Things **leaving** can ease in, so they accelerate away. Reserve linear for continuous motion like progress bars and spinners.
+
+The "spring" here is a cubic-bezier that imitates a spring. For real spring physics you'd use a motion library, or the newer CSS `linear()` easing function, which can approximate a spring with many sample points. And for people who've asked for `prefers-reduced-motion`, the best curve is often no movement at all.

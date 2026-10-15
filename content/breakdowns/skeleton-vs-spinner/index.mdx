@@ -1,0 +1,43 @@
+---
+title: Skeleton vs spinner
+description: A spinner says "wait". A skeleton says "here's what's coming", but only if it matches the real layout.
+authors: [sidhanshumonga]
+status: published
+tags: [time]
+seen: Notion docs
+date: 2026-10-14
+---
+
+## What it is
+
+A spinner says *"something is happening, please wait."* A skeleton says *"this is the shape of what you're about to see."*
+
+Switch between the two above and notice where your eye goes. With the skeleton, you're already reading the layout (three rows, an avatar and two lines each) before the data arrives. With the spinner, you're staring at a dot.
+
+## Why it works
+
+A spinner gives the user nothing to look at but the wait. A skeleton gets them ready for the content: by the time the data lands, they already know where to look.
+
+## How it's built
+
+The skeleton itself is the easy part. The timing around it is what makes it feel right. A loader that flashes on screen for 80 ms feels *slower* than no loader at all, so only show it once the wait is long enough to notice:
+
+```tsx
+function useDelayedLoading(loading: boolean, delay = 300) {
+  const [show, setShow] = useState(false);
+  useEffect(() => {
+    if (!loading) return setShow(false);
+    const t = setTimeout(() => setShow(true), delay);
+    return () => clearTimeout(t);
+  }, [loading, delay]);
+  return show;
+}
+```
+
+Tune the delay to your product. A few hundred milliseconds is a common starting point. Once a skeleton *is* showing, keep it up for a minimum time as well, so it doesn't appear and vanish in a flicker. Respect `prefers-reduced-motion` for the shimmer too.
+
+## When not to use it
+
+A skeleton only helps if it **matches the real layout**. If the skeleton has three rows and the content has four, the page jumps when data arrives. That's layout shift, the very thing the skeleton was supposed to prevent.
+
+Hand-written skeletons drift out of sync with their components over time. [use-skelly](https://github.com/sidhanshumonga/use-skelly) measures the real DOM instead, and [this essay](/thinking/browser-layout-bugs-skeleton-library) covers what that taught me about layout. Without a library, at least give your skeletons the same dimensions as the content. And for very fast or unpredictable content, a short delay with no loader at all can beat both.

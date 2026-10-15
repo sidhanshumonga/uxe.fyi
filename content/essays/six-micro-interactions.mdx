@@ -16,7 +16,7 @@ This essay takes apart six of them. Each section has a live demo you can play wi
 
 ## 1. Optimistic UI
 
-<Demo name="optimistic" caption="Same click, two strategies: update instantly, or wait for the server." />
+<Demo name="optimistic-ui" caption="Same click, two strategies: update instantly, or wait for the server." />
 
 **The principle:** for actions that almost always succeed, don't make the user wait for the network. Show the result immediately and confirm with the server in the background.
 
@@ -59,7 +59,7 @@ const toggle = () =>
 
 ## 2. Skeleton vs spinner
 
-<Demo name="skeleton" caption="A skeleton shows what's coming. A spinner only says “wait”." />
+<Demo name="skeleton-vs-spinner" caption="A skeleton shows what's coming. A spinner only says “wait”." />
 
 **The principle:** a spinner says *"something is happening, please wait."* A skeleton says *"this is the shape of what you're about to see."* A spinner gives the user nothing to look at but the wait. A skeleton gets them ready for the content.
 
@@ -85,7 +85,7 @@ Tune the delay to your product. A few hundred milliseconds is a common starting 
 
 ## 3. Fuzzy search
 
-<Demo name="search" caption="Typos and shortcuts still find the right result." />
+<Demo name="fuzzy-search" caption="Typos and shortcuts still find the right result." />
 
 **The principle:** match what the user *means*, not what they typed. People skip letters, abbreviate and misspell. A search that only accepts exact substrings punishes them for it.
 
@@ -117,7 +117,7 @@ The `hits` array does double duty. It also drives the highlighting, so the user 
 
 ## 4. Easing curves
 
-<Demo name="easing" caption="Same distance, same duration, four very different feels." />
+<Demo name="easing-curves" caption="Same distance, same duration, four very different feels." />
 
 **The principle:** the easing curve decides *how* something moves, which matters as much as *whether* it moves. Every box in the demo travels the same distance in the same 850 ms. Only the curve changes, and each one feels completely different:
 
@@ -149,7 +149,7 @@ To read a curve, look at the four numbers. They're two control points, `(x1, y1,
 
 ## 5. Form choreography
 
-<Demo name="form" caption="Errors arrive late and leave early." />
+<Demo name="form-choreography" caption="Errors arrive late and leave early." />
 
 **The principle:** don't shout at the user while they're still typing. An error on the first keystroke ("that's not a valid email!" after typing `s`) is technically correct and completely unhelpful.
 
@@ -186,7 +186,7 @@ const showError = touched && value !== "" && !valid;
 
 ## 6. Empty states
 
-<Demo name="empty" caption="“No items found” versus an empty state that offers a next step." />
+<Demo name="empty-states" caption="“No items found” versus an empty state that offers a next step." />
 
 **The principle:** most products treat empty states like errors. The best ones treat them as a **first impression**, often the very first screen a new user sees in that part of the product.
 
