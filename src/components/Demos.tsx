@@ -172,6 +172,7 @@ export const OptimisticDemo = () => {
           background: 'transparent',
           border: 0,
           padding: 0,
+          color: 'inherit',
           display: 'flex',
           alignItems: 'center',
           gap: 10,
