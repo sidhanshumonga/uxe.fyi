@@ -9,8 +9,9 @@ export type CollectionName = (typeof COLLECTIONS)[number];
 
 export const STATUSES = ['draft', 'review', 'published'] as const;
 export const ESSAY_TAGS = ['attention', 'time', 'trust', 'craft', 'motion'] as const;
-export const LESSON_TRACKS = ['foundations', 'engineering', 'experience-design'] as const;
-export const RESOURCE_KINDS = ['book', 'talk', 'tool', 'podcast', 'article'] as const;
+export const LESSON_TRACKS = ['foundations', 'engineering', 'experience-design', 'real-world'] as const;
+export const LEVELS = ['starter', 'mid', 'advanced'] as const;
+export const RESOURCE_KINDS = ['book', 'talk', 'tool', 'podcast', 'article', 'course', 'site', 'system'] as const;
 
 // GitHub's own rules: alphanumeric or single hyphens, no leading/trailing hyphen, max 39 chars.
 const githubHandle = z
@@ -52,16 +53,29 @@ export const schemas = {
   lessons: z.strictObject({
     ...base,
     track: z.enum(LESSON_TRACKS),
+    level: z.enum(LEVELS),
+    // Lesson reader extras (context/readers.jsx): "You'll be able to",
+    // the "Try it" exercise and the key-takeaway cards.
+    learn: z.array(z.string()).min(1).optional(),
+    exercise: z.string().optional(),
+    takeaways: z.array(z.string()).min(1).optional(),
     tags: z.array(z.string()).optional(),
   }),
   roadmaps: z.strictObject({
     ...base,
     tags: z.array(z.string()).optional(),
   }),
+  // A resource review. title/creator/kind describe the thing being reviewed;
+  // authors are the reviewers.
   resources: z.strictObject({
     ...base,
     kind: z.enum(RESOURCE_KINDS),
+    creator: z.string().trim().min(1),
     link: z.url(),
+    verdict: z.string().optional(),
+    time: z.string().optional(), // e.g. "4 hours"
+    level: z.enum(LEVELS).optional(),
+    skip: z.string().optional(), // "Skip it if…"
     tags: z.array(z.string()).optional(),
   }),
   breakdowns: z.strictObject({

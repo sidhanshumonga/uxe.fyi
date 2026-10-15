@@ -1,6 +1,7 @@
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import remarkGfm from 'remark-gfm';
-import { Children, isValidElement, type ComponentProps } from 'react';
+import { Children, isValidElement, type ComponentProps, type ReactNode } from 'react';
+import { headingId } from '@/lib/content/headings';
 import { MdxDemo } from './BreakdownDemo';
 
 // Contributed MDX is rendered with JavaScript expressions blocked (next-mdx-remote's
@@ -29,11 +30,24 @@ function P({ children, ...props }: ComponentProps<'p'>) {
   return <p {...props}>{children}</p>;
 }
 
-const components = { a: A, img: Img, p: P, Demo: MdxDemo };
+// Plain text of rendered children, for heading ids.
+const textOf = (node: ReactNode): string =>
+  typeof node === 'string' || typeof node === 'number' ? String(node)
+  : Array.isArray(node) ? node.map(textOf).join('')
+  : isValidElement<{ children?: ReactNode }>(node) ? textOf(node.props.children)
+  : '';
 
-export function Mdx({ source }: { source: string }) {
+// <h2 id> so the lesson table of contents can link to sections.
+function H2({ children, ...props }: ComponentProps<'h2'>) {
+  return <h2 id={headingId(textOf(children))} {...props}>{children}</h2>;
+}
+
+const components = { a: A, img: Img, p: P, h2: H2, Demo: MdxDemo };
+
+/** className: "prose" for breakdown pages, "reader-body …" for the readers. */
+export function Mdx({ source, className = 'prose' }: { source: string; className?: string }) {
   return (
-    <div className="prose">
+    <div className={className}>
       <MDXRemote source={source} components={components} options={{ mdxOptions: { remarkPlugins: [remarkGfm] } }} />
     </div>
   );

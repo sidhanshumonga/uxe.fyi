@@ -109,7 +109,7 @@ content/
 
 **To start, copy a template** from [`content/_templates/`](content/_templates) and rename it to your slug. Then run `npm run content:check`. It validates your frontmatter and tells you exactly what to fix.
 
-> **Preview as you write:** essays render at `/thinking/<slug>` and breakdowns at `/breakdowns/<slug>`. Run `npm run dev` and open your page; `draft` and `review` pieces show locally with a banner and never in production. Lessons, roadmaps and resources are still being wired up, so for those a maintainer will hook your file into the page.
+> **Preview as you write:** essays render at `/thinking/<slug>`, lessons at `/learning/<slug>`, resource reviews at `/resources/<slug>` and breakdowns at `/breakdowns/<slug>`. Run `npm run dev` and open your page; `draft` and `review` pieces show locally with a banner and never in production. Roadmaps are still being wired up, so for those a maintainer will hook your file into the page.
 
 ### Frontmatter
 
@@ -132,7 +132,7 @@ Cross-posting something you published elsewhere first? Add `original: <url>`. ux
 
 **Live demos:** an essay can embed any breakdown's demo with `<Demo name="<breakdown-slug>" caption="…" />`, for example `<Demo name="optimistic-ui" />`.
 
-Lessons also take `track:` (`foundations`, `engineering`, or `experience-design`). Resources also take `kind:` (`book`, `talk`, `tool`, `podcast`, `article`) and `link:`.
+Lessons also take `track:` (`foundations`, `engineering`, `experience-design` or `real-world`) and `level:` (`starter`, `mid`, `advanced`), plus optional `learn:`, `exercise:` and `takeaways:` that fill the lesson page's "You'll be able to", "Try it" and "Key takeaways" blocks. A lesson's title should match its entry in the handbook outline (`src/data/learning.ts`). Resource reviews take `kind:` (`book`, `talk`, `tool`, `podcast`, `article`, `course`, `site`, `system`), `creator:` (who made it) and `link:`, plus optional `verdict:`, `time:`, `level:` and `skip:` for the "At a glance" panel. `authors` is you, the reviewer. The templates in `content/_templates/` show all of these.
 
 ### How long?
 

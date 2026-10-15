@@ -57,7 +57,7 @@ export default function Nav() {
         {/* Desktop Nav Links */}
         <div className="nav-links nav-links-desktop">
           {NAV_ITEMS.map((item) => {
-            const isActive = pathname === item.path;
+            const isActive = item.path === '/' ? pathname === '/' : pathname === item.path || pathname.startsWith(item.path + '/');
             return (
               <Link
                 key={item.path}
@@ -106,7 +106,7 @@ export default function Nav() {
         <div className="mobile-drawer fade-in">
           <div className="mobile-drawer-links">
             {NAV_ITEMS.map((item) => {
-              const isActive = pathname === item.path;
+              const isActive = item.path === '/' ? pathname === '/' : pathname === item.path || pathname.startsWith(item.path + '/');
               return (
                 <Link
                   key={item.path}

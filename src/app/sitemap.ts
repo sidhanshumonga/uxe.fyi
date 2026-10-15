@@ -7,6 +7,8 @@ const SECTIONS = ['', '/explore', '/learning', '/roadmaps', '/thinking', '/break
 export default function sitemap(): MetadataRoute.Sitemap {
   const essays = getEntries('essays');
   const breakdowns = getEntries('breakdowns');
+  const lessons = getEntries('lessons');
+  const reviews = getEntries('resources');
   const latest = (dates: string[]) => (dates.length ? dates.sort().at(-1) : undefined);
 
   return [
@@ -30,6 +32,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: e.frontmatter.updated ?? e.frontmatter.date,
       changeFrequency: 'monthly' as const,
       priority: 0.8,
+    })),
+    ...lessons.map((e) => ({
+      url: `${SITE_URL}/learning/${e.slug}`,
+      lastModified: e.frontmatter.updated ?? e.frontmatter.date,
+      changeFrequency: 'monthly' as const,
+      priority: 0.8,
+    })),
+    ...reviews.map((e) => ({
+      url: `${SITE_URL}/resources/${e.slug}`,
+      lastModified: e.frontmatter.updated ?? e.frontmatter.date,
+      changeFrequency: 'monthly' as const,
+      priority: 0.6,
     })),
   ];
 }
