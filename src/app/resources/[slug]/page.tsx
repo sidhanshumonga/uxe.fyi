@@ -68,9 +68,20 @@ export default async function ReviewPage({ params }: Props) {
           </div>
         )}
         <div className="review-hero">
-          <div className={'review-cover' + (fm.kind === 'book' ? ' tall' : '')}>
-            <span className="mono">{KIND_LABEL[fm.kind].toLowerCase()} cover</span>
-          </div>
+          <figure className={'review-cover' + (fm.kind === 'book' ? ' tall' : '') + (fm.cover ? ' has-img' : '')}>
+            {fm.cover ? (
+              <>
+                <img src={fm.cover} alt={`${fm.kind === 'book' ? 'Cover of' : 'Preview of'} ${fm.title}`} />
+                {fm.coverSource && (
+                  <figcaption className="review-cover-credit mono">
+                    image: <a href={fm.coverSource} target="_blank" rel="noopener noreferrer">{new URL(fm.coverSource).hostname.replace(/^www\./, '')}</a>
+                  </figcaption>
+                )}
+              </>
+            ) : (
+              <span className="mono">{KIND_LABEL[fm.kind].toLowerCase()} cover</span>
+            )}
+          </figure>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 16, minWidth: 0 }}>
             <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
               <span className="mono" style={{ fontSize: 11, color: KIND_COLOR[fm.kind], textTransform: 'uppercase', letterSpacing: '0.12em' }}>{KIND_LABEL[fm.kind]}</span>

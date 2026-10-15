@@ -76,6 +76,9 @@ export const schemas = {
     time: z.string().optional(), // e.g. "4 hours"
     level: z.enum(LEVELS).optional(),
     skip: z.string().optional(), // "Skip it if…"
+    // Cover image under public/, e.g. /resources/<slug>/cover.jpg, plus where it came from.
+    cover: z.string().regex(/^\/[^\s]+\.(jpg|jpeg|png|webp)$/, 'must be a /public path like /resources/<slug>/cover.jpg').optional(),
+    coverSource: z.url().optional(),
     tags: z.array(z.string()).optional(),
   }),
   breakdowns: z.strictObject({
