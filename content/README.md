@@ -24,6 +24,6 @@ npm run content:check
 
 It checks every file's frontmatter and tells you exactly what to fix: a missing field, a typo like `author:` instead of `authors:`, a date in the wrong format, or a lesson in the wrong track folder. CI runs the same check on every PR.
 
-Only pieces with `status: published` appear on the site. `draft` and `review` are for work in progress.
+Only pieces with `status: published` appear on uxe.fyi. `draft` and `review` pieces show in `npm run dev` with a banner, so you can preview them at their real URL (essays: `/thinking/<slug>`).
 
 The full guide (what to write, how long, voice and style) is in [CONTRIBUTING.md](../CONTRIBUTING.md#writing-content).

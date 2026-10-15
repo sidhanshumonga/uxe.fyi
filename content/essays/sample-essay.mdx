@@ -1,0 +1,62 @@
+---
+title: "Sample essay: how a uxe.fyi essay renders"
+description: A placeholder that exercises every Markdown element an essay can use. It stays a draft, so it only shows in local dev. Delete it once real essays exist.
+authors: [sidhanshumonga]
+status: draft
+tags: [craft]
+date: 2026-10-14
+---
+
+**This is a sample, not a real essay.** It exists so the essay page can be built and checked while nobody has written one yet. Because its status is `draft`, it shows up in `npm run dev` and never on uxe.fyi.
+
+Real essays open with a real moment, like the checkout form that asks for your country twice, or the like button that turns red before the server has heard about it. Then they say one thing clearly.
+
+## Headings break the argument into steps
+
+A level-two heading starts a new part of the argument. Keep them short and plain, because readers skim them before deciding to read.
+
+### Smaller headings are for sub-points
+
+Use them sparingly. If an essay needs lots of them, it might be a lesson instead.
+
+## Emphasis, quotes and links
+
+*Italics* switch to the serif face, which suits the occasional word that needs weight. **Bold** is for the one sentence a skimmer must not miss.
+
+> Software is made of feelings. A pull quote like this one should be short enough to remember.
+
+Links look [like this](https://github.com/sidhanshumonga/uxe.fyi), and links to other sites open in a new tab.
+
+## Lists
+
+- Unordered lists for things that have no order
+- Keep items parallel in shape
+- Three to five items reads best
+
+1. Ordered lists for steps
+2. Where order actually matters
+
+## Code
+
+Inline code like `cubic-bezier(0.16, 1, 0.3, 1)` sits in the sentence. Longer snippets get a block:
+
+```tsx
+function LikeButton({ liked, onToggle }: { liked: boolean; onToggle: () => void }) {
+  // Flip the UI now; reconcile with the server after.
+  return <button aria-pressed={liked} onClick={onToggle}>♥</button>;
+}
+```
+
+## Tables
+
+| Wait | How it feels |
+|---|---|
+| under 100ms | instant |
+| 100ms to 1s | the interface is working |
+| over 1s | the user's attention starts to wander |
+
+Numbers like these need a source. These come from Jakob Nielsen's [response time limits](https://www.nngroup.com/articles/response-times-3-important-limits/).
+
+---
+
+That's everything an essay can use. When the first real essay is published, delete this file.

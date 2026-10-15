@@ -1,33 +1,32 @@
-import { getPublishedEssays } from '@/data/essays';
+import { getEntries } from '@/lib/content/loader';
+import { SITE_URL } from '@/lib/site';
 
 export const dynamic = 'force-static';
-
-const SITE_URL = 'https://uxe.fyi';
 
 const escapeXml = (s: string) =>
   s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
 export async function GET() {
-  // Only essays that have actually been written. While the wishlist is all we
-  // have, the feed is valid but empty — subscribers get the first real essay.
-  const essays = getPublishedEssays();
+  // Published essays only — never drafts, never wishlist ideas.
+  const essays = getEntries('essays');
 
   const itemsXml = essays.map((e) => {
     const url = `${SITE_URL}/thinking/${e.slug}`;
+    const { title, description, date, authors, tags } = e.frontmatter;
     return `
     <item>
-      <title>${escapeXml(e.t)}</title>
-      <description>${escapeXml(e.d)}</description>
+      <title>${escapeXml(title)}</title>
+      <description>${escapeXml(description)}</description>
       <link>${url}</link>
       <guid isPermaLink="true">${url}</guid>
-      <pubDate>${new Date(e.date).toUTCString()}</pubDate>
-      ${e.authors.map((a) => `<dc:creator>${escapeXml(a)}</dc:creator>`).join('')}
-      <category>${e.kicker}</category>
+      <pubDate>${new Date(`${date}T00:00:00Z`).toUTCString()}</pubDate>
+      ${authors.map((a) => `<dc:creator>${escapeXml(a)}</dc:creator>`).join('')}
+      ${tags.map((t) => `<category>${t}</category>`).join('')}
     </item>`;
   }).join('');
 
   const lastBuildDate = essays.length
-    ? `\n  <lastBuildDate>${new Date(essays[0].date).toUTCString()}</lastBuildDate>`
+    ? `\n  <lastBuildDate>${new Date(`${essays[0].frontmatter.date}T00:00:00Z`).toUTCString()}</lastBuildDate>`
     : '';
 
   const xml = `<?xml version="1.0" encoding="UTF-8" ?>

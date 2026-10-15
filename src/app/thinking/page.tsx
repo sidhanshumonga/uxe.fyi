@@ -1,120 +1,61 @@
-'use client';
-
-import React, { useState } from 'react';
+import React from 'react';
 import { PageHeader } from '@/components/PageHeader';
 import { EmptyState } from '@/components/EmptyState';
-import { Icon } from '@/components/Icon';
-import { ESSAYS } from '@/data/essays';
+import { ESSAY_WISHLIST } from '@/data/essays';
+import { getEntries } from '@/lib/content/loader';
+import { SHOW_DRAFTS } from '@/lib/site';
+import { ThinkingList, type PublishedRow } from './ThinkingList';
+
+const CLAIM_URL = 'https://github.com/sidhanshumonga/uxe.fyi/issues/new?template=3-claim-a-piece.yml';
+const SUGGEST_URL = 'https://github.com/sidhanshumonga/uxe.fyi/issues/new?template=2-suggest-a-topic.yml';
+
+const norm = (s: string) => s.trim().toLowerCase();
 
 export default function ThinkingPage() {
-  const [filter, setFilter] = useState<'all' | 'attention' | 'time' | 'trust' | 'craft'>('all');
-  const tags: Array<'all' | 'attention' | 'time' | 'trust' | 'craft'> = ['all', 'attention', 'time', 'trust', 'craft'];
+  const essays = getEntries('essays', { includeDrafts: SHOW_DRAFTS });
+  const publishedCount = essays.filter((e) => e.frontmatter.status === 'published').length;
 
-  const filtered = filter === 'all' 
-    ? ESSAYS 
-    : ESSAYS.filter((e) => e.kicker === filter);
+  const rows: PublishedRow[] = essays.map((e) => ({
+    slug: e.slug,
+    title: e.frontmatter.title,
+    description: e.frontmatter.description,
+    tags: e.frontmatter.tags,
+    authors: e.frontmatter.authors,
+    readingMinutes: e.readingMinutes,
+    draft: e.frontmatter.status !== 'published',
+  }));
+  const written = new Set(essays.map((e) => norm(e.frontmatter.title)));
+  const wishlist = ESSAY_WISHLIST.filter((w) => !written.has(norm(w.t)));
 
   return (
     <>
       <PageHeader
         eyebrow="UXE Thinking"
         title="Short, opinionated"
-        italic="essays — coming."
-        lead="The intellectual core of uxe.fyi. Below are eight essays we want to write — concepts that shape how UX Engineers see their craft. None are finished yet. Help us pick what comes first."
+        italic={publishedCount ? 'essays.' : 'essays — coming.'}
+        lead={
+          publishedCount
+            ? 'The intellectual core of uxe.fyi: concepts that shape how UX Engineers see their craft. Read what’s written, or pick an idea from the wishlist and write the next one.'
+            : 'The intellectual core of uxe.fyi. Below are the essays we want to write — concepts that shape how UX Engineers see their craft. None are finished yet. Help us pick what comes first.'
+        }
       />
 
       <section style={{ paddingTop: 32, paddingBottom: 24 }}>
         <div className="container">
           <EmptyState
-            eyebrow="0 essays published · 8 in the wishlist"
-            title="The first essay"
+            eyebrow={`${publishedCount} essay${publishedCount === 1 ? '' : 's'} published · ${wishlist.length} on the wishlist`}
+            title={publishedCount ? 'The next essay' : 'The first essay'}
             italic="hasn't been written."
-            body="Every line below is a title with an idea behind it but no one to write it yet. Claim one in an issue, draft it in markdown, open a PR. We'll edit it with you."
-            primary={{
-              label: 'Claim an essay',
-              icon: 'github',
-              href: 'https://github.com/sidhanshumonga/uxe.fyi/issues',
-            }}
-            secondary={{
-              label: 'Suggest a new one',
-              icon: 'plus',
-              href: 'https://github.com/sidhanshumonga/uxe.fyi/issues',
-            }}
+            body="Every unclaimed line below is a title with an idea behind it but no one to write it yet. Claim one in an issue, draft it in markdown, open a PR. We'll edit it with you."
+            primary={{ label: 'Claim an essay', icon: 'github', href: CLAIM_URL }}
+            secondary={{ label: 'Suggest a new one', icon: 'plus', href: SUGGEST_URL }}
           />
         </div>
       </section>
 
       <section>
         <div className="container">
-          {/* Tags Selector */}
-          <div style={{ display: 'flex', gap: 6, marginBottom: 36, flexWrap: 'wrap' }}>
-            {tags.map((t) => (
-              <button
-                key={t}
-                onClick={() => setFilter(t)}
-                style={{
-                  padding: '6px 12px',
-                  background: filter === t ? 'var(--surface-2)' : 'transparent',
-                  color: filter === t ? 'var(--ink)' : 'var(--ink-dim)',
-                  border: '1px solid var(--border)',
-                  borderRadius: 999,
-                  fontSize: 12,
-                  fontFamily: 'var(--font-mono)',
-                  cursor: 'pointer',
-                  transition: 'background 120ms, color 120ms',
-                }}
-              >
-                {t === 'all' ? 'all' : '#' + t}
-              </button>
-            ))}
-          </div>
-
-          {/* Essay Row List */}
-          <div style={{ borderTop: '1px solid var(--border)' }}>
-            {filtered.map((e) => (
-              <a
-                key={e.num}
-                href="https://github.com/sidhanshumonga/uxe.fyi/issues"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="row-essay essay-draft"
-                style={{
-                  borderBottom: '1px dashed var(--border)',
-                }}
-              >
-                <span className="mono" style={{ fontSize: 12, color: 'var(--muted)' }}>
-                  {e.num}
-                </span>
-                <span
-                  className="mono"
-                  style={{
-                    fontSize: '10.5px',
-                    color: 'var(--accent)',
-                    textTransform: 'uppercase',
-                    letterSpacing: '0.1em',
-                  }}
-                >
-                  {e.kicker}
-                </span>
-                <span
-                  className="display"
-                  style={{
-                    fontSize: 'clamp(20px, 2.4vw, 28px)',
-                    fontWeight: 500,
-                    letterSpacing: '-0.02em',
-                    color: 'var(--ink-dim)',
-                  }}
-                >
-                  {e.t}
-                </span>
-                <span style={{ fontSize: 13.5, color: 'var(--muted)', lineHeight: 1.5 }}>
-                  {e.d}
-                </span>
-                <span className="draft-pill">drafting</span>
-                <Icon name="github" size={14} />
-              </a>
-            ))}
-          </div>
+          <ThinkingList published={rows} wishlist={wishlist} />
         </div>
       </section>
     </>

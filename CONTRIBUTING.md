@@ -109,7 +109,7 @@ content/
 
 **To start, copy a template** from [`content/_templates/`](content/_templates) and rename it to your slug. Then run `npm run content:check`. It validates your frontmatter and tells you exactly what to fix.
 
-> **Heads up:** we're still wiring the site up to render from `content/`. Until that lands, your PR may only add the `.mdx` file, and a maintainer will hook it into the page. Write it in this format anyway so nothing needs redoing.
+> **Preview as you write:** essays already render at `/thinking/<slug>`. Run `npm run dev` and open your page; `draft` and `review` pieces show locally with a banner and never in production. Lessons, roadmaps, resources and breakdowns are still being wired up, so for those a maintainer will hook your file into the page.
 
 ### Frontmatter
 
