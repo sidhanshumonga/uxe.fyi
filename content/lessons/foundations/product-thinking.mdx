@@ -1,0 +1,42 @@
+---
+title: Product thinking
+description: Problem framing, scoping, prioritization.
+authors: [sidhanshumonga]
+status: published
+track: foundations
+level: mid
+date: 2026-10-15
+learn:
+  - Restate a request as the problem it's trying to solve
+  - Cut a feature down to the smallest version worth shipping
+  - Decide which polish matters for this release and which can wait
+exercise: Take the next feature on your list. Write one sentence for the problem, one for who has it, and one for how you'll know it's solved. Then list everything in the spec and mark what you'd cut if you had half the time.
+takeaways:
+  - Start from the problem, not the proposed solution
+  - The smallest useful version teaches you the most
+  - Spend craft where users feel it most
+---
+
+A UX engineer who understands why something is being built makes better calls about how to build it. Product thinking is that why: who has the problem, how badly, and what would actually fix it.
+
+## Frame the problem
+
+Requests usually arrive as solutions: "add a filter", "make it a modal". Before building, restate the request as a problem: "people can't find last month's invoices". The original solution may still be right, but often a simpler one appears, like a default sort or a search box.
+
+- Who has this problem, and how often?
+- What do they do today instead?
+- How will we know it's solved?
+
+## Scope down
+
+Most features can ship in a smaller version first. Ask what the feature does if you remove each part in turn. What's left when removing anything more would make it useless is your first release. Shipping small sooner means real usage tells you what to build next, instead of guesses.
+
+## Prioritise craft
+
+Not every detail matters equally. Polish the paths people use most and the moments where trust is at stake: sign-up, payment, deleting things, errors. A rough settings page is forgivable; a confusing checkout isn't.
+
+> The question isn't "is this good enough?" but "good enough for what, for whom, right now?"
+
+## Speak in outcomes
+
+When you push back on a design or a deadline, frame it in user and business terms. "This adds a loading state on every save" lands better than "this API shape is wrong". It also makes it easier to agree on a trade-off.

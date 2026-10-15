@@ -1,0 +1,46 @@
+---
+title: Writing UI copy
+description: "Buttons, errors, empty states: words are interface too."
+authors: [sidhanshumonga]
+status: published
+track: foundations
+level: starter
+date: 2026-10-15
+learn:
+  - Write button labels that say what will happen
+  - Turn an error message into a way forward
+  - Spot copy that blames the user or hides the next step
+exercise: Pick five buttons and three error messages in your product. Rewrite each one so the button names its outcome and the error says what to do next. Ship the two that improved most.
+takeaways:
+  - Labels name the outcome, not the mechanism
+  - Errors explain what happened and how to recover
+  - Fewer words, but never vaguer ones
+---
+
+Every label, error and empty state is part of the interaction. Users read interfaces in fragments while they're trying to get something done, so the words have to work at a glance. As the engineer closest to the real states, you're often the first to see copy that doesn't fit.
+
+## Buttons name the outcome
+
+"Submit", "OK" and "Continue" describe the mechanism. "Create account", "Send invoice" and "Delete 3 files" describe what will happen, which is what the user is deciding.
+
+- Start with a verb, and make it specific: "Save draft" beats "Save" when there's also a "Publish"
+- Keep the label consistent with the heading or question above it
+- Destructive buttons say exactly what they destroy
+
+## Errors are a way forward
+
+A good error message answers three questions: what happened, why, and what can I do now. "Invalid input" answers none of them. "That card number is one digit short. Check the last group." answers all three.
+
+- Put the message next to the thing that's wrong, not in a banner far away
+- Don't blame: "We couldn't find that page" beats "You entered a wrong URL"
+- Keep what the user typed. Losing their input turns a small mistake into a big one
+
+> If the copy needs an apology, the interaction probably needs a fix.
+
+## Empty states and confirmations
+
+An empty list is a chance to say what will appear here and how to start. Confirmations should be specific enough to catch a mistake: "Archive 'Q3 planning'?" not "Are you sure?". For actions that can be reversed, prefer [undo over confirmation](/breakdowns/undo-systems).
+
+## Sentence case and plain words
+
+Sentence case ("Create account") reads faster than Title Case and stays consistent when labels are built from variables. Use the words your users use, not internal names: "Invoices", not "Billing documents".

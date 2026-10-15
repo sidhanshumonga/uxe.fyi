@@ -1,0 +1,47 @@
+---
+title: Systems thinking
+description: Components, tokens, compositional design.
+authors: [sidhanshumonga]
+status: published
+track: foundations
+level: mid
+date: 2026-10-15
+learn:
+  - Spot when a one-off should become a component, and when it shouldn't
+  - Use tokens so design decisions live in one place
+  - Design component APIs that compose instead of growing flags
+exercise: Find three places in your product that solve the same problem differently (three kinds of card, three spacing values, three button styles). Write down the one version you would keep and what it would take to migrate the others.
+takeaways:
+  - A system is decisions made once and reused
+  - Tokens name intent, not raw values
+  - Composition beats a component with twenty props
+---
+
+Systems thinking is the habit of seeing a single screen as an instance of decisions that repeat everywhere. It's what turns "make this button look right" into "make every button look right, forever".
+
+## Decisions, made once
+
+Every interface is full of small decisions: this grey, this radius, this duration, this spacing. Without a system, each one is made again on every screen, slightly differently. A system makes the decision once and gives it a name.
+
+## Tokens
+
+Design tokens are those named decisions: `--color-text-muted`, `--space-3`, `--ease-out`. Name them by intent rather than value, so `--color-danger` instead of `--red-500`. Then a theme, a rebrand or a dark mode changes the value in one place. The [W3C Design Tokens Community Group](https://www.designtokens.org/) defines a common format so tokens can move between design tools and code.
+
+## Components that compose
+
+A component starts simple and then collects options: `primary`, `small`, `withIcon`, `loading`, `fullWidth`. After a while nobody knows which combinations are valid. Composition avoids that by building larger pieces from smaller ones instead of configuring one big one.
+
+```tsx
+<Card>
+  <Card.Header>Invoices</Card.Header>
+  <Card.Body>…</Card.Body>
+</Card>
+```
+
+- Prefer a few clear variants over many boolean props
+- Let children carry content instead of string props
+- When a component needs a new flag, ask whether it's really a new component
+
+## When not to systematise
+
+The first time you build something, build it once. The second time, notice. The third time, extract. Abstracting too early freezes a guess about what will repeat.

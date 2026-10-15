@@ -1,0 +1,48 @@
+---
+title: Frontend fundamentals
+description: HTML semantics, modern CSS, JS depth.
+authors: [sidhanshumonga]
+status: published
+track: foundations
+level: starter
+date: 2026-10-15
+learn:
+  - Choose the HTML element that already does the job
+  - Lay out interfaces with Grid and Flexbox instead of fixed sizes
+  - Know which JavaScript belongs in the interaction and which doesn't
+exercise: Rebuild one component from your product with no div onClick handlers and no fixed heights. Use real buttons, links and form elements, Grid or Flexbox for layout, and check it still works with the keyboard and at 375px wide.
+takeaways:
+  - Semantic HTML gives you behaviour and accessibility for free
+  - Let content size the layout; avoid magic numbers
+  - JavaScript should enhance a working page, not hold it together
+---
+
+UX engineering is built on the same three languages as any frontend work. The difference is depth: knowing what the platform already does means you spend your time on feel, not on rebuilding a button.
+
+## HTML does more than you think
+
+A `<button>` is focusable, works with Enter and Space, is announced as a button and can be disabled. A `<div>` with a click handler does none of that until you add it all back by hand. The same goes for links, `<details>`, `<dialog>`, form controls and labels.
+
+- Buttons do things; links go places
+- Every input has a `<label>`
+- Headings form an outline, so use them in order
+
+## CSS is a layout language
+
+Modern CSS can express most layouts directly. Grid handles two-dimensional layout, Flexbox handles one-dimensional rows and stacks, and both size themselves from content. Fixed pixel heights are the most common cause of text spilling out of its box when the content or the language changes.
+
+```css
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+  gap: 16px;
+}
+```
+
+Custom properties make themes and design tokens possible without a build step, and container queries let a component respond to the space it's given rather than the viewport.
+
+## JavaScript, carefully
+
+Learn the event loop, promises and the DOM well enough to reason about timing: when a handler runs, when layout happens, when a request resolves. Most interaction bugs are timing bugs.
+
+Then use as little as you need. A form that works without JavaScript and gets better with it is more robust than one that does nothing until a bundle loads.
