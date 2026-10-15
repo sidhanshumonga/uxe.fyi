@@ -1,0 +1,40 @@
+---
+title: Accessibility
+description: Keyboard, screen reader, color, motion, focus.
+authors: [sidhanshumonga]
+status: review
+track: foundations
+level: starter
+date: 2026-10-14
+learn:
+  - Make any component fully keyboard operable
+  - Know when to use ARIA and when not to
+  - Meet contrast and reduced-motion requirements
+exercise: Unplug your mouse and complete the main task in your product using only the keyboard. Write down every place you got stuck or lost focus.
+takeaways:
+  - Native elements first, ARIA second
+  - Focus must always be visible and return sensibly
+  - Never signal state with color alone
+---
+
+Accessibility is part of the interaction design, not a checklist at the end. If a component only works with a mouse, it is unfinished.
+
+## Keyboard first
+
+Every interactive element must be reachable with Tab, operable with Enter or Space, and dismissable with Escape where that makes sense. Focus order should follow visual order.
+
+- Use real buttons and links before reaching for divs with handlers
+- Never remove focus outlines without replacing them
+- Return focus to the trigger when a dialog closes
+
+## Screen readers
+
+Semantic HTML gives you most of the accessibility tree for free. ARIA fills the gaps for patterns HTML does not cover, such as tabs, comboboxes and live regions. The first rule of ARIA is to not use it when a native element exists.
+
+```html
+<button aria-expanded="false" aria-controls="menu-1">Options</button>
+```
+
+## Color and motion
+
+Body text needs a contrast ratio of at least 4.5:1. Never use color alone to signal state. Respect `prefers-reduced-motion` by removing large movement while keeping opacity fades.

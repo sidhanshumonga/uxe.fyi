@@ -1,0 +1,36 @@
+---
+title: Perceived performance
+description: Skeletons, optimism, work hiding.
+authors: [sidhanshumonga]
+status: review
+track: experience-design
+level: mid
+date: 2026-10-14
+learn:
+  - Choose between skeletons and spinners
+  - Apply optimistic updates safely
+  - Hide work with prefetching and early starts
+exercise: Record the slowest common interaction in your product. Apply one technique from this lesson and record it again. Compare how they feel, not the timings.
+takeaways:
+  - Users experience waiting, not milliseconds
+  - Be optimistic only where failure is rare and reversible
+  - Start work before the user asks for it
+---
+
+Users do not experience milliseconds. They experience waiting. You can often make a product feel twice as fast without changing how long the work takes.
+
+## Show the shape early
+
+Skeleton screens prepare the eye for the layout that is coming, so the arrival of content feels like a fill-in rather than a jump. Use them for content with a predictable structure, not for every spinner.
+
+## Be optimistic
+
+For actions that almost always succeed, such as likes, toggles and reorders, apply the result immediately and reconcile with the server in the background. Roll back visibly if it fails.
+
+## Hide work
+
+- Prefetch on hover or when a link enters the viewport
+- Start uploads as soon as a file is chosen, not on submit
+- Render the critical path first and defer the rest
+
+Try the [Optimistic UI](/breakdowns/optimistic-ui) and [Skeleton vs spinner](/breakdowns/skeleton-vs-spinner) breakdowns to feel the difference directly.

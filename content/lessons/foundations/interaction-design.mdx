@@ -1,0 +1,37 @@
+---
+title: Interaction design
+description: States, transitions, feedback, recovery.
+authors: [sidhanshumonga]
+status: review
+track: foundations
+level: starter
+date: 2026-10-14
+learn:
+  - List every state a component can be in
+  - Pick transition timing that explains, not delays
+  - Design feedback and recovery paths
+exercise: Pick one button in your product and list all of its states. Build the two that are missing.
+takeaways:
+  - Mockups show one state; components have a dozen
+  - Keep transitions in the 120–250ms range
+  - Prefer undo over confirm
+---
+
+Every interactive element has more states than the mockup shows. Interaction design is the work of deciding what each one looks like and how the element moves between them.
+
+## The full state list
+
+- Default, hover, focus, active, disabled
+- Loading, success, error
+- Empty, partial, overflow
+- Offline and retrying
+
+## Transitions
+
+A transition explains a change of state. It should be short enough not to delay the user, typically 120–250ms, and the direction of movement should match the spatial model: things that came from the right leave to the right.
+
+## Feedback and recovery
+
+Every action needs a response within about 100ms, even if it is only a pressed state. Every error needs a way back. Prefer [undo over confirmation](/breakdowns/undo-systems) for anything that can be reversed.
+
+> The happy path is designed once. The other states are where users actually spend their time.
