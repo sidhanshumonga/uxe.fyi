@@ -72,6 +72,7 @@ export const DemoFrame: React.FC<DemoFrameProps> = ({
     style={{
       display: 'flex',
       flexDirection: 'column',
+      flex: '1 1 auto', // fill the row when placed in a grid of cards
       background: 'var(--surface)',
       border: '1px solid var(--border)',
       borderRadius: 14,

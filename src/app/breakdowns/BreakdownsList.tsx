@@ -60,12 +60,12 @@ export function BreakdownsList({ live, queue }: { live: BreakdownCard[]; queue: 
               {`${liveFiltered.length} interactive breakdown${liveFiltered.length !== 1 ? 's' : ''} — play with the controls, then read how it’s built`}
             </span>
           </div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(320px, 100%), 1fr))', gap: 14, marginBottom: 64 }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(320px, 100%), 1fr))', gridAutoRows: '1fr', gap: 14, marginBottom: 64 }}>
             {liveFiltered.map((b) => {
               const Demo = BREAKDOWN_DEMOS[b.slug];
               return (
                 <div key={b.slug} className="breakdown-card">
-                  <div style={{ position: 'relative' }}>
+                  <div className="breakdown-card-demo">
                     {Demo && <Demo />}
                     {b.seen && (
                       <div className="serif-italic" style={{ position: 'absolute', top: 18, right: 20, fontSize: 13, color: 'var(--ink-dim)', pointerEvents: 'none' }}>
