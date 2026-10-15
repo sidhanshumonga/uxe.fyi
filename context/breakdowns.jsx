@@ -372,6 +372,8 @@ const DemoFrame = ({ title, tag, tags = [], desc, controls, children }) => (
     borderRadius: 14,
     overflow: 'hidden',
     transition: 'border-color 180ms',
+    flex: 1,
+    height: '100%',
   }}>
     <div style={{ padding: '18px 20px', borderBottom: '1px solid var(--border)' }}>
       <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 12, marginBottom: 8 }}>
@@ -383,13 +385,13 @@ const DemoFrame = ({ title, tag, tags = [], desc, controls, children }) => (
       <div style={{ fontSize: 13.5, color: 'var(--ink-dim)', lineHeight: 1.5 }}>{desc}</div>
     </div>
     <div style={{ padding: '20px', background: 'var(--bg)', flex: 1 }}>{children}</div>
-    <div style={{ padding: '10px 16px', borderTop: '1px solid var(--border)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: 'var(--bg-2)', gap: 12, flexWrap: 'wrap' }}>
-      <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
+    <div style={{ height: 52, flex: 'none', padding: '0 16px', borderTop: '1px solid var(--border)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: 'var(--bg-2)', gap: 12 }}>
+      <div style={{ display: 'flex', gap: 6, flex: 1, minWidth: 0, overflow: 'hidden', whiteSpace: 'nowrap', maskImage: 'linear-gradient(90deg,#000 80%,transparent)', WebkitMaskImage: 'linear-gradient(90deg,#000 80%,transparent)' }}>
         {tags.map(t => (
           <span key={t} className="mono" style={{ fontSize: 10, color: 'var(--muted)', letterSpacing: 0 }}>#{t}</span>
         ))}
       </div>
-      {controls}
+      <div style={{ flex: 'none' }}>{controls}</div>
     </div>
   </div>
 );
@@ -410,6 +412,7 @@ const BreakdownsSection = ({ setRoute }) => (
       <div style={{
         display: 'grid',
         gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+        gridAutoRows: '1fr',
         gap: 14,
       }}>
         <OptimisticDemo />

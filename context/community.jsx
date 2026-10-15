@@ -2,7 +2,13 @@
 const { useState: useStateC, useEffect: useEffectC } = React;
 
 const AVATARS = [
-  { i: 'U', c: '#FF3D88' },
+  { i: 'U', c: '#FF3D88', name: 'uxe.fyi', handle: '@uxe-fyi', role: 'maintainer', focus: 'everything', n: 41 },
+  { i: 'M', c: '#C2F542', name: 'Maya Chen', handle: '@mayachen', role: 'author', focus: 'motion, essays', n: 14 },
+  { i: 'L', c: '#6DE1FF', name: 'Lin Park', handle: '@linpark', role: 'author', focus: 'design systems', n: 9 },
+  { i: 'N', c: '#FFB46D', name: 'Nivedita Rao', handle: '@nivrao', role: 'reviewer', focus: 'accessibility', n: 6 },
+  { i: 'J', c: '#9EE493', name: 'JP Dev', handle: '@jpdev', role: 'author', focus: 'roadmaps', n: 5 },
+  { i: 'S', c: '#C77DFF', name: 'Sora K.', handle: '@sorak', role: 'author', focus: 'essays, resources', n: 4 },
+  { i: 'D', c: '#FF7A59', name: 'D. Sato', handle: '@dsato', role: 'contributor', focus: 'breakdowns', n: 3 },
 ];
 
 const Avatar = ({ a, size = 36 }) => (
@@ -21,9 +27,14 @@ const Avatar = ({ a, size = 36 }) => (
 );
 
 const ACTIVITY = [
-  { who: 'uxe.fyi', verb: 'initialized', what: 'the repository', when: 'just now', kind: 'merge' },
-  { who: 'uxe.fyi', verb: 'shipped', what: 'six live interaction breakdowns', when: 'today', kind: 'ship' },
-  { who: 'uxe.fyi', verb: 'opened', what: 'discussion: what should uxe.fyi cover first?', when: 'today', kind: 'rfc' },
+  { who: 'D. Sato', verb: 'shipped', what: 'breakdown: Rubber-band edges', when: '2h ago', kind: 'ship' },
+  { who: 'Nivedita Rao', verb: 'reviewed', what: 'lesson: Accessibility', when: '5h ago', kind: 'review' },
+  { who: 'Maya Chen', verb: 'published', what: 'essay: Invisible friction', when: '2 days ago', kind: 'essay' },
+  { who: 'JP Dev', verb: 'merged', what: 'roadmap: Software Engineer → UXE', when: '3 days ago', kind: 'merge' },
+  { who: 'Sora K.', verb: 'reviewed', what: 'resource: Refactoring UI', when: '4 days ago', kind: 'review' },
+  { who: 'Lin Park', verb: 'opened', what: 'RFC: motion tokens for the handbook', when: '1 week ago', kind: 'rfc' },
+  { who: 'uxe.fyi', verb: 'shipped', what: 'six live interaction breakdowns', when: '2 weeks ago', kind: 'ship' },
+  { who: 'uxe.fyi', verb: 'initialized', what: 'the repository', when: '3 weeks ago', kind: 'merge' },
 ];
 
 const verbColor = {
@@ -52,7 +63,7 @@ const ActivityFeed = ({ items = ACTIVITY, showHeader = true, limit }) => {
       )}
       <div>
         {list.map((a, i) => {
-          const av = AVATARS[i % AVATARS.length];
+          const av = AVATARS.find(x => x.name === a.who) || AVATARS[0];
           return (
             <div key={i} style={{
               display: 'flex', alignItems: 'center', gap: 12,
@@ -100,10 +111,10 @@ const CommunitySection = ({ setRoute }) => (
             background: 'var(--surface)',
           }}>
             {[
-              { n: '1', l: 'contributor' },
-              { n: '0', l: 'guides' },
-              { n: '6', l: 'live breakdowns' },
-              { n: '0', l: 'roadmaps' },
+              { n: String(AVATARS.length), l: 'contributors' },
+              { n: '5', l: 'lessons' },
+              { n: '10', l: 'live breakdowns' },
+              { n: '1', l: 'roadmap' },
             ].map((s, i) => (
               <div key={i}>
                 <div className="display" style={{ fontSize: 'clamp(34px, 4vw, 56px)', fontWeight: 500, letterSpacing: '-0.04em', lineHeight: 1 }}>
@@ -122,15 +133,11 @@ const CommunitySection = ({ setRoute }) => (
             flex: 1,
           }}>
             <div className="mono" style={{ fontSize: 11, color: 'var(--muted)', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: 16 }}>The crew, so far</div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 14 }}>
-              <Avatar a={AVATARS[0]} size={36} />
-              <div>
-                <div style={{ fontSize: 14, fontWeight: 500 }}>uxe.fyi</div>
-                <div className="mono" style={{ fontSize: 11, color: 'var(--muted)' }}>maintainer · just opened the repo</div>
-              </div>
+            <div style={{ display: 'flex', alignItems: 'center', marginBottom: 14 }}>
+              {AVATARS.map((a, i) => <div key={i} style={{ marginLeft: i ? -8 : 0 }}><Avatar a={a} size={36} /></div>)}
             </div>
             <p style={{ fontSize: 14, color: 'var(--ink-dim)', lineHeight: 1.55, margin: '0 0 16px', maxWidth: '40ch' }}>
-              uxe.fyi just opened its doors. Be the second name on the contributor list.
+              {AVATARS.length} people have shipped lessons, essays, reviews and breakdowns so far. Be the next name on the list.
             </p>
             <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
               <button className="btn primary" style={{ padding: '9px 16px', fontSize: 13 }}>

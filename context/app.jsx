@@ -153,10 +153,10 @@ const App = () => {
   // route persistence in hash
   useEffectA(() => {
     const initial = window.location.hash.replace('#', '');
-    if (initial && ROUTES[initial]) setRouteRaw(initial);
+    if (initial && (ROUTES[initial] || initial.startsWith('read/'))) setRouteRaw(initial);
     const onPop = () => {
       const h = window.location.hash.replace('#', '');
-      if (h && ROUTES[h]) setRouteRaw(h);
+      if (h && (ROUTES[h] || h.startsWith('read/'))) setRouteRaw(h);
       if (!h) setRouteRaw('home');
     };
     window.addEventListener('hashchange', onPop);
@@ -176,7 +176,9 @@ const App = () => {
     ensureFont(t.monoFont);
   }, [t.displayFont, t.italicFont, t.monoFont]);
 
-  const Page = ROUTES[route] || HomePage;
+  const isRead = route.startsWith('read/');
+  const Page = isRead ? ReaderPage : (ROUTES[route] || HomePage);
+  const navRoute = isRead ? ({ lesson: 'learning', essay: 'thinking', review: 'resources' }[route.split('/')[1]] || 'home') : route;
 
   const coffeeUrl = "https://buymeacoffee.com/yourname"; // update with your link
 
@@ -185,7 +187,7 @@ const App = () => {
   return (
     <div className="shell">
       <Nav
-        route={route}
+        route={navRoute}
         setRoute={setRoute}
         coffeeUrl={coffeeUrl}
         theme={t.theme}
@@ -196,7 +198,7 @@ const App = () => {
       />
       <main className="page-body" key={route}>
         <div className="fade-in">
-          <Page setRoute={setRoute} />
+          <Page setRoute={setRoute} route={route} />
         </div>
       </main>
       <Footer coffeeUrl={coffeeUrl} setRoute={setRoute} />

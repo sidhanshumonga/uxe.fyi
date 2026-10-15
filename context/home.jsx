@@ -526,11 +526,11 @@ const TransitionsSection = ({ setRoute }) => {
 
 // ── UXE Thinking — Editorial preview ──────────────────────────────────────
 const THINKING = [
-  { num: '01', title: 'Invisible friction', kicker: 'why', desc: 'The cost of every extra click, every loading spinner, every form field that asks for something you already know.', tag: 'attention' },
+  { num: '01', title: 'Invisible friction', kicker: 'why', desc: 'The cost of every extra click, every loading spinner, every form field that asks for something you already know.', tag: 'attention', pub: true },
   { num: '02', title: 'Calm interfaces', kicker: 'how', desc: 'Designing software that does not demand your attention — it earns it, briefly, and gives it back.', tag: 'attention' },
-  { num: '03', title: 'Emotional latency', kicker: 'what', desc: 'Time is not measured in milliseconds. It is measured in feelings — and feelings have their own physics.', tag: 'time' },
+  { num: '03', title: 'Emotional latency', kicker: 'what', desc: 'Time is not measured in milliseconds. It is measured in feelings — and feelings have their own physics.', tag: 'time', pub: true },
   { num: '04', title: 'The trust contract', kicker: 'why', desc: 'Every interface makes promises. Every load, every error, every undo button is a promise being kept or broken.', tag: 'trust' },
-  { num: '05', title: 'Optimism as a feature', kicker: 'how', desc: 'Showing the result before the server confirms it. A small lie in service of a much bigger truth.', tag: 'time' },
+  { num: '05', title: 'Optimism as a feature', kicker: 'how', desc: 'Showing the result before the server confirms it. A small lie in service of a much bigger truth.', tag: 'time', pub: true },
   { num: '06', title: 'Affordance is a verb', kicker: 'what', desc: 'A button is not affordance. Looking like something you can press at this moment — that is.', tag: 'craft' },
 ];
 
@@ -551,7 +551,7 @@ const ThinkingSection = ({ setRoute }) => {
 
         <div style={{ borderTop: '1px dashed var(--border)' }}>
           {THINKING.map((t, i) => (
-            <a key={i} href="#" onClick={(e) => { e.preventDefault(); setRoute('thinking'); }}
+            <a key={i} href="#" onClick={(e) => { e.preventDefault(); setRoute(t.pub ? 'read/essay/' + slugify(t.title) : 'thinking'); }}
               onMouseEnter={() => setHover(i)} onMouseLeave={() => setHover(null)}
               className="row-thinking"
               style={{
@@ -569,7 +569,7 @@ const ThinkingSection = ({ setRoute }) => {
                 transition: 'color 200ms',
               }}>{t.title}</span>
               <span style={{ fontSize: 14, color: 'var(--muted)', lineHeight: 1.5, maxWidth: '46ch' }}>{t.desc}</span>
-              <span className="draft-pill">drafting</span>
+              {t.pub ? <span className="pub-pill">published</span> : <span className="draft-pill">drafting</span>}
             </a>
           ))}
         </div>

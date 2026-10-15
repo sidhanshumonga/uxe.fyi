@@ -1,6 +1,25 @@
 // empty.jsx — Empty-state + Draft-card primitives for unfinished sections
 
-const EmptyState = ({ eyebrow = 'empty state', title, italic, body, primary, secondary }) => (
+const ctaProps = (c) => ({ href: c.href || '#', target: c.href ? '_blank' : undefined, rel: c.href ? 'noopener' : undefined, onClick: c.onClick });
+
+const EmptyState = (props) => props.variant === 'card' ? <EmptyStateCard {...props} /> : <EmptyStateStrip {...props} />;
+
+const EmptyStateStrip = ({ eyebrow = 'empty state', title, italic, body, primary, secondary }) => (
+  <div className="es-strip">
+    <div className="es-strip-text">
+      <span className="es-strip-eyebrow"><span className="es-dot" aria-hidden></span>{eyebrow}</span>
+      <p><strong>{title}{italic && <> <span className="serif-italic" style={{ color: 'var(--accent)' }}>{italic}</span></>}</strong>{body && <> {body}</>}</p>
+    </div>
+    {(primary || secondary) && (
+      <div className="es-strip-actions">
+        {primary && <a className="es-link primary" {...ctaProps(primary)}>{primary.icon && <Icon name={primary.icon} size={13} />}{primary.label}</a>}
+        {secondary && <a className="es-link" {...ctaProps(secondary)}>{secondary.label} →</a>}
+      </div>
+    )}
+  </div>
+);
+
+const EmptyStateCard = ({ eyebrow = 'empty state', title, italic, body, primary, secondary }) => (
   <div className="empty-state">
     <span className="es-eyebrow">{eyebrow}</span>
     <h3>
@@ -42,4 +61,4 @@ const DraftCard = ({ title, kicker, note, label = 'Write this' }) => (
   </a>
 );
 
-Object.assign(window, { EmptyState, DraftCard });
+Object.assign(window, { EmptyState, EmptyStateCard, EmptyStateStrip, DraftCard });

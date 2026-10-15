@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>uxe.fyi — Brand Kit</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0B0B0A;--bg2:#131311;--ink:#EDEAE2;--dim:#B8B5AB;--muted:#807D74;--border:rgba(255,255,255,.09);--accent:#FF3D88;--light:#F4F1EA;--lightink:#16140F}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:'Bricolage Grotesque',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:var(--ink);text-decoration:underline;text-decoration-color:var(--accent)}a:hover{color:var(--accent)}
+.wrap{max-width:1280px;margin:0 auto;padding:64px 32px 120px;display:flex;flex-direction:column;gap:72px}
+h1{font-size:56px;font-weight:500;letter-spacing:-.03em;margin:0;line-height:1}
+h1 em{font-family:'Instrument Serif',serif;font-weight:400}
+h2{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:0 0 20px}
+p{color:var(--dim);margin:0;max-width:62ch;line-height:1.55;text-wrap:pretty}
+.mono{font-family:'JetBrains Mono',monospace}
+.row{display:flex;flex-wrap:wrap;gap:20px;align-items:flex-end}
+.tile{display:flex;flex-direction:column;gap:10px}
+.tile .lbl{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted)}
+.card{border:1px solid var(--border);border-radius:14px;padding:28px;background:var(--bg2);display:flex;align-items:center;justify-content:center}
+.card.light{background:var(--light)}
+.wm{font-family:'JetBrains Mono',monospace;font-weight:600;letter-spacing:-.04em;display:inline-flex;align-items:baseline;line-height:1}
+.wm .cur{display:inline-block;background:var(--accent);margin-left:.06em}
+/* export artboards */
+.wmboard{width:720px;height:240px;display:flex;align-items:center;justify-content:center;gap:36px;border-radius:0}
+.wmboard.dark{background:var(--bg);color:var(--ink)}.wmboard.lt{background:var(--light);color:var(--lightink)}
+.wmboard img{width:120px;height:120px}
+.wmboard .wm{font-size:84px}.wmboard .wm .cur{width:.5em;height:.72em;transform:translateY(.04em)}
+#og{width:1200px;height:630px;background:var(--bg);color:var(--ink);position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:space-between;padding:72px 80px;flex:none}
+#og::before{content:"";position:absolute;inset:0;background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);background-size:60px 60px;mask-image:linear-gradient(120deg,transparent 30%,#000 100%);-webkit-mask-image:linear-gradient(120deg,transparent 30%,#000 100%)}
+#og>*{position:relative}
+#og .top{display:flex;align-items:center;gap:18px}
+#og .top img{width:64px;height:64px}
+#og .top .wm{font-size:34px}#og .top .wm .cur{width:.5em;height:.72em;transform:translateY(.04em)}
+#og .h{font-size:92px;font-weight:500;letter-spacing:-.035em;line-height:.98;max-width:15ch}
+#og .h em{font-family:'Instrument Serif',serif;font-weight:400;color:var(--accent)}
+#og .foot{font-family:'JetBrains Mono',monospace;font-size:22px;color:var(--muted);display:flex;justify-content:space-between}
+.ogscale{width:100%;overflow:auto;border:1px solid var(--border);border-radius:14px}
+table{border-collapse:collapse;width:100%;font-size:14px}
+td{padding:11px 0;border-top:1px solid var(--border);vertical-align:top}
+td:first-child{font-family:'JetBrains Mono',monospace;color:var(--ink);width:38%;padding-right:20px;word-break:break-all}
+td:nth-child(2){color:var(--muted);font-family:'JetBrains Mono',monospace;width:16%}
+td:last-child{color:var(--dim)}
+pre{background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:24px;overflow:auto;font-family:'JetBrains Mono',monospace;font-size:13px;line-height:1.6;color:var(--dim);margin:0}
+.swatches{display:flex;gap:12px;flex-wrap:wrap}
+.sw{width:150px;display:flex;flex-direction:column;gap:8px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted)}
+.sw div{height:72px;border-radius:10px;border:1px solid var(--border)}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header style="display:flex;flex-direction:column;gap:16px">
+<h2>uxe.fyi / brand kit</h2>
+<h1>Logo, favicon <em>&amp;</em> SEO assets</h1>
+<p>The mark is a lowercase u followed by the block cursor from the site nav. The wordmark is the nav brand set in JetBrains Mono 600, with the cursor in accent pink.</p>
+</header>
+
+<section data-screen-label="Mark">
+<h2>Mark</h2>
+<div class="row">
+<div class="tile"><div class="card" style="width:240px;height:240px"><img src="brand/logo-mark.svg" width="160" height="160" alt=""></div><span class="lbl">logo-mark.svg</span></div>
+<div class="tile"><div class="card light" style="width:240px;height:240px"><img src="brand/logo-mark-light.svg" width="160" height="160" alt=""></div><span class="lbl">logo-mark-light.svg</span></div>
+<div class="tile"><div class="card" style="width:240px;height:240px;background:#26241f"><img src="brand/logo-mark-glyph.svg" width="160" height="160" alt=""></div><span class="lbl">logo-mark-glyph.svg (no tile)</span></div>
+<div class="tile"><div class="card light" style="width:240px;height:240px"><img src="safari-pinned-tab.svg" width="160" height="160" alt=""></div><span class="lbl">safari-pinned-tab.svg (mono)</span></div>
+</div>
+</section>
+
+<section data-screen-label="Favicon sizes">
+<h2>Favicon &amp; app icons at size</h2>
+<div class="row">
+<div class="tile"><div class="card" style="padding:20px"><img src="favicon-16x16.png" width="16" height="16" alt=""></div><span class="lbl">16</span></div>
+<div class="tile"><div class="card" style="padding:20px"><img src="favicon-32x32.png" width="32" height="32" alt=""></div><span class="lbl">32</span></div>
+<div class="tile"><div class="card" style="padding:20px"><img src="apple-touch-icon.png" width="90" height="90" alt="" style="border-radius:20px"></div><span class="lbl">180 apple-touch (iOS rounds)</span></div>
+<div class="tile"><div class="card" style="padding:20px"><img src="icon-192.png" width="96" height="96" alt=""></div><span class="lbl">192 PWA</span></div>
+<div class="tile"><div class="card" style="padding:20px"><img src="icon-maskable-512.png" width="128" height="128" alt="" style="border-radius:50%"></div><span class="lbl">512 maskable (circle crop)</span></div>
+</div>
+</section>
+
+<section data-screen-label="Wordmark">
+<h2>Wordmark lockups · exported to brand/</h2>
+<div class="row">
+<div class="tile"><div class="wmboard dark" id="wm-dark"><img src="brand/logo-mark.svg" alt=""><span class="wm">uxe.fyi<span class="cur"></span></span></div><span class="lbl">brand/logo-wordmark-dark.png</span></div>
+<div class="tile"><div class="wmboard lt" id="wm-light"><img src="brand/logo-mark-light.svg" alt=""><span class="wm">uxe.fyi<span class="cur"></span></span></div><span class="lbl">brand/logo-wordmark-light.png</span></div>
+</div>
+</section>
+
+<section data-screen-label="OG image">
+<h2>Open Graph / social card · 1200×630 · og-image.png</h2>
+<div class="ogscale">
+<div id="og">
+<div class="top"><img src="brand/logo-mark.svg" alt=""><span class="wm">uxe.fyi<span class="cur"></span></span></div>
+<div class="h">The open-source home for UX <em>Engineering</em></div>
+<div class="foot"><span>handbook · career bridge · community</span><span>uxe.fyi</span></div>
+</div>
+</div>
+</section>
+
+<section data-screen-label="Colors">
+<h2>Colors</h2>
+<div class="swatches">
+<div class="sw"><div style="background:#0B0B0A"></div>Ink black #0B0B0A</div>
+<div class="sw"><div style="background:#EDEAE2"></div>Bone #EDEAE2</div>
+<div class="sw"><div style="background:#F4F1EA"></div>Paper #F4F1EA</div>
+<div class="sw"><div style="background:#FF3D88"></div>Cursor pink #FF3D88</div>
+</div>
+</section>
+
+<section data-screen-label="Files">
+<h2>Files</h2>
+<table>
+<tr><td>favicon.ico</td><td>16/32/48</td><td>Legacy browsers and the default /favicon.ico request</td></tr>
+<tr><td>favicon.svg</td><td>vector</td><td>Modern browser tabs</td></tr>
+<tr><td>favicon-16x16.png, favicon-32x32.png</td><td>16, 32</td><td>PNG fallbacks</td></tr>
+<tr><td>apple-touch-icon.png</td><td>180</td><td>iOS home screen</td></tr>
+<tr><td>icon-192.png, icon-512.png</td><td>192, 512</td><td>Android / PWA via manifest</td></tr>
+<tr><td>icon-maskable-512.png</td><td>512</td><td>Android adaptive icon (safe-zone padded)</td></tr>
+<tr><td>safari-pinned-tab.svg</td><td>mono</td><td>Safari pinned tabs</td></tr>
+<tr><td>site.webmanifest</td><td>json</td><td>Name, theme color, icon list</td></tr>
+<tr><td>og-image.png</td><td>1200×630</td><td>Open Graph + Twitter/X large card</td></tr>
+<tr><td>brand/logo-mark-512.png</td><td>512</td><td>Organization logo for Google structured data</td></tr>
+<tr><td>brand/logo-mark*.svg, logo-wordmark-*.png</td><td>various</td><td>Press, README, GitHub social preview</td></tr>
+</table>
+</section>
+
+<section data-screen-label="Head snippet">
+<h2>&lt;head&gt; snippet · already added to index.html</h2>
+<pre>&lt;link rel="icon" href="/favicon.ico" sizes="48x48"&gt;
+&lt;link rel="icon" href="/favicon.svg" type="image/svg+xml"&gt;
+&lt;link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32"&gt;
+&lt;link rel="icon" href="/favicon-16x16.png" type="image/png" sizes="16x16"&gt;
+&lt;link rel="apple-touch-icon" href="/apple-touch-icon.png"&gt;
+&lt;link rel="mask-icon" href="/safari-pinned-tab.svg" color="#FF3D88"&gt;
+&lt;link rel="manifest" href="/site.webmanifest"&gt;
+&lt;meta name="theme-color" content="#0B0B0A"&gt;
+&lt;link rel="canonical" href="https://uxe.fyi/"&gt;
+
+&lt;meta property="og:type" content="website"&gt;
+&lt;meta property="og:site_name" content="uxe.fyi"&gt;
+&lt;meta property="og:url" content="https://uxe.fyi/"&gt;
+&lt;meta property="og:title" content="uxe.fyi — the open-source home for UX Engineering"&gt;
+&lt;meta property="og:description" content="..."&gt;
+&lt;meta property="og:image" content="https://uxe.fyi/og-image.png"&gt;
+&lt;meta property="og:image:width" content="1200"&gt;
+&lt;meta property="og:image:height" content="630"&gt;
+&lt;meta name="twitter:card" content="summary_large_image"&gt;
+&lt;meta name="twitter:image" content="https://uxe.fyi/og-image.png"&gt;
+
+&lt;script type="application/ld+json"&gt;
+{"@context":"https://schema.org","@type":"Organization","name":"uxe.fyi",
+ "url":"https://uxe.fyi/","logo":"https://uxe.fyi/brand/logo-mark-512.png"}
+&lt;/script&gt;</pre>
+</section>
+</div>
+</body>
+</html>
