@@ -79,6 +79,7 @@ docs: clarify the breakdown checklist
 ```bash
 npm run lint
 npm run content:check   # if you touched content/
+npm test                # unit tests + link/demo/image checks for content/
 npm run build
 ```
 

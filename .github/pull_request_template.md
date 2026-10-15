@@ -20,7 +20,7 @@ Closes #
 
 ## Checklist
 
-- [ ] `npm run lint` and `npm run build` pass (CI runs both on every PR)
+- [ ] `npm run lint`, `npm test` and `npm run build` pass (CI runs them on every PR)
 - [ ] Checked in **dark and light** themes
 - [ ] Checked at **phone width** (375px)
 - [ ] Works with the **keyboard**, and focus stays visible

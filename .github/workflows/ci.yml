@@ -33,6 +33,9 @@ jobs:
       - name: Check content
         run: npm run content:check
 
+      - name: Test
+        run: npm test
+
       # next build also runs the TypeScript check
       - name: Build
         run: npm run build

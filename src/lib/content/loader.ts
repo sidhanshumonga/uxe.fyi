@@ -15,7 +15,8 @@ import path from 'node:path';
 import matter from 'gray-matter';
 import { COLLECTIONS, schemas, type CollectionName, type Frontmatter } from './schema';
 
-export const CONTENT_DIR = path.join(process.cwd(), 'content');
+/** The content folder. UXE_CONTENT_DIR overrides it (used by the tests). */
+export const contentDir = () => process.env.UXE_CONTENT_DIR ?? path.join(process.cwd(), 'content');
 
 const EXTENSIONS = ['.mdx', '.md'];
 const SLUG = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
@@ -41,7 +42,8 @@ export class ContentError extends Error {
   }
 }
 
-const rel = (p: string) => path.relative(process.cwd(), p).split(path.sep).join('/');
+// Paths relative to the folder that contains content/, e.g. "content/essays/x.mdx".
+const rel = (p: string) => path.relative(path.dirname(contentDir()), p).split(path.sep).join('/');
 const isIgnored = (name: string) => name.startsWith('_') || name.startsWith('.') || name.toLowerCase() === 'readme.md';
 const isContentFile = (name: string) => EXTENSIONS.includes(path.extname(name));
 
@@ -60,7 +62,7 @@ interface RawFile {
 
 // Find candidate files for a collection, reporting files in the wrong place.
 function discover(collection: CollectionName, problems: string[]): RawFile[] {
-  const root = path.join(CONTENT_DIR, collection);
+  const root = path.join(contentDir(), collection);
   const files: RawFile[] = [];
   const stray = (p: string, hint: string) => problems.push(`${rel(p)}: ${hint}`);
 
@@ -181,7 +183,7 @@ export function checkAllContent(): { counts: Record<CollectionName, number>; pro
   const counts = {} as Record<CollectionName, number>;
   for (const c of COLLECTIONS) counts[c] = load(c, problems).length;
 
-  for (const d of listDir(CONTENT_DIR)) {
+  for (const d of listDir(contentDir())) {
     if (d.isDirectory() && !(COLLECTIONS as readonly string[]).includes(d.name)) {
       problems.push(`content/${d.name}: unknown folder — expected one of ${COLLECTIONS.join(', ')}`);
     }

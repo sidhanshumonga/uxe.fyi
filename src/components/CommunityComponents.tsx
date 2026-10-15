@@ -48,7 +48,7 @@ export interface ActivityItem {
 
 const SHORT_DATE = new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric', timeZone: 'UTC' });
 
-function relative(iso: string, now: number) {
+export function relative(iso: string, now: number) {
   const sec = Math.floor((now - Date.parse(iso)) / 1000);
   const min = Math.floor(sec / 60);
   const hr = Math.floor(min / 60);

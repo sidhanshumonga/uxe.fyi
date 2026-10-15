@@ -86,6 +86,7 @@ Then open **http://localhost:3000**.
 | `npm run dev` | Start the dev server with hot reload |
 | `npm run build` | Production build (run this before opening a PR) |
 | `npm run lint` | ESLint |
+| `npm test` | Unit tests (Vitest): the content loader, helpers, and that every internal link, demo and image in `content/` exists |
 | `npm run content:check` | Validate every file in `content/` (frontmatter, file placement, slugs) |
 | `node scripts/generate-readme-banner.mjs` | Regenerate the banner at the top of this README |
 

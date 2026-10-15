@@ -34,7 +34,7 @@ export async function getContributors(): Promise<Contributor[]> {
 }
 
 // Conventional-commit type → feed colour.
-function kindOf(message: string): ActivityItem['kind'] {
+export function kindOf(message: string): ActivityItem['kind'] {
   if (/^merge\b/i.test(message)) return 'merge';
   if (/^(content|docs)(\(|:)/.test(message)) return 'essay';
   if (/^(fix|chore|ci|refactor|style|test)(\(|:)/.test(message)) return 'review';
