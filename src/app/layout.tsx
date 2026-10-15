@@ -4,6 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
+import { SITE_URL } from "@/lib/site";
 
 const bricolage = Bricolage_Grotesque({
   subsets: ["latin"],
@@ -28,7 +29,9 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://uxe.fyi"),
+  metadataBase: new URL(SITE_URL),
+  openGraph: { siteName: "uxe.fyi", type: "website", locale: "en_US" },
+  twitter: { card: "summary_large_image" },
   alternates: {
     types: { "application/rss+xml": [{ url: "/feed.xml", title: "uxe.fyi — UX Engineering Thinking" }] },
   },

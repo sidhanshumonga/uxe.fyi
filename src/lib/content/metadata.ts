@@ -11,6 +11,7 @@ export function articleMetadata(entry: Entry<'essays'> | Entry<'breakdowns'>, pa
     alternates: { canonical: path },
     openGraph: {
       type: 'article',
+      siteName: 'uxe.fyi',
       title,
       description,
       url: path,
@@ -19,5 +20,6 @@ export function articleMetadata(entry: Entry<'essays'> | Entry<'breakdowns'>, pa
       authors: authors.map((a) => `https://github.com/${a}`),
       tags,
     },
+    twitter: { card: 'summary_large_image', title, description },
   };
 }
