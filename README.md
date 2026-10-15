@@ -48,7 +48,7 @@ If two or more of those landed, **this project is for you.** UX Engineering is t
 | 🧪 | [**Breakdowns**](https://uxe.fyi/breakdowns) | Real interactions taken apart, with **live demos you can play with**: optimistic UI, skeletons vs spinners, fuzzy search, easing curves, form choreography, empty states | ✅ 6 live · 12 queued |
 | 📚 | [**Learning**](https://uxe.fyi/learning) | A handbook of short, finishable lessons across foundations, engineering and experience design | ✍️ 22 lessons outlined |
 | 🗺️ | [**Roadmaps**](https://uxe.fyi/roadmaps) | Three paths into the role: from engineering, from design, from school | ✍️ 3 drafting |
-| 💭 | [**Thinking**](https://uxe.fyi/thinking) | Short, opinionated essays: *invisible friction*, *emotional latency*, *undo as a feeling* | ✍️ 8 on the wishlist |
+| 💭 | [**Thinking**](https://uxe.fyi/thinking) | Short, opinionated essays: *invisible friction*, *emotional latency*, *undo as a feeling* | ✅ 2 published · 8 on the wishlist |
 | 📦 | [**Resources**](https://uxe.fyi/resources) | Books, talks, tools and podcasts, each with a short write-up on why it matters | ✍️ 12 on the wishlist |
 | 🫶 | [**Community**](https://uxe.fyi/community) | Who's building this, live from GitHub | ✅ live |
 

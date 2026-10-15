@@ -126,6 +126,12 @@ date: 2026-10-14                  # first published; leave as the day you open t
 ---
 ```
 
+Cross-posting something you published elsewhere first? Add `original: <url>`. uxe.fyi stays the canonical page and shows an "originally on …" link.
+
+**Images** go in `public/<collection>/<slug>/` (for example `public/essays/invisible-friction/hero.png`). Reference them as `![What the image shows](/essays/invisible-friction/hero.png "Optional caption")`. The alt text describes the image for people who can't see it, and the quoted title becomes a visible caption.
+
+**Live demos:** an essay can embed any of the breakdown demos with `<Demo name="optimistic" caption="…" />` (names: `optimistic`, `skeleton`, `search`, `easing`, `form`, `empty`).
+
 Lessons also take `track:` (`foundations`, `engineering`, or `experience-design`). Resources also take `kind:` (`book`, `talk`, `tool`, `podcast`, `article`) and `link:`.
 
 ### How long?

@@ -37,6 +37,9 @@ const base = {
   status: z.enum(STATUSES),
   date: isoDate,
   updated: isoDate.optional(),
+  // Where the piece first appeared, if it was cross-posted (e.g. a Medium URL).
+  // uxe.fyi stays the canonical URL; this renders an "Originally published on…" link.
+  original: z.url().optional(),
 };
 
 // strictObject: unknown keys are errors, so a typo like `author:` fails CI

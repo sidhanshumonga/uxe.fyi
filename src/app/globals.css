@@ -827,3 +827,11 @@ section.tight { padding: clamp(32px, 5vw, 64px) 0; }
 @media (max-width: 720px) {
   .prose { font-size: 17px; }
 }
+
+.article-original { color: var(--muted); transition: color 140ms; }
+.article-original:hover { color: var(--accent); }
+
+.prose figure { margin-left: 0; margin-right: 0; }
+.prose figure img { display: block; width: 100%; }
+.prose figcaption { margin-top: 10px; font-size: 13.5px; line-height: 1.5; color: var(--muted); text-align: center; text-wrap: balance; }
+.prose-demo { font-size: 16px; line-height: 1.5; color: var(--ink); margin-top: 1.6em !important; margin-bottom: 0.4em; }

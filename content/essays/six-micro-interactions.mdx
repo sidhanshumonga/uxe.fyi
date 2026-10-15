@@ -1,0 +1,230 @@
+---
+title: Six micro-interactions every UX engineer should be able to build
+description: The small details that make an interface feel fast, forgiving and alive, with the code behind each one.
+authors: [sidhanshumonga]
+status: published
+tags: [craft, time, trust, motion]
+date: 2026-10-14
+original: https://medium.com/@sidhanshumonga/six-micro-interactions-every-ux-engineer-should-be-able-to-build-3c6b477d137a
+---
+
+Users rarely remember a feature. What they remember is how the product **felt**: the like that registered instantly, the search that understood a typo, the form that didn't shout at them halfway through typing.
+
+Those feelings come from micro-interactions. Each one is a few dozen lines of code, but it takes a specific way of thinking to build it well. That way of thinking sits between design and engineering, and it's most of what a UX engineer actually does.
+
+This essay takes apart six of them. Each section has a live demo you can play with right here, the principle behind it, the code, and one detail that's easy to miss. All six also live on the [breakdowns page](/breakdowns).
+
+## 1. Optimistic UI
+
+<Demo name="optimistic" caption="Same click, two strategies: update instantly, or wait for the server." />
+
+**The principle:** for actions that almost always succeed, don't make the user wait for the network. Show the result immediately and confirm with the server in the background.
+
+Try both modes. In optimistic mode the heart fills on click. In "wait for server" mode there's a dimmed button and a *saving…* label for almost a second. Both are correct, but only one feels instant.
+
+**The build:** the pattern is *snapshot → apply → reconcile → roll back if needed*.
+
+```tsx
+async function toggleLike() {
+  const prev = { liked, count };
+  // 1. Apply immediately
+  setLiked(!liked);
+  setCount((c) => c + (liked ? -1 : 1));
+  try {
+    // 2. Reconcile in the background
+    await api.setLike(postId, !prev.liked);
+  } catch {
+    // 3. Roll back and say so
+    setLiked(prev.liked);
+    setCount(prev.count);
+    toast("Couldn't save your like. Try again?");
+  }
+}
+```
+
+React 19 has this built in with `useOptimistic`. While an action is in flight, the component renders the optimistic value. When the action settles, React switches back to the real state:
+
+```tsx
+const [optimisticLiked, setOptimisticLiked] = useOptimistic(liked);
+
+const toggle = () =>
+  startTransition(async () => {
+    setOptimisticLiked(!optimisticLiked);
+    await saveLike(!optimisticLiked); // on failure, the real state was never changed
+    setLiked(!optimisticLiked);
+  });
+```
+
+**The detail most people miss:** optimism is a promise you're making to the user, so **failure has to be visible**. If you quietly revert a like the user saw land, they lose trust in every other number on the screen. Use optimism for likes, toggles, reordering and renames. Don't use it for payments, deletes, or anything the user would be upset to find never happened.
+
+## 2. Skeleton vs spinner
+
+<Demo name="skeleton" caption="A skeleton shows what's coming. A spinner only says “wait”." />
+
+**The principle:** a spinner says *"something is happening, please wait."* A skeleton says *"this is the shape of what you're about to see."* A spinner gives the user nothing to look at but the wait. A skeleton gets them ready for the content.
+
+Switch between the two and notice where your eye goes. With the skeleton, you're already reading the layout (three rows, an avatar and two lines each) before the data arrives. With the spinner, you're staring at a dot.
+
+**The build:** the skeleton itself is the easy part. The timing around it is what makes it feel right. A loader that flashes on screen for 80 ms feels *slower* than no loader at all, so only show it once the wait is long enough to notice:
+
+```tsx
+function useDelayedLoading(loading: boolean, delay = 300) {
+  const [show, setShow] = useState(false);
+  useEffect(() => {
+    if (!loading) return setShow(false);
+    const t = setTimeout(() => setShow(true), delay);
+    return () => clearTimeout(t);
+  }, [loading, delay]);
+  return show;
+}
+```
+
+Tune the delay to your product. A few hundred milliseconds is a common starting point. Once a skeleton *is* showing, keep it up for a minimum time as well, so it doesn't appear and vanish in a flicker.
+
+**The detail most people miss:** a skeleton only helps if it **matches the real layout**. If the skeleton has three rows and the content has four, the page jumps when data arrives. That's layout shift, the very thing the skeleton was supposed to prevent. Hand-written skeletons drift out of sync with their components over time. I built [use-skelly](https://github.com/sidhanshumonga/use-skelly) to measure the real DOM instead, but even without a library, give your skeletons the same dimensions as the content. Respect `prefers-reduced-motion` for the shimmer too.
+
+## 3. Fuzzy search
+
+<Demo name="search" caption="Typos and shortcuts still find the right result." />
+
+**The principle:** match what the user *means*, not what they typed. People skip letters, abbreviate and misspell. A search that only accepts exact substrings punishes them for it.
+
+Type `otmsc` and it finds **O**p**t**i**m**i**s**ti**c**. Type `erormsg` and it finds **Er**r**or** **m**e**s**sa**g**e anatomy. Neither is a substring, but both are obviously what the user meant.
+
+**The build:** the simplest version is *subsequence matching*: every typed character must appear in the result, in order, but not necessarily next to each other. The demo uses about 15 lines:
+
+```ts
+function fuzzy(needle: string, hay: string) {
+  const n = needle.toLowerCase();
+  const h = hay.toLowerCase();
+  const hits: number[] = [];
+  let ni = 0;
+  for (let i = 0; i < h.length && ni < n.length; i++) {
+    if (h[i] === n[ni]) {
+      hits.push(i);
+      ni++;
+    }
+  }
+  if (ni < n.length) return null; // not every character was found
+  // Earlier final match = tighter match = higher score
+  return { score: 1 - hits[hits.length - 1] / h.length, hits };
+}
+```
+
+The `hits` array does double duty. It also drives the highlighting, so the user can see *why* each result matched. That builds trust in the results.
+
+**The detail most people miss:** ranking matters more than matching. Production matchers (think command palettes like ⌘K menus) give extra points for **consecutive characters** and for **matches at the start of words**, so `ui` ranks "**U**ser **I**nterface" above "b**ui**ld". Subsequence matching also can't handle transposed letters like "teh". For that you need an edit-distance approach, which libraries such as Fuse.js provide. And when nothing matches, don't just print "No results". That's an empty state, and we'll get to those.
+
+## 4. Easing curves
+
+<Demo name="easing" caption="Same distance, same duration, four very different feels." />
+
+**The principle:** the easing curve decides *how* something moves, which matters as much as *whether* it moves. Every box in the demo travels the same distance in the same 850 ms. Only the curve changes, and each one feels completely different:
+
+- **linear** moves at a constant speed. It feels mechanical, like a conveyor belt.
+- **ease-out** starts fast and settles gently, like a car braking. It feels responsive.
+- **spring** overshoots slightly and settles back. It feels playful.
+- **snap** gets most of the way quickly, then glides. It feels confident.
+
+**The build:** these are cubic-bezier curves. Define them once as tokens and reuse them everywhere:
+
+```css
+:root {
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-snap: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --dur-fast: 150ms;
+  --dur-base: 240ms;
+}
+
+.menu {
+  transition: transform var(--dur-base) var(--ease-out),
+              opacity var(--dur-fast) linear;
+}
+```
+
+To read a curve, look at the four numbers. They're two control points, `(x1, y1, x2, y2)`. A large first `y` means a fast start. A `y` above `1`, like the spring's `1.56`, means the value *overshoots* its target before settling.
+
+**The detail most people miss:** match the curve to the *direction* of the movement. Things **entering** or responding to the user should ease out, so they arrive fast and settle. Things **leaving** can ease in, so they accelerate away. Reserve linear for continuous motion like progress bars and spinners. Also note that the "spring" above is a cubic-bezier that imitates a spring. For real spring physics you'd use a motion library, or the newer CSS `linear()` easing function, which can approximate a spring with many sample points.
+
+## 5. Form choreography
+
+<Demo name="form" caption="Errors arrive late and leave early." />
+
+**The principle:** don't shout at the user while they're still typing. An error on the first keystroke ("that's not a valid email!" after typing `s`) is technically correct and completely unhelpful.
+
+The choreography in the demo follows one rule: **errors arrive late and leave early.**
+
+1. While the user types in an untouched field, show nothing.
+2. On blur (when they leave the field), validate. If it's wrong, show a soft warning.
+3. Once the field has been touched, re-validate on every keystroke, so the error disappears the moment it's fixed.
+
+**The build:**
+
+```tsx
+const [value, setValue] = useState("");
+const [touched, setTouched] = useState(false);
+const valid = isEmail(value);
+const showError = touched && value !== "" && !valid;
+
+<label htmlFor="email">Email</label>
+<input
+  id="email"
+  type="email"
+  value={value}
+  onChange={(e) => setValue(e.target.value)}
+  onBlur={() => setTouched(true)}
+  aria-invalid={showError}
+  aria-describedby={showError ? "email-error" : undefined}
+/>
+<p id="email-error" aria-live="polite" hidden={!showError}>
+  That doesn't look like an email. Check for a typo?
+</p>
+```
+
+**The detail most people miss:** the error has to reach everyone, not just people who can see a red border. `aria-invalid` tells assistive technology the field is invalid, `aria-describedby` links the message to the input, and `aria-live="polite"` announces it without interrupting. Look at the copy too: "Check for a typo?" helps, while "Invalid input" only blames. (The demo's email check is deliberately loose. In production, rely on `type="email"` plus server-side validation rather than a hand-rolled regex.)
+
+## 6. Empty states
+
+<Demo name="empty" caption="“No items found” versus an empty state that offers a next step." />
+
+**The principle:** most products treat empty states like errors. The best ones treat them as a **first impression**, often the very first screen a new user sees in that part of the product.
+
+"No items found." is accurate, but it's a dead end. The helpful version does three jobs:
+
+1. **Says what will be here:** "Your saved articles will appear here."
+2. **Sets the tone:** "Nothing here yet" sounds like a beginning, not a failure.
+3. **Offers one next step:** "Add a sample" turns a blank screen into a guided tour.
+
+**The build:** the code is simple. The work is in the thinking, so make that thinking part of the component's API:
+
+```ts
+type EmptyStateProps = {
+  title: string;          // what this space is for
+  description: string;    // why it's empty / what will appear
+  action?: { label: string; onClick: () => void }; // one next step
+};
+```
+
+If `description` is required, nobody on the team can ship "No items found." without at least noticing they skipped it.
+
+**The detail most people miss:** there isn't just *one* empty state. A **first-use** empty state ("nothing here yet") needs onboarding. A **no-results** empty state ("nothing matches 'xyz'") needs a way out, such as clearing filters or checking spelling. A **cleared** empty state ("inbox zero!") deserves a small celebration. An **error** empty state needs a retry. Design all four.
+
+## What ties them together
+
+Look back at the six and the same idea runs through all of them: **the interface is always talking to the user.**
+
+- Optimistic UI says *"done"* before the server does, and admits it if that turns out to be wrong.
+- A skeleton says *"here's what's coming."*
+- Fuzzy search says *"I know what you meant."*
+- Easing says *"this moved because you asked it to."*
+- Good validation says *"take your time."*
+- An empty state says *"here's where to start."*
+
+None of this is visual design, and none of it is backend engineering. It's the layer in between: how software *feels*. That layer is what UX engineering is about.
+
+## Write the next one
+
+There are **a dozen more breakdowns in the queue** on the [breakdowns page](/breakdowns), including toast notifications, undo systems, drag-and-drop affordances and long-press menus. If one of them is your favourite interaction, you're welcome to [write it up](https://github.com/sidhanshumonga/uxe.fyi/issues/new?template=4-propose-a-breakdown.yml).
+
+*I also post short videos about UX engineering on Instagram at [@letsidtalk](https://www.instagram.com/letsidtalk/).*

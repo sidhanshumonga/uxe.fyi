@@ -15,6 +15,11 @@ export function generateStaticParams() {
 
 type Props = { params: Promise<{ slug: string }> };
 
+const siteName = (url: string) => {
+  const host = new URL(url).hostname.replace(/^www\./, '');
+  return host === 'medium.com' || host.endsWith('.medium.com') ? 'Medium' : host;
+};
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const essay = getEntry('essays', (await params).slug, { includeDrafts: SHOW_DRAFTS });
   if (!essay) return {};
@@ -40,7 +45,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function EssayPage({ params }: Props) {
   const essay = getEntry('essays', (await params).slug, { includeDrafts: SHOW_DRAFTS });
   if (!essay) notFound();
-  const { title, description, authors, status, date, updated, tags } = essay.frontmatter;
+  const { title, description, authors, status, date, updated, tags, original } = essay.frontmatter;
 
   return (
     <article>
@@ -73,6 +78,14 @@ export default async function EssayPage({ params }: Props) {
           )}
           <span className="sep" aria-hidden="true">·</span>
           <span>{essay.readingMinutes} min read</span>
+          {original && (
+            <>
+              <span className="sep" aria-hidden="true">·</span>
+              <a className="article-original" href={original} target="_blank" rel="noopener noreferrer">
+                originally on {siteName(original)} ↗
+              </a>
+            </>
+          )}
         </div>
       </header>
 
