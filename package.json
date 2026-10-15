@@ -1,7 +1,21 @@
 {
-  "name": "temp-next-app",
+  "name": "uxe.fyi",
   "version": "0.1.0",
   "private": true,
+  "description": "The open-source home for UX Engineering — a living handbook, a career bridge, and a community.",
+  "homepage": "https://uxe.fyi",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sidhanshumonga/uxe.fyi.git"
+  },
+  "bugs": {
+    "url": "https://github.com/sidhanshumonga/uxe.fyi/issues"
+  },
+  "license": "MIT AND CC-BY-SA-4.0",
+  "author": "Sidhanshu Monga (https://github.com/sidhanshumonga)",
+  "engines": {
+    "node": ">=20.9.0"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",

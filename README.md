@@ -70,7 +70,7 @@ Start with **[CONTRIBUTING.md](CONTRIBUTING.md)**, or browse the [good first iss
 
 ## 🛠️ Run it locally
 
-You'll need **Node.js 20+** (22 recommended; there's an `.nvmrc`, so `nvm use` works).
+You'll need **Node.js 20.9+** (22 recommended; there's an `.nvmrc`, so `nvm use` works).
 
 ```bash
 git clone https://github.com/sidhanshumonga/uxe.fyi.git

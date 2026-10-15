@@ -47,7 +47,7 @@ Please also read our [Code of Conduct](CODE_OF_CONDUCT.md). The short version: b
 
 ## Your first pull request
 
-You'll need **Node.js 20+** and **git**.
+You'll need **Node.js 20.9+** and **git**.
 
 ```bash
 # 1. Fork the repo on GitHub, then clone your fork
