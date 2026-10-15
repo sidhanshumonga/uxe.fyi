@@ -19,15 +19,18 @@ export default function LearningPage() {
   );
   const total = LEARNING_TRACKS.reduce((n, tr) => n + tr.items.length, 0);
   const published = lessons.filter((l) => l.frontmatter.status === 'published').length;
+  const complete = published >= total;
 
   return (
     <>
       <PageHeader
         eyebrow="Learning"
         title="A handbook,"
-        italic="still being written."
+        italic={complete ? 'written in the open.' : 'still being written.'}
         lead={
-          published
+          complete
+            ? `All ${total} lessons are live — short, focused, and finishable, across four tracks. Spotted a gap or a better way to explain something? The handbook is open for edits.`
+            : published
             ? 'The handbook grows track by track, lesson by lesson — short, focused, and finishable. The first lessons are live. The rest are outlines waiting for an author.'
             : "The full handbook will grow track by track, lesson by lesson — short, focused, and finishable. Below is the scaffold of what's coming. Pick one you want to write."
         }
@@ -35,14 +38,25 @@ export default function LearningPage() {
 
       <section style={{ paddingTop: 32, paddingBottom: 24 }}>
         <div className="container">
+          {complete ? (
+            <EmptyState
+              eyebrow={`${published} lessons published · outline complete`}
+              title="The handbook is"
+              italic="written. Make it better."
+              body="Every lesson in the outline now exists. Found a mistake, a clearer example, or a topic that's missing? Suggest it in an issue, or edit the lesson directly and open a PR."
+              primary={{ label: 'Suggest a lesson', icon: 'github', href: `${REPO}/issues/new?template=2-suggest-a-topic.yml` }}
+              secondary={{ label: 'Edit the lessons', icon: 'arrow', href: `${REPO}/tree/main/content/lessons` }}
+            />
+          ) : (
           <EmptyState
-            eyebrow={`${published} lesson${published === 1 ? '' : 's'} published · ${total - published} drafting`}
-            title="The handbook is"
-            italic="open for authors."
-            body="Every dashed card below is a lesson outline waiting for someone to write it. You don't need permission — pick a topic, open a PR with a draft, and it becomes a real lesson on uxe.fyi."
-            primary={{ label: published ? 'Write a lesson' : 'Write the first lesson', icon: 'github', href: `${REPO}/issues/new?template=3-claim-a-piece.yml` }}
-            secondary={{ label: 'See the outline', icon: 'arrow', href: `${REPO}/blob/main/src/data/learning.ts` }}
-          />
+              eyebrow={`${published} lesson${published === 1 ? '' : 's'} published · ${total - published} drafting`}
+              title="The handbook is"
+              italic="open for authors."
+              body="Every dashed card below is a lesson outline waiting for someone to write it. You don't need permission — pick a topic, open a PR with a draft, and it becomes a real lesson on uxe.fyi."
+              primary={{ label: published ? 'Write a lesson' : 'Write the first lesson', icon: 'github', href: `${REPO}/issues/new?template=3-claim-a-piece.yml` }}
+              secondary={{ label: 'See the outline', icon: 'arrow', href: `${REPO}/blob/main/src/data/learning.ts` }}
+            />
+          )}
         </div>
       </section>
 
