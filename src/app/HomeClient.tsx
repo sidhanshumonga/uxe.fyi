@@ -4,7 +4,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { Icon, IconName } from '@/components/Icon';
 import { BREAKDOWN_DEMOS } from '@/generated/breakdown-demos';
-import { Avatar, ActivityFeed } from '@/components/CommunityComponents';
+import { Avatar, ActivityFeed, type ActivityItem } from '@/components/CommunityComponents';
 
 const HOME_BREAKDOWNS = ['optimistic-ui', 'skeleton-vs-spinner', 'fuzzy-search', 'easing-curves', 'form-choreography', 'empty-states'];
 
@@ -645,7 +645,7 @@ export interface HomeCommunity {
 
 const plural = (n: number, one: string, many = one + 's') => (n === 1 ? one : many);
 
-function CommunitySection({ community }: { community: HomeCommunity }) {
+function CommunitySection({ community, activity }: { community: HomeCommunity; activity: ActivityItem[] }) {
   const people = community.contributors.length || 1;
   return (
     <section>
@@ -719,7 +719,7 @@ function CommunitySection({ community }: { community: HomeCommunity }) {
 
           {/* Right: activity feed */}
           <div style={{ display: 'flex', flexDirection: 'column' }}>
-            <ActivityFeed limit={6} />
+            <ActivityFeed items={activity} limit={6} />
             <Link href="/community" style={{
               display: 'block', width: '100%',
               padding: '12px',
@@ -744,7 +744,7 @@ function CommunitySection({ community }: { community: HomeCommunity }) {
 }
 
 // ── Main Page Component Assembly ───────────────────────────────────────────
-export default function HomeClient({ essays, community }: { essays: HomeEssay[]; community: HomeCommunity }) {
+export default function HomeClient({ essays, community, activity }: { essays: HomeEssay[]; community: HomeCommunity; activity: ActivityItem[] }) {
   const coffeeUrl = "https://buymeacoffee.com/sidhanshu";
 
   return (
@@ -771,7 +771,7 @@ export default function HomeClient({ essays, community }: { essays: HomeEssay[];
       <TransitionsSection />
       <ThinkingSection essays={essays} />
       <BreakdownsSection />
-      <CommunitySection community={community} />
+      <CommunitySection community={community} activity={activity} />
 
       {/* Closing manifesto */}
       <section>

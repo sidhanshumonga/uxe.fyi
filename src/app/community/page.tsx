@@ -1,88 +1,16 @@
-'use client';
-
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { PageHeader } from '@/components/PageHeader';
 import { EmptyState } from '@/components/EmptyState';
 import { Icon, IconName } from '@/components/Icon';
-import { Avatar, ActivityFeed, ActivityItem } from '@/components/CommunityComponents';
+import { Avatar, ActivityFeed } from '@/components/CommunityComponents';
+import { getContributors, getRecentActivity } from '@/lib/github';
 import { AUTHORS } from '@/data/authors';
 
 const MAINTAINER = 'sidhanshumonga';
 
-interface Contributor {
-  name: string;
-  avatarUrl: string;
-  contributions: number;
-}
-
-export default function CommunityPage() {
-  const [contributors, setContributors] = useState<Contributor[]>([]);
-  const [activity, setActivity] = useState<ActivityItem[]>([]);
-
-  useEffect(() => {
-    // Contributors (GitHub sorts by contribution count)
-    fetch('https://api.github.com/repos/sidhanshumonga/uxe.fyi/contributors')
-      .then((res) => {
-        if (!res.ok) throw new Error('API Rate Limit or Network Error');
-        return res.json();
-      })
-      .then((data) => {
-        if (Array.isArray(data)) {
-          const formatted = data.map((c: { login: string; avatar_url: string; contributions: number }) => ({
-            name: c.login,
-            avatarUrl: c.avatar_url,
-            contributions: c.contributions,
-          }));
-          setContributors(formatted);
-        }
-      })
-      .catch((err) => console.log('GitHub contributors error:', err));
-
-    // Recent commits for the activity feed
-    fetch('https://api.github.com/repos/sidhanshumonga/uxe.fyi/commits?per_page=5')
-      .then((res) => {
-        if (!res.ok) throw new Error('API Rate Limit or Network Error');
-        return res.json();
-      })
-      .then((data) => {
-        if (Array.isArray(data)) {
-          const getRelativeTime = (dateString: string) => {
-            const date = new Date(dateString);
-            const now = new Date();
-            const diffMs = now.getTime() - date.getTime();
-            const diffSec = Math.floor(diffMs / 1000);
-            const diffMin = Math.floor(diffSec / 60);
-            const diffHr = Math.floor(diffMin / 60);
-            const diffDays = Math.floor(diffHr / 24);
-
-            if (diffSec < 60) return 'just now';
-            if (diffMin < 60) return `${diffMin}m ago`;
-            if (diffHr < 24) return `${diffHr}h ago`;
-            if (diffDays === 1) return 'yesterday';
-            return `${diffDays} days ago`;
-          };
-
-          const formattedActivity: ActivityItem[] = data.map((item: {
-            author?: { login: string; avatar_url: string };
-            commit: { author: { name: string; date: string }; message: string };
-          }) => {
-            const msg = item.commit.message.split('\n')[0];
-            const isMerge = msg.startsWith('Merge');
-            return {
-              who: item.author?.login || item.commit.author.name || 'contributor',
-              verb: isMerge ? 'merged' : 'committed',
-              what: msg,
-              when: getRelativeTime(item.commit.author.date),
-              kind: isMerge ? 'merge' : 'ship',
-              avatarUrl: item.author?.avatar_url || '',
-            };
-          });
-          setActivity(formattedActivity);
-        }
-      })
-      .catch((err) => console.log('GitHub commits activity error:', err));
-  }, []);
-
+export default async function CommunityPage() {
+  const [people, activity] = await Promise.all([getContributors(), getRecentActivity(8)]);
+  const contributors = people.map((c) => ({ name: c.login, avatarUrl: c.avatarUrl, contributions: c.contributions }));
 
   return (
     <>
@@ -137,7 +65,7 @@ export default function CommunityPage() {
           <p style={{ fontSize: 15, color: 'var(--ink-dim)', maxWidth: '54ch', lineHeight: 1.55, marginBottom: 28 }}>
             Every merged PR, opened issue, and shipped breakdown will show up here.
           </p>
-          <ActivityFeed items={activity.length > 0 ? activity : undefined} />
+          <ActivityFeed items={activity} />
         </div>
       </section>
 

@@ -985,3 +985,7 @@ section.tight { padding: clamp(32px, 5vw, 64px) 0; }
 .reader-small a{color:var(--muted);text-decoration:underline;text-decoration-color:var(--border-strong);text-underline-offset:3px}
 .reader-small a:hover{color:var(--accent)}
 .author-av{border-radius:50%;background:var(--surface-2);border:1px solid var(--border);flex:none;object-fit:cover}
+
+.activity-row { transition: background 140ms; }
+.activity-row:hover { background: var(--surface-2); }
+.activity-row:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }

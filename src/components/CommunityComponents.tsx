@@ -1,16 +1,12 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 export interface AvatarData {
   i: string;
   c: string;
   url?: string;
 }
-
-export const AVATARS: AvatarData[] = [
-  { i: 'U', c: '#FF3D88' },
-];
 
 export const Avatar: React.FC<{ a: AvatarData; size?: number }> = ({ a, size = 36 }) => (
   <div
@@ -42,16 +38,39 @@ export interface ActivityItem {
   who: string;
   verb: string;
   what: string;
-  when: string;
+  /** ISO timestamp; shown as relative time ("3h ago") in the browser. */
+  date: string;
+  /** Link to the commit / PR on GitHub. */
+  href?: string;
   kind: 'merge' | 'rfc' | 'ship' | 'review' | 'essay';
   avatarUrl?: string;
 }
 
-export const ACTIVITY: ActivityItem[] = [
-  { who: 'uxe.fyi', verb: 'initialized', what: 'the repository', when: 'just now', kind: 'merge' },
-  { who: 'uxe.fyi', verb: 'shipped', what: 'six live interaction breakdowns', when: 'today', kind: 'ship' },
-  { who: 'uxe.fyi', verb: 'opened', what: 'discussion: what should uxe.fyi cover first?', when: 'today', kind: 'rfc' },
-];
+const SHORT_DATE = new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric', timeZone: 'UTC' });
+
+function relative(iso: string, now: number) {
+  const sec = Math.floor((now - Date.parse(iso)) / 1000);
+  const min = Math.floor(sec / 60);
+  const hr = Math.floor(min / 60);
+  const days = Math.floor(hr / 24);
+  if (sec < 60) return 'just now';
+  if (min < 60) return `${min}m ago`;
+  if (hr < 24) return `${hr}h ago`;
+  if (days === 1) return 'yesterday';
+  if (days < 30) return `${days} days ago`;
+  return SHORT_DATE.format(new Date(iso));
+}
+
+/** Relative time, computed after mount so server and client HTML agree. */
+function When({ iso }: { iso: string }) {
+  const [now, setNow] = useState<number | null>(null);
+  useEffect(() => {
+    setNow(Date.now());
+    const t = setInterval(() => setNow(Date.now()), 60_000);
+    return () => clearInterval(t);
+  }, []);
+  return <time dateTime={iso}>{now === null ? SHORT_DATE.format(new Date(iso)) : relative(iso, now)}</time>;
+}
 
 export const verbColor: Record<ActivityItem['kind'], string> = {
   merge: 'var(--accent)',
@@ -62,13 +81,13 @@ export const verbColor: Record<ActivityItem['kind'], string> = {
 };
 
 interface ActivityFeedProps {
-  items?: ActivityItem[];
+  items: ActivityItem[];
   showHeader?: boolean;
   limit?: number;
 }
 
 export const ActivityFeed: React.FC<ActivityFeedProps> = ({
-  items = ACTIVITY,
+  items,
   showHeader = true,
   limit,
 }) => {
@@ -110,13 +129,23 @@ export const ActivityFeed: React.FC<ActivityFeedProps> = ({
         </div>
       )}
       <div>
+        {list.length === 0 && (
+          <div style={{ padding: '18px 22px', fontSize: 13, color: 'var(--muted)' }}>
+            Couldn&rsquo;t load recent activity right now.{' '}
+            <a href="https://github.com/sidhanshumonga/uxe.fyi/commits/main" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--accent)' }}>
+              See it on GitHub →
+            </a>
+          </div>
+        )}
         {list.map((a, i) => {
-          const av = a.avatarUrl
-            ? { i: a.who[0].toUpperCase(), c: 'var(--accent)', url: a.avatarUrl }
-            : AVATARS[i % AVATARS.length];
+          const av = { i: a.who[0].toUpperCase(), c: 'var(--accent)', url: a.avatarUrl };
           return (
-            <div
-              key={i}
+            <a
+              key={a.href ?? i}
+              href={a.href ?? 'https://github.com/sidhanshumonga/uxe.fyi/commits/main'}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="activity-row"
               style={{
                 display: 'flex',
                 alignItems: 'center',
@@ -137,9 +166,9 @@ export const ActivityFeed: React.FC<ActivityFeedProps> = ({
                 </div>
               </div>
               <span className="mono" style={{ fontSize: 11, color: 'var(--muted)' }}>
-                {a.when}
+                <When iso={a.date} />
               </span>
-            </div>
+            </a>
           );
         })}
       </div>
