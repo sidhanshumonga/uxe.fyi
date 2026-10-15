@@ -4,7 +4,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { Icon, IconName } from '@/components/Icon';
 import { BREAKDOWN_DEMOS } from '@/generated/breakdown-demos';
-import { Avatar, AVATARS, ActivityFeed } from '@/components/CommunityComponents';
+import { Avatar, ActivityFeed } from '@/components/CommunityComponents';
 
 const HOME_BREAKDOWNS = ['optimistic-ui', 'skeleton-vs-spinner', 'fuzzy-search', 'easing-curves', 'form-choreography', 'empty-states'];
 
@@ -636,7 +636,17 @@ function BreakdownsSection() {
 }
 
 // ── Built in public day-one community section ──────────────────────────────
-function CommunitySection() {
+export interface HomeCommunity {
+  contributors: { login: string; avatar: string }[];
+  lessons: number;
+  breakdowns: number;
+  roadmaps: number;
+}
+
+const plural = (n: number, one: string, many = one + 's') => (n === 1 ? one : many);
+
+function CommunitySection({ community }: { community: HomeCommunity }) {
+  const people = community.contributors.length || 1;
   return (
     <section>
       <div className="container">
@@ -660,10 +670,10 @@ function CommunitySection() {
               background: 'var(--surface)',
             }}>
               {[
-                { n: '1', l: 'contributor' },
-                { n: '0', l: 'guides' },
-                { n: '6', l: 'live breakdowns' },
-                { n: '0', l: 'roadmaps' },
+                { n: String(people), l: plural(people, 'contributor') },
+                { n: String(community.lessons), l: plural(community.lessons, 'lesson') },
+                { n: String(community.breakdowns), l: plural(community.breakdowns, 'live breakdown') },
+                { n: String(community.roadmaps), l: plural(community.roadmaps, 'roadmap') },
               ].map((s, i) => (
                 <div key={i}>
                   <div className="display" style={{ fontSize: 'clamp(34px, 4vw, 56px)', fontWeight: 500, letterSpacing: '-0.04em', lineHeight: 1 }}>
@@ -682,15 +692,17 @@ function CommunitySection() {
               flex: 1,
             }}>
               <div className="mono" style={{ fontSize: 11, color: 'var(--muted)', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: 16 }}>The crew, so far</div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 14 }}>
-                <Avatar a={AVATARS[0]} size={36} />
-                <div>
-                  <div style={{ fontSize: 14, fontWeight: 500 }}>uxe.fyi</div>
-                  <div className="mono" style={{ fontSize: 11, color: 'var(--muted)' }}>maintainer · just opened the repo</div>
-                </div>
+              <div style={{ display: 'flex', alignItems: 'center', marginBottom: 14 }}>
+                {(community.contributors.length ? community.contributors : [{ login: 'sidhanshumonga', avatar: '' }]).map((c, i) => (
+                  <div key={c.login} style={{ marginLeft: i ? -8 : 0 }} title={`@${c.login}`}>
+                    <Avatar a={{ i: c.login[0].toUpperCase(), c: '#FF3D88', url: c.avatar }} size={36} />
+                  </div>
+                ))}
               </div>
               <p style={{ fontSize: 14, color: 'var(--ink-dim)', lineHeight: 1.55, margin: '0 0 16px', maxWidth: '40ch' }}>
-                uxe.fyi just opened its doors. Be the second name on the contributor list.
+                {people === 1
+                  ? 'One person has shipped the lessons, essays, reviews and breakdowns so far. Be the next name on the list.'
+                  : `${people} people have shipped lessons, essays, reviews and breakdowns so far. Be the next name on the list.`}
               </p>
               <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
                 <a href="https://github.com/sidhanshumonga/uxe.fyi" target="_blank" rel="noopener noreferrer" className="btn primary" style={{ padding: '9px 16px', fontSize: 13 }}>
@@ -732,7 +744,7 @@ function CommunitySection() {
 }
 
 // ── Main Page Component Assembly ───────────────────────────────────────────
-export default function HomeClient({ essays }: { essays: HomeEssay[] }) {
+export default function HomeClient({ essays, community }: { essays: HomeEssay[]; community: HomeCommunity }) {
   const coffeeUrl = "https://buymeacoffee.com/sidhanshu";
 
   return (
@@ -759,7 +771,7 @@ export default function HomeClient({ essays }: { essays: HomeEssay[] }) {
       <TransitionsSection />
       <ThinkingSection essays={essays} />
       <BreakdownsSection />
-      <CommunitySection />
+      <CommunitySection community={community} />
 
       {/* Closing manifesto */}
       <section>
