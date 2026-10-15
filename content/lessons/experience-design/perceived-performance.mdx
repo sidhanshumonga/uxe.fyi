@@ -2,7 +2,7 @@
 title: Perceived performance
 description: Skeletons, optimism, work hiding.
 authors: [sidhanshumonga]
-status: review
+status: published
 track: experience-design
 level: mid
 date: 2026-10-14
@@ -23,9 +23,13 @@ Users do not experience milliseconds. They experience waiting. You can often mak
 
 Skeleton screens prepare the eye for the layout that is coming, so the arrival of content feels like a fill-in rather than a jump. Use them for content with a predictable structure, not for every spinner.
 
+<Demo name="skeleton-vs-spinner" caption="Switch between the two and notice where your eye goes." />
+
 ## Be optimistic
 
 For actions that almost always succeed, such as likes, toggles and reorders, apply the result immediately and reconcile with the server in the background. Roll back visibly if it fails.
+
+<Demo name="optimistic-ui" caption="Same click, two strategies: update instantly, or wait for the server." />
 
 ## Hide work
 
@@ -33,4 +37,4 @@ For actions that almost always succeed, such as likes, toggles and reorders, app
 - Start uploads as soon as a file is chosen, not on submit
 - Render the critical path first and defer the rest
 
-Try the [Optimistic UI](/breakdowns/optimistic-ui) and [Skeleton vs spinner](/breakdowns/skeleton-vs-spinner) breakdowns to feel the difference directly.
+The [Optimistic UI](/breakdowns/optimistic-ui) and [Skeleton vs spinner](/breakdowns/skeleton-vs-spinner) breakdowns go deeper into how each is built.

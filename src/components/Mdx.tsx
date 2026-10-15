@@ -3,6 +3,7 @@ import remarkGfm from 'remark-gfm';
 import { Children, isValidElement, type ComponentProps, type ReactNode } from 'react';
 import { headingId } from '@/lib/content/headings';
 import { MdxDemo } from './BreakdownDemo';
+import { Practice } from './practice/Practice';
 
 // Contributed MDX is rendered with JavaScript expressions blocked (next-mdx-remote's
 // default blockJS: true): Markdown, GFM and the components below with plain
@@ -42,7 +43,7 @@ function H2({ children, ...props }: ComponentProps<'h2'>) {
   return <h2 id={headingId(textOf(children))} {...props}>{children}</h2>;
 }
 
-const components = { a: A, img: Img, p: P, h2: H2, Demo: MdxDemo };
+const components = { a: A, img: Img, p: P, h2: H2, Demo: MdxDemo, Practice };
 
 /** className: "prose" for breakdown pages, "reader-body …" for the readers. */
 export function Mdx({ source, className = 'prose' }: { source: string; className?: string }) {

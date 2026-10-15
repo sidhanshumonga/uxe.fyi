@@ -130,7 +130,9 @@ Cross-posting something you published elsewhere first? Add `original: <url>`. ux
 
 **Images** go in `public/<collection>/<slug>/` (for example `public/essays/invisible-friction/hero.png`). Reference them as `![What the image shows](/essays/invisible-friction/hero.png "Optional caption")`. The alt text describes the image for people who can't see it, and the quoted title becomes a visible caption.
 
-**Live demos:** an essay can embed any breakdown's demo with `<Demo name="<breakdown-slug>" caption="…" />`, for example `<Demo name="optimistic-ui" />`.
+**Practice exercises:** lessons can embed an interactive exercise with `<Practice name="…" />` (`fitts`, `contrast`, `states`; add new ones in `src/components/practice/`).
+
+**Live demos:** an essay or lesson can embed any breakdown's demo with `<Demo name="<breakdown-slug>" caption="…" />`, for example `<Demo name="optimistic-ui" />`.
 
 Lessons also take `track:` (`foundations`, `engineering`, `experience-design` or `real-world`) and `level:` (`starter`, `mid`, `advanced`), plus optional `learn:`, `exercise:` and `takeaways:` that fill the lesson page's "You'll be able to", "Try it" and "Key takeaways" blocks. A lesson's title should match its entry in the handbook outline (`src/data/learning.ts`). Resource reviews take `kind:` (`book`, `talk`, `tool`, `podcast`, `article`, `course`, `site`, `system`), `creator:` (who made it) and `link:`, plus optional `verdict:`, `time:`, `level:` and `skip:` for the "At a glance" panel. `authors` is you, the reviewer. The templates in `content/_templates/` show all of these.
 

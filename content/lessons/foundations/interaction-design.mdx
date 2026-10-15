@@ -2,7 +2,7 @@
 title: Interaction design
 description: States, transitions, feedback, recovery.
 authors: [sidhanshumonga]
-status: review
+status: published
 track: foundations
 level: starter
 date: 2026-10-14
@@ -26,12 +26,16 @@ Every interactive element has more states than the mockup shows. Interaction des
 - Empty, partial, overflow
 - Offline and retrying
 
+Step one button through the states that a mockup usually leaves out:
+
+<Practice name="states" />
+
 ## Transitions
 
 A transition explains a change of state. It should be short enough not to delay the user, typically 120–250ms, and the direction of movement should match the spatial model: things that came from the right leave to the right.
 
 ## Feedback and recovery
 
-Every action needs a response within about 100ms, even if it is only a pressed state. Every error needs a way back. Prefer [undo over confirmation](/breakdowns/undo-systems) for anything that can be reversed.
+Every action needs a response within about 100ms, even if it is only a pressed state; that is roughly the limit for a response to feel instant ([Nielsen](https://www.nngroup.com/articles/response-times-3-important-limits/)). Every error needs a way back. Prefer [undo over confirmation](/breakdowns/undo-systems) for anything that can be reversed.
 
 > The happy path is designed once. The other states are where users actually spend their time.

@@ -2,7 +2,7 @@
 title: Accessibility
 description: Keyboard, screen reader, color, motion, focus.
 authors: [sidhanshumonga]
-status: review
+status: published
 track: foundations
 level: starter
 date: 2026-10-14
@@ -37,4 +37,8 @@ Semantic HTML gives you most of the accessibility tree for free. ARIA fills the 
 
 ## Color and motion
 
-Body text needs a contrast ratio of at least 4.5:1. Never use color alone to signal state. Respect `prefers-reduced-motion` by removing large movement while keeping opacity fades.
+Body text needs a contrast ratio of at least 4.5:1, and large text at least 3:1 ([WCAG 2.1, 1.4.3](https://www.w3.org/WAI/WCAG21/Understanding/contrast-minimum.html)). Never use color alone to signal state. Respect `prefers-reduced-motion` by removing large movement while keeping opacity fades.
+
+Check a few pairs yourself, including the muted label colour on this site:
+
+<Practice name="contrast" />
