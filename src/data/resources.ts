@@ -24,7 +24,7 @@ export const RESOURCES = [
   { kind: 'tool' as const, t: 'Cursor', who: 'Anysphere', d: 'A code editor that pairs with you. Excellent for fast UI iteration.', tags: ['editor'] },
   { kind: 'podcast' as const, t: 'Thanks for Making It', who: 'Beth Altringer Eagle', d: 'Interviews with people who blend design and engineering, from RISD.', tags: ['interviews'] },
   { kind: 'podcast' as const, t: 'Clearleft Podcast: Design Engineering', who: 'Clearleft', d: 'A focused episode on what design engineers do and where they sit in a team.', tags: ['role'] },
-  { kind: 'system' as const, t: 'Radix Primitives', who: 'WorkOS', d: 'Accessible, unstyled primitives. A masterclass in component API design.', tags: ['systems'] },
+  { kind: 'system' as const, t: 'Radix Primitives', who: 'WorkOS (originally Modulz)', d: 'Accessible, unstyled primitives. A masterclass in component API design.', tags: ['systems'] },
   { kind: 'system' as const, t: 'Polaris', who: 'Shopify', d: 'Shopify’s system — strong on documentation and content guidelines.', tags: ['systems'] },
   { kind: 'system' as const, t: 'GOV.UK Design System', who: 'Government Digital Service', d: 'Patterns researched with real users, with the evidence published alongside.', tags: ['systems', 'a11y'] },
 ];
