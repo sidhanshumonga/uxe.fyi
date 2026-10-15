@@ -1,0 +1,48 @@
+---
+title: State for UX
+description: State machines, optimistic updates, undo.
+authors: [sidhanshumonga]
+status: published
+track: engineering
+level: advanced
+date: 2026-10-15
+learn:
+  - Model an interaction as explicit states and transitions
+  - Make impossible states impossible
+  - Implement optimistic updates and undo safely
+exercise: Pick a component with several boolean flags (isLoading, isError, isOpen…). Draw its real states and the events that move between them. Rewrite it with a single status value and check which "impossible" combinations disappeared.
+takeaways:
+  - One explicit status beats several booleans
+  - Every state needs a design, including the unhappy ones
+  - Optimism and undo are state problems before they're UI problems
+---
+
+Many interaction bugs come from state that can't exist in the real world: loading and error at the same time, a success message for a request that's still pending. Modelling state explicitly removes whole classes of these bugs and makes every state visible to design.
+
+## From booleans to states
+
+Three booleans give eight combinations, most of them meaningless. A single status lists only the real ones:
+
+```ts
+type Status =
+  | { kind: 'idle' }
+  | { kind: 'loading' }
+  | { kind: 'success'; data: Item[] }
+  | { kind: 'error'; message: string };
+```
+
+Now the error message only exists in the error state, and the data only in success.
+
+## State machines
+
+A state machine adds the events that move between states and rejects the ones that don't make sense: a "submit" event is ignored while already submitting. Statecharts, introduced by David Harel in 1987, extend this with nested and parallel states; libraries such as XState implement them. Even without a library, drawing the states and arrows is the fastest way to find missing designs.
+
+## Optimistic updates
+
+Apply the expected result immediately, remember the previous state, and reconcile when the server responds. On failure, roll back and tell the user. See [Optimistic UI](/breakdowns/optimistic-ui).
+
+## Undo
+
+Undo is a pending state between "requested" and "done". Keep the removed item and its position until the window closes, then commit:
+
+<Demo name="undo-systems" caption="Confirm first, or act now and undo after." />

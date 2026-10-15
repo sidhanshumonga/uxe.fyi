@@ -1,0 +1,57 @@
+---
+title: Motion systems
+description: Tokens for time, easing, distance.
+authors: [sidhanshumonga]
+status: published
+track: engineering
+level: advanced
+date: 2026-10-15
+learn:
+  - Define motion tokens for duration, easing and distance
+  - Map interaction types to motion patterns
+  - Keep motion consistent across a product and its reduced-motion mode
+exercise: List every animation in one area of your product with its duration and easing. Group them into three or four tokens, and write down which interactions use which token. Replace the outliers.
+takeaways:
+  - Motion needs tokens like colour and spacing do
+  - Few durations, few curves, used consistently
+  - Reduced motion is a mode of the system, not an afterthought
+---
+
+When every engineer picks their own durations and curves, a product feels slightly different on every screen. A motion system makes motion a set of shared decisions, the same way tokens do for colour and spacing.
+
+## Motion tokens
+
+Start small:
+
+```css
+:root {
+  --dur-instant: 100ms;  /* pressed states, toggles */
+  --dur-fast: 150ms;     /* hovers, small changes */
+  --dur-base: 240ms;     /* panels, menus, dialogs */
+  --dur-slow: 400ms;     /* large layout changes */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in: cubic-bezier(0.7, 0, 0.84, 0);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+}
+```
+
+Duration often scales with distance: a tooltip moving a few pixels needs less time than a full-screen sheet.
+
+## Patterns, not one-offs
+
+Map kinds of change to motion patterns, and document them:
+
+- **Enter / exit** — fade plus a short slide from the trigger's direction
+- **Expand / collapse** — size change anchored to its origin
+- **Feedback** — press, success and error states
+- **Navigation** — how screens relate spatially
+
+Each pattern uses a fixed combination of tokens, so the same kind of change always moves the same way.
+
+## Choreography
+
+When several things move together, stagger them slightly and keep the total short. Lead with the element the user acted on; secondary elements follow.
+
+## Reduced motion as a mode
+
+Define what every pattern becomes under `prefers-reduced-motion`: usually a fade, or an instant change. Building it into the tokens keeps it consistent instead of patched per component.

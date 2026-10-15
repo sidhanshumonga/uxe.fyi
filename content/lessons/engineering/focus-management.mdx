@@ -1,0 +1,43 @@
+---
+title: Focus management
+description: Dialogs, route changes, and where focus goes next.
+authors: [sidhanshumonga]
+status: published
+track: engineering
+level: mid
+date: 2026-10-15
+learn:
+  - Move focus into a dialog and back out again correctly
+  - Handle focus after client-side route changes
+  - Keep focus visible and in a logical order
+exercise: Open every dialog, menu and drawer in your product using only the keyboard. Note where focus lands when each opens and closes. Fix the first one that leaves focus somewhere unexpected.
+takeaways:
+  - Focus should always be somewhere sensible and visible
+  - Dialogs take focus in and give it back on close
+  - Single-page navigation must move focus like a page load would
+---
+
+Keyboard and screen reader users follow focus. When focus jumps somewhere unexpected, or disappears, they lose their place. Managing it well is invisible to mouse users and essential for everyone else.
+
+## Dialogs
+
+The [WAI-ARIA dialog pattern](https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/) describes the expected behaviour:
+
+- On open, move focus into the dialog, usually to the first useful control
+- While open, Tab and Shift+Tab stay inside the dialog
+- Escape closes it
+- On close, return focus to the element that opened it
+
+The native `<dialog>` element opened with `showModal()` handles much of this for you, and the `inert` attribute makes everything outside a modal unfocusable without manual focus traps.
+
+## Route changes
+
+In a single-page app, clicking a link swaps the content but leaves focus on the link, which may no longer exist. Screen reader users hear nothing. After navigation, move focus to the new page's main heading or main region, and make sure the new page title is announced.
+
+## Removing and reordering
+
+When the focused element disappears, for example a deleted list item, focus falls back to the document body. Move it somewhere sensible first: the next item, the previous one, or the list itself.
+
+## Visible and in order
+
+Never remove focus outlines without a replacement. Use `:focus-visible` to show rings for keyboard users without showing them on every mouse click. Keep DOM order matching visual order, so Tab moves the way the eye expects.

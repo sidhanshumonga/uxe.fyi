@@ -1,0 +1,39 @@
+---
+title: Design systems
+description: Tokens, patterns, primitives, governance.
+authors: [sidhanshumonga]
+status: published
+track: engineering
+level: mid
+date: 2026-10-15
+learn:
+  - Structure a system as tokens, primitives and patterns
+  - Make accessibility a property of the primitives
+  - Keep a system alive with contribution and deprecation rules
+exercise: Audit one component in your design system. List its props, the states it supports, its keyboard behaviour and who uses it. Write down one change that would make it simpler to use correctly.
+takeaways:
+  - Tokens, then primitives, then patterns
+  - Accessible primitives make every product accessible by default
+  - A system without governance becomes a component graveyard
+---
+
+A design system is a product whose users are other designers and engineers. Its job is to make the right thing the easy thing: consistent, accessible, fast to build with.
+
+## Layers
+
+- **Tokens** — named decisions: colours, spacing, type, radii, motion. See [Systems thinking](/learning/systems-thinking).
+- **Primitives** — unstyled or lightly styled building blocks with the hard behaviour solved: focus, keyboard support, dismissal, positioning. Libraries like [Radix Primitives](/resources/radix-primitives) are a good reference.
+- **Components** — primitives with your brand applied: Button, Dialog, Select.
+- **Patterns** — documented combinations for recurring problems: forms, empty states, destructive actions.
+
+## Accessibility lives in the primitives
+
+If the Dialog primitive traps and restores focus correctly, every dialog in every product does too. That's the strongest argument for a system: fix accessibility once, ship it everywhere.
+
+## API design
+
+Good component APIs are small and hard to misuse. Prefer a few named variants over many booleans, compose with children instead of passing render props for everything, and support both controlled and uncontrolled use where state is involved.
+
+## Governance
+
+Systems decay when nobody decides what gets in or out. Define how teams propose a new component, how breaking changes are versioned and announced, and how old components are deprecated and removed. Document usage with real examples and the reasons behind each decision, not just a props table.

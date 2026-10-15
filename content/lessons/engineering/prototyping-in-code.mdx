@@ -1,0 +1,45 @@
+---
+title: Prototyping in code
+description: Throwaway branches, fake data, fast feedback loops.
+authors: [sidhanshumonga]
+status: published
+track: engineering
+level: starter
+date: 2026-10-15
+learn:
+  - Build a coded prototype in hours, not days
+  - Use fake data and fake latency to test how something feels
+  - Know when a prototype has answered its question
+exercise: Pick an open design question about an interaction (a transition, a loading state, a gesture). Build the smallest coded prototype that answers it, with fake data and an adjustable delay, and share a link or a recording with your designer.
+takeaways:
+  - Prototype to answer one question
+  - Fake the data, the latency and the edge cases on purpose
+  - Throw the prototype away once it has done its job
+---
+
+Static mockups can't show timing, scrolling, real text lengths or slow networks. A coded prototype can, and building one fast is one of the most useful things a UX engineer does.
+
+## Answer one question
+
+A prototype exists to answer a question: does this transition feel right, is this list scannable with real data, does this flow survive a slow connection? Write the question down first. It tells you what to build and, just as importantly, what to skip.
+
+## Fake everything else
+
+- **Data** — hard-code a realistic array. Include the long name, the empty value and the 300-item list.
+- **Latency** — wrap requests in a delay you can change, so you can feel 100ms, 1s and 5s.
+- **Errors** — add a switch that makes the next request fail.
+
+```ts
+const fakeFetch = <T,>(data: T, ms = 800, fail = false) =>
+  new Promise<T>((resolve, reject) =>
+    setTimeout(() => (fail ? reject(new Error('Network error')) : resolve(data)), ms),
+  );
+```
+
+## Keep it disposable
+
+Build on a throwaway branch or in a scratch project. Skip tests, ignore architecture and hard-code freely. The moment you start making a prototype production-ready, it stops being fast.
+
+## Share it
+
+Send a link or a short screen recording, and ask about the one question you set out to answer. Live prototypes settle debates about feel faster than any meeting.

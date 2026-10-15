@@ -1,0 +1,43 @@
+---
+title: Frontend architecture
+description: Composition, state, side effects, boundaries.
+authors: [sidhanshumonga]
+status: published
+track: engineering
+level: mid
+date: 2026-10-15
+learn:
+  - Decide where each piece of state should live
+  - Keep side effects at the edges of a component tree
+  - Draw boundaries that let a screen fail or load in parts
+exercise: Pick one screen and list every piece of state it uses. For each, write where it lives today and where it should live (local, URL, server cache, global). Move the one that's in the wrong place.
+takeaways:
+  - Put state as close as possible to where it's used
+  - Server data is a cache, not app state
+  - Boundaries decide how a screen loads and fails
+---
+
+Architecture is mostly about where things live: state, data fetching, side effects. Get those right and features stay easy to change. Get them wrong and every small interaction touches five files.
+
+## Where state lives
+
+Most state belongs in one of four places, and putting it in the wrong one causes most frontend bugs.
+
+- **Local** — open/closed, hover, a draft input. Keep it in the component.
+- **URL** — anything you'd want to share or restore: filters, tabs, the selected item.
+- **Server cache** — data that belongs to the server. Fetch it, cache it, revalidate it; don't copy it into a global store.
+- **Global client state** — the small remainder that truly spans the app, such as the current user or theme.
+
+## Side effects at the edges
+
+Fetching, subscriptions, timers and analytics are side effects. Keep them in a few predictable places (data loaders, event handlers, a handful of effects) rather than scattered through render logic. Components that only turn props into UI are easy to test and reuse.
+
+## Composition over configuration
+
+Build screens by composing small components rather than passing a growing list of options into large ones. Children and slots keep each piece simple and let callers decide the layout.
+
+## Boundaries
+
+Loading and error boundaries decide how a screen behaves when part of it is slow or broken. One boundary around the whole page means one spinner and one failure mode. Boundaries around independent sections let the rest of the page work while one part loads or fails.
+
+> Ask "what should the user see while this is loading, and if it fails?" before writing the component.

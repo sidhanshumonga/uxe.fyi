@@ -1,0 +1,44 @@
+---
+title: Performance
+description: CLS, INP, image strategy, JS budgets.
+authors: [sidhanshumonga]
+status: published
+track: engineering
+level: mid
+date: 2026-10-15
+learn:
+  - Read the three Core Web Vitals and what each one measures
+  - Prevent layout shift with reserved space
+  - Keep interactions responsive by keeping the main thread free
+exercise: Run your most important page through PageSpeed Insights or the Performance panel in DevTools. Find the single biggest issue among LCP, INP and CLS, fix it, and measure again.
+takeaways:
+  - Measure what users feel, not just load time
+  - Reserve space for anything that loads late
+  - Long tasks on the main thread are the enemy of responsiveness
+---
+
+Performance is part of how an interface feels. A page that loads fast but jumps around, or responds to clicks half a second late, still feels slow.
+
+## Core Web Vitals
+
+Google's [Core Web Vitals](https://web.dev/articles/vitals) measure three parts of that experience. A page is considered good when at least 75% of visits meet each threshold:
+
+| Metric | Measures | Good |
+|---|---|---|
+| LCP — Largest Contentful Paint | when the main content appears | 2.5 s or less |
+| INP — Interaction to Next Paint | how quickly the page responds to input | 200 ms or less |
+| CLS — Cumulative Layout Shift | how much content moves unexpectedly | 0.1 or less |
+
+INP replaced First Input Delay as a Core Web Vital in March 2024, because it measures every interaction, not just the first.
+
+## Layout shift
+
+Content that moves after it appears is disorienting and causes mis-clicks. Reserve space for anything that loads late: give images `width` and `height` (or `aspect-ratio`), size ad and embed slots, and make skeletons match the real layout. Load web fonts in a way that avoids large reflows.
+
+## Responsiveness
+
+INP suffers when the main thread is busy. Break long tasks into smaller pieces, move heavy work off the main thread, and give immediate visual feedback (a pressed state, an [optimistic update](/breakdowns/optimistic-ui)) before doing expensive work.
+
+## Images and JavaScript
+
+Images are often the largest content: serve modern formats at the right size and lazy-load those below the fold. JavaScript is the most expensive byte to ship because it must be downloaded, parsed and run. Set a budget and check new dependencies against it.

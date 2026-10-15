@@ -1,0 +1,47 @@
+---
+title: Animations
+description: CSS, WAAPI, spring physics, choreography.
+authors: [sidhanshumonga]
+status: published
+track: engineering
+level: mid
+date: 2026-10-15
+learn:
+  - Choose between CSS transitions, keyframes, WAAPI and springs
+  - Animate properties that stay smooth
+  - Respect reduced-motion preferences
+exercise: Find one state change in your product that happens instantly (a panel opening, an item being added). Give it a 150–250ms transition on transform and opacity, with an ease-out curve and a reduced-motion fallback. Compare the two versions side by side.
+takeaways:
+  - Animate transform and opacity whenever you can
+  - Motion should explain a change, not decorate it
+  - Always provide a reduced-motion path
+---
+
+Animation explains change: where something came from, where it went, what just happened. Good animation is quick and purposeful; most users won't notice it, only that the interface feels clear.
+
+## Pick the right tool
+
+- **CSS transitions** — for changes between two states, like hover or open/closed.
+- **CSS keyframes** — for looping or multi-step motion, like a spinner or a shimmer.
+- **Web Animations API** — `element.animate()` gives you keyframes from JavaScript, with the ability to pause, reverse and await `finished`.
+- **Springs** — for motion that should feel physical or respond to gestures. Libraries like [Motion](/resources/motion) provide spring physics.
+
+## Animate cheap properties
+
+`transform` and `opacity` can usually be animated by the compositor without recalculating layout. Animating `width`, `height`, `top` or `left` forces layout on every frame and is much more likely to stutter. To animate size or position changes smoothly, measure, then animate a transform (the FLIP technique).
+
+## Timing and easing
+
+Most interface transitions sit between about 150 and 300ms. Entering elements should ease out (arrive fast, settle gently); exiting elements can ease in. Compare the curves:
+
+<Demo name="easing-curves" caption="Same distance, same duration, four different curves." />
+
+## Reduced motion
+
+Some people get dizzy or distracted from motion. Honour `prefers-reduced-motion` by removing large movement and parallax, while keeping quick fades that still explain the change.
+
+```css
+@media (prefers-reduced-motion: reduce) {
+  .panel { transition: opacity 150ms linear; transform: none; }
+}
+```
