@@ -1,9 +1,7 @@
 import type { Metadata } from 'next';
+import { sectionMetadata } from '@/lib/sections';
 
-export const metadata: Metadata = {
-  title: 'timelines & learning — uxe.fyi',
-  description: 'A structured timeline and handbook of foundations, engineering depth, and design psychology for UX Engineering.',
-};
+export const metadata: Metadata = sectionMetadata('learning');
 
 export default function LearningLayout({ children }: { children: React.ReactNode }) {
   return <>{children}</>;

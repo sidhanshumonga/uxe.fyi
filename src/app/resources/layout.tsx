@@ -1,9 +1,7 @@
 import type { Metadata } from 'next';
+import { sectionMetadata } from '@/lib/sections';
 
-export const metadata: Metadata = {
-  title: 'handbook resources — uxe.fyi',
-  description: 'Books, talks, tools, podcasts, and design systems recommended by and for UX Engineers.',
-};
+export const metadata: Metadata = sectionMetadata('resources');
 
 export default function ResourcesLayout({ children }: { children: React.ReactNode }) {
   return <>{children}</>;

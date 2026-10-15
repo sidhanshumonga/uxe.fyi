@@ -47,6 +47,40 @@ async function load() {
 
 const clamp = (s: string, max: number) => (s.length > max ? s.slice(0, max - 1).trimEnd() + '…' : s);
 
+function Frame({ mark, children, footer }: { mark: string; children: React.ReactNode; footer: string }) {
+  return (
+    <div style={{ width: '100%', height: '100%', display: 'flex', position: 'relative', background: C.bg, color: C.ink, fontFamily: 'Bricolage' }}>
+      {/* 60px grid, faded in from the top-left like the brand card. Drawn as
+          lines because Satori doesn't tile layered background gradients. */}
+      {Array.from({ length: 20 }, (_, i) => (
+        <div key={`v${i}`} style={{ position: 'absolute', top: 0, bottom: 0, left: i * 60, width: 1, background: C.grid }} />
+      ))}
+      {Array.from({ length: 11 }, (_, i) => (
+        <div key={`h${i}`} style={{ position: 'absolute', left: 0, right: 0, top: i * 60, height: 1, background: C.grid }} />
+      ))}
+      <div style={{ position: 'absolute', top: 0, left: 0, width: 1200, height: 630, backgroundImage: `linear-gradient(120deg, ${C.bg} 30%, rgba(11,11,10,0) 100%)` }} />
+
+      <div style={{ position: 'relative', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', width: '100%', padding: '72px 80px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 18 }}>
+          <img src={mark} width={64} height={64} alt="" />
+          <div style={{ display: 'flex', alignItems: 'center', fontFamily: 'Mono', fontWeight: 600, fontSize: 34, letterSpacing: '-0.04em' }}>
+            uxe.fyi
+            {/* block cursor: .5em × .72em, sitting on the baseline */}
+            <div style={{ width: 17, height: 24, marginLeft: 2, marginTop: 6, background: C.accent }} />
+          </div>
+        </div>
+
+        {children}
+
+        <div style={{ display: 'flex', justifyContent: 'space-between', fontFamily: 'Mono', fontSize: 22, color: C.muted }}>
+          <span>{footer}</span>
+          <span>uxe.fyi</span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 /** Preview for an article-like page: eyebrow, headline, short description. */
 export async function articleOg({ eyebrow, title, description, footer }: { eyebrow: string; title: string; description: string; footer: string }) {
   const { mark, fonts } = await load();
@@ -55,41 +89,39 @@ export async function articleOg({ eyebrow, title, description, footer }: { eyebr
 
   return new ImageResponse(
     (
-      <div style={{ width: '100%', height: '100%', display: 'flex', position: 'relative', background: C.bg, color: C.ink, fontFamily: 'Bricolage' }}>
-        {/* 60px grid, faded in from the top-left like the brand card. Drawn as
-            lines because Satori doesn't tile layered background gradients. */}
-        {Array.from({ length: 20 }, (_, i) => (
-          <div key={`v${i}`} style={{ position: 'absolute', top: 0, bottom: 0, left: i * 60, width: 1, background: C.grid }} />
-        ))}
-        {Array.from({ length: 11 }, (_, i) => (
-          <div key={`h${i}`} style={{ position: 'absolute', left: 0, right: 0, top: i * 60, height: 1, background: C.grid }} />
-        ))}
-        <div style={{ position: 'absolute', top: 0, left: 0, width: 1200, height: 630, backgroundImage: `linear-gradient(120deg, ${C.bg} 30%, rgba(11,11,10,0) 100%)` }} />
-
-        <div style={{ position: 'relative', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', width: '100%', padding: '72px 80px' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 18 }}>
-            <img src={mark} width={64} height={64} alt="" />
-            <div style={{ display: 'flex', alignItems: 'center', fontFamily: 'Mono', fontWeight: 600, fontSize: 34, letterSpacing: '-0.04em' }}>
-              uxe.fyi
-              {/* block cursor: .5em × .72em, sitting on the baseline */}
-              <div style={{ width: 17, height: 24, marginLeft: 2, marginTop: 6, background: C.accent }} />
-            </div>
+      <Frame mark={mark} footer={footer}>
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
+          <div style={{ display: 'flex', fontFamily: 'Mono', fontSize: 20, color: C.accent, textTransform: 'uppercase', letterSpacing: '0.12em', marginBottom: 22 }}>
+            {eyebrow}
           </div>
+          <div style={{ display: 'flex', fontSize: size, fontWeight: 500, letterSpacing: '-0.035em', lineHeight: 0.98, maxWidth: 1000 }}>{t}</div>
+          <div style={{ display: 'flex', marginTop: 24, fontSize: 28, lineHeight: 1.35, color: C.dim, maxWidth: 940 }}>{clamp(description, 130)}</div>
+        </div>
+      </Frame>
+    ),
+    { ...OG_SIZE, fonts },
+  );
+}
 
-          <div style={{ display: 'flex', flexDirection: 'column' }}>
-            <div style={{ display: 'flex', fontFamily: 'Mono', fontSize: 20, color: C.accent, textTransform: 'uppercase', letterSpacing: '0.12em', marginBottom: 22 }}>
-              {eyebrow}
-            </div>
-            <div style={{ display: 'flex', fontSize: size, fontWeight: 500, letterSpacing: '-0.035em', lineHeight: 0.98, maxWidth: 1000 }}>{t}</div>
-            <div style={{ display: 'flex', marginTop: 24, fontSize: 28, lineHeight: 1.35, color: C.dim, maxWidth: 940 }}>{clamp(description, 130)}</div>
+/** Preview for a top-level section: its header as a two-line headline, the
+ *  second line in the serif italic accent (like the brand card). */
+export async function sectionOg({ eyebrow, headline, footer }: { eyebrow: string; headline: [string, string]; footer: string }) {
+  const { mark, fonts } = await load();
+  const longest = Math.max(headline[0].length, headline[1].length);
+  const size = longest > 22 ? 78 : longest > 16 ? 92 : 104;
+  return new ImageResponse(
+    (
+      <Frame mark={mark} footer={footer}>
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
+          <div style={{ display: 'flex', fontFamily: 'Mono', fontSize: 20, color: C.accent, textTransform: 'uppercase', letterSpacing: '0.12em', marginBottom: 20 }}>
+            {eyebrow}
           </div>
-
-          <div style={{ display: 'flex', justifyContent: 'space-between', fontFamily: 'Mono', fontSize: 22, color: C.muted }}>
-            <span>{footer}</span>
-            <span>uxe.fyi</span>
+          <div style={{ display: 'flex', fontSize: size, fontWeight: 500, letterSpacing: '-0.035em', lineHeight: 1 }}>{headline[0]}</div>
+          <div style={{ display: 'flex', fontFamily: 'Serif', fontStyle: 'italic', fontWeight: 400, fontSize: size * 1.04, color: C.accent, letterSpacing: '-0.01em', lineHeight: 1.05 }}>
+            {headline[1]}
           </div>
         </div>
-      </div>
+      </Frame>
     ),
     { ...OG_SIZE, fonts },
   );

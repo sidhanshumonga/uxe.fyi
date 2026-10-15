@@ -1,9 +1,7 @@
 import type { Metadata } from 'next';
+import { sectionMetadata } from '@/lib/sections';
 
-export const metadata: Metadata = {
-  title: 'career roadmaps — uxe.fyi',
-  description: 'Three distinct transition paths into UX Engineering from Software Engineering, Product Design, or Graduation.',
-};
+export const metadata: Metadata = sectionMetadata('roadmaps');
 
 export default function RoadmapsLayout({ children }: { children: React.ReactNode }) {
   return <>{children}</>;

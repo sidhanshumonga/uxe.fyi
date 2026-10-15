@@ -1,9 +1,7 @@
 import type { Metadata } from 'next';
+import { sectionMetadata } from '@/lib/sections';
 
-export const metadata: Metadata = {
-  title: 'interaction breakdowns — uxe.fyi',
-  description: 'Six live interactive React micro-breakdowns demonstrating perceived performance, spring mechanics, and responsive validation.',
-};
+export const metadata: Metadata = sectionMetadata('breakdowns');
 
 export default function BreakdownsLayout({ children }: { children: React.ReactNode }) {
   return <>{children}</>;

@@ -1,9 +1,7 @@
 import type { Metadata } from 'next';
+import { sectionMetadata } from '@/lib/sections';
 
-export const metadata: Metadata = {
-  title: 'uxe thinking — uxe.fyi',
-  description: 'Short, opinionated essays on the philosophy of UX Engineering — why interfaces should look, feel, and behave in certain ways.',
-};
+export const metadata: Metadata = sectionMetadata('thinking');
 
 export default function ThinkingLayout({ children }: { children: React.ReactNode }) {
   return <>{children}</>;
