@@ -1,0 +1,4 @@
+# Requests a review from the maintainer on every pull request.
+# Add co-maintainers or area owners as the project grows, e.g.:
+#   /content/breakdowns/  @sidhanshumonga @breakdown-reviewer
+*  @sidhanshumonga

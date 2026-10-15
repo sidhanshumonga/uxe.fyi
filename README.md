@@ -128,6 +128,10 @@ uxe.fyi is free, open source, and kept going by one maintainer plus whoever join
 - 🗣️ **Share it** with the designer who codes or the engineer who designs.
 - ☕ **[Buy me a coffee](https://buymeacoffee.com/sidhanshu)** to keep the lights on.
 
+## 🔒 Security
+
+Found a vulnerability? Please report it privately. See [SECURITY.md](SECURITY.md).
+
 ## 📄 License
 
 - **Code** is [MIT](LICENSE).

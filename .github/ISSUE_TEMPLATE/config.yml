@@ -6,3 +6,6 @@ contact_links:
   - name: 🛡️ Report a Code of Conduct concern privately
     url: https://github.com/sidhanshumonga/uxe.fyi/blob/main/CODE_OF_CONDUCT.md#enforcement
     about: Please don't open a public issue. Email the maintainer at the address listed here.
+  - name: 🔒 Report a security vulnerability
+    url: https://github.com/sidhanshumonga/uxe.fyi/blob/main/SECURITY.md
+    about: Please report security issues privately, not as a public issue.

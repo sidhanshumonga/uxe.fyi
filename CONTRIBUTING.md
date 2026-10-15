@@ -43,7 +43,7 @@ Not sure where to start? Look for issues labeled [`good first issue`](https://gi
 
 Have a topic that isn't on any list? Open an issue and pitch it in a few sentences: what it covers, who it's for, and why it matters. Rough is fine.
 
-Please also read our [Code of Conduct](CODE_OF_CONDUCT.md). The short version: be kind, be generous with credit, and argue with ideas, not people.
+Please also read our [Code of Conduct](CODE_OF_CONDUCT.md). Found a security problem? Don't open an issue; follow [SECURITY.md](SECURITY.md) instead. The short version: be kind, be generous with credit, and argue with ideas, not people.
 
 ## Your first pull request
 
