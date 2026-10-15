@@ -205,6 +205,7 @@ export default function CommunityPage() {
             </div>
             
             <EmptyState
+              variant="card"
               eyebrow={`${totalOtherContributors} other contributor${totalOtherContributors !== 1 ? 's' : ''} · so far`}
               title="Be the"
               italic="next name."

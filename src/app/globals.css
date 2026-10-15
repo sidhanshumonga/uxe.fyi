@@ -484,6 +484,19 @@ section.tight { padding: clamp(32px, 5vw, 64px) 0; }
   margin-top: 6px;
 }
 
+.es-strip{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px 40px;padding:18px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.es-strip-text{display:flex;flex-direction:column;gap:6px;flex:1 1 420px;min-width:0}
+.es-strip-eyebrow{display:flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.es-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);flex:none}
+.es-strip p{margin:0;font-size:14.5px;line-height:1.55;color:var(--muted);max-width:78ch;text-wrap:pretty}
+.es-strip p strong{font-weight:500;color:var(--ink)}
+.es-strip p .serif-italic{font-size:1.12em}
+.es-strip-actions{display:flex;align-items:center;gap:20px;flex:none}
+.es-link{display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:500;color:var(--ink-dim);border-bottom:1px solid transparent;padding:2px 0;transition:color .15s,border-color .15s}
+.es-link:hover{color:var(--ink);border-bottom-color:var(--border-strong)}
+.es-link.primary{color:var(--ink);border-bottom-color:var(--accent)}
+.es-link.primary:hover{color:var(--accent)}
+
 .draft-card {
   border: 1px dashed var(--border-strong);
   border-radius: 14px;
@@ -516,6 +529,11 @@ section.tight { padding: clamp(32px, 5vw, 64px) 0; }
   border: 1px solid var(--border);
   text-transform: uppercase;
 }
+.pub-pill{display:inline-flex;align-items:center;gap:5px;padding:3px 8px;border-radius:999px;font-family:var(--font-mono);font-size:10px;font-weight:500;letter-spacing:.04em;text-transform:uppercase;color:var(--accent);background:color-mix(in srgb,var(--accent) 12%,transparent);border:1px solid color-mix(in srgb,var(--accent) 35%,transparent);white-space:nowrap}
+.pub-card{display:flex;flex-direction:column;gap:10px;padding:22px;text-decoration:none;color:inherit}
+.pub-card .read-cta{font-family:var(--font-mono);font-size:11.5px;color:var(--ink-dim);display:flex;justify-content:space-between;gap:10px;margin-top:auto;transition:color 160ms}
+.pub-card:hover .read-cta{color:var(--accent)}
+.pub-meta{font-family:var(--font-mono);font-size:11px;color:var(--muted);white-space:nowrap}
 .draft-card .write-cta {
   font-family: var(--font-mono);
   font-size: 11.5px;

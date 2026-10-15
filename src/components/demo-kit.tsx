@@ -72,7 +72,8 @@ export const DemoFrame: React.FC<DemoFrameProps> = ({
     style={{
       display: 'flex',
       flexDirection: 'column',
-      flex: '1 1 auto', // fill the row when placed in a grid of cards
+      flex: 1,
+      height: '100%', // fill the row when placed in a grid of cards
       background: 'var(--surface)',
       border: '1px solid var(--border)',
       borderRadius: 14,
@@ -102,29 +103,41 @@ export const DemoFrame: React.FC<DemoFrameProps> = ({
       </div>
       <div style={{ fontSize: '13.5px', color: 'var(--ink-dim)', lineHeight: 1.5 }}>{desc}</div>
     </div>
-    <div style={{ padding: '20px', background: 'var(--bg)', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-      {children}
-    </div>
+    <div style={{ padding: '20px', background: 'var(--bg)', flex: 1 }}>{children}</div>
+    {/* Fixed-height footer (context/breakdowns.jsx): tags fade out instead of
+        wrapping, so every card in a row lines up. */}
     <div
       style={{
-        padding: '10px 16px',
+        height: 52,
+        flex: 'none',
+        padding: '0 16px',
         borderTop: '1px solid var(--border)',
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
         background: 'var(--bg-2)',
         gap: 12,
-        flexWrap: 'wrap',
       }}
     >
-      <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
+      <div
+        style={{
+          display: 'flex',
+          gap: 6,
+          flex: 1,
+          minWidth: 0,
+          overflow: 'hidden',
+          whiteSpace: 'nowrap',
+          maskImage: 'linear-gradient(90deg,#000 80%,transparent)',
+          WebkitMaskImage: 'linear-gradient(90deg,#000 80%,transparent)',
+        }}
+      >
         {tags.map((t) => (
           <span key={t} className="mono" style={{ fontSize: '10px', color: 'var(--muted)', letterSpacing: 0 }}>
             #{t}
           </span>
         ))}
       </div>
-      {controls}
+      <div style={{ flex: 'none' }}>{controls}</div>
     </div>
   </div>
 );
