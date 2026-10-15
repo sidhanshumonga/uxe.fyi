@@ -2,9 +2,11 @@ import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 import { ImageResponse } from 'next/og';
 
-// Link-preview (Open Graph) images, rendered at build time in the site's
-// own type and colors. Satori only supports flexbox, so every element with
-// more than one child sets display: flex.
+// Link-preview (Open Graph) images for essays and breakdowns, rendered at
+// build time. Styled after the brand kit's og-image.png (context/Brand Kit.html):
+// faded grid, logo mark + mono wordmark, Bricolage headline, mono footer.
+// The site-wide card is the static src/app/opengraph-image.png from the kit.
+// Satori only supports flexbox, so every element with several children sets display: flex.
 
 export const OG_SIZE = { width: 1200, height: 630 };
 export const OG_CONTENT_TYPE = 'image/png';
@@ -14,102 +16,81 @@ const C = {
   ink: '#EDEAE2',
   dim: '#B8B5AB',
   muted: '#807D74',
-  border: 'rgba(255,255,255,0.10)',
+  grid: 'rgba(255,255,255,0.09)',
   accent: '#FF3D88',
 };
 
-const fontFile = (name: string) => readFile(path.join(process.cwd(), 'assets/og-fonts', name));
+const asset = (...p: string[]) => readFile(path.join(process.cwd(), ...p));
 
-async function fonts() {
-  const [regular, semibold, serif, mono] = await Promise.all([
-    fontFile('BricolageGrotesque-Regular.ttf'),
-    fontFile('BricolageGrotesque-SemiBold.ttf'),
-    fontFile('InstrumentSerif-Italic.ttf'),
-    fontFile('JetBrainsMono-Medium.ttf'),
+async function load() {
+  const [medium, regular, serif, mono, monoBold, glyph] = await Promise.all([
+    asset('assets/og-fonts/BricolageGrotesque-Medium.ttf'),
+    asset('assets/og-fonts/BricolageGrotesque-Regular.ttf'),
+    asset('assets/og-fonts/InstrumentSerif-Italic.ttf'),
+    asset('assets/og-fonts/JetBrainsMono-Medium.ttf'),
+    asset('assets/og-fonts/JetBrainsMono-SemiBold.ttf'),
+    asset('public/brand/logo-mark-glyph.svg'),
   ]);
-  return [
-    { name: 'Bricolage', data: regular, weight: 400 as const, style: 'normal' as const },
-    { name: 'Bricolage', data: semibold, weight: 600 as const, style: 'normal' as const },
-    { name: 'Serif', data: serif, weight: 400 as const, style: 'italic' as const },
-    { name: 'Mono', data: mono, weight: 500 as const, style: 'normal' as const },
-  ];
+  // Strip the embedded provenance manifest; Satori only needs the shapes.
+  const svg = glyph.toString('utf8').replace(/<metadata>[\s\S]*?<\/metadata>/, '');
+  return {
+    mark: `data:image/svg+xml;base64,${Buffer.from(svg).toString('base64')}`,
+    fonts: [
+      { name: 'Bricolage', data: regular, weight: 400 as const, style: 'normal' as const },
+      { name: 'Bricolage', data: medium, weight: 500 as const, style: 'normal' as const },
+      { name: 'Serif', data: serif, weight: 400 as const, style: 'italic' as const },
+      { name: 'Mono', data: mono, weight: 500 as const, style: 'normal' as const },
+      { name: 'Mono', data: monoBold, weight: 600 as const, style: 'normal' as const },
+    ],
+  };
 }
 
 const clamp = (s: string, max: number) => (s.length > max ? s.slice(0, max - 1).trimEnd() + '…' : s);
 
-function Frame({ eyebrow, footer, children }: { eyebrow: string; footer: string; children: React.ReactNode }) {
-  return (
-    <div
-      style={{
-        width: '100%',
-        height: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-        padding: '64px 72px',
-        background: C.bg,
-        backgroundImage: `radial-gradient(circle at 88% 12%, rgba(255,61,136,0.20), rgba(255,61,136,0) 55%)`,
-        color: C.ink,
-        fontFamily: 'Bricolage',
-      }}
-    >
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-          <span style={{ fontSize: 34, fontWeight: 600, letterSpacing: '-0.02em' }}>uxe.fyi</span>
-          <span style={{ width: 13, height: 32, background: C.accent, borderRadius: 2 }} />
-        </div>
-        <span style={{ fontFamily: 'Mono', fontSize: 20, color: C.muted, textTransform: 'uppercase', letterSpacing: '0.12em' }}>
-          {eyebrow}
-        </span>
-      </div>
-
-      <div style={{ display: 'flex', flexDirection: 'column', flexGrow: 1, justifyContent: 'center' }}>{children}</div>
-
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: 26, borderTop: `1px solid ${C.border}` }}>
-        <span style={{ fontFamily: 'Mono', fontSize: 22, color: C.dim }}>{footer}</span>
-        <span style={{ display: 'flex', fontFamily: 'Mono', fontSize: 22, color: C.muted }}>
-          engineering the&nbsp;<span style={{ fontFamily: 'Serif', fontStyle: 'italic', fontSize: 28, color: C.accent }}>feel</span>&nbsp;of software
-        </span>
-      </div>
-    </div>
-  );
-}
-
-/** Preview for an article-like page: eyebrow, big title, short description. */
+/** Preview for an article-like page: eyebrow, headline, short description. */
 export async function articleOg({ eyebrow, title, description, footer }: { eyebrow: string; title: string; description: string; footer: string }) {
+  const { mark, fonts } = await load();
   const t = clamp(title, 90);
-  const size = t.length > 60 ? 64 : t.length > 34 ? 76 : 92;
-  return new ImageResponse(
-    (
-      <Frame eyebrow={eyebrow} footer={footer}>
-        <div style={{ display: 'flex', fontSize: size, fontWeight: 600, letterSpacing: '-0.035em', lineHeight: 1.02, maxWidth: 1000 }}>
-          {t}
-        </div>
-        <div style={{ display: 'flex', marginTop: 26, fontSize: 30, lineHeight: 1.35, color: C.dim, maxWidth: 960 }}>
-          {clamp(description, 140)}
-        </div>
-      </Frame>
-    ),
-    { ...OG_SIZE, fonts: await fonts() },
-  );
-}
+  const size = t.length > 60 ? 62 : t.length > 32 ? 76 : 92;
 
-/** The site-wide default preview: the homepage headline. */
-export async function siteOg({ eyebrow = 'the open-source home for UX engineering', lead }: { eyebrow?: string; lead?: string } = {}) {
   return new ImageResponse(
     (
-      <Frame eyebrow={eyebrow} footer="www.uxe.fyi">
-        <div style={{ display: 'flex', flexDirection: 'column', fontSize: 104, fontWeight: 600, letterSpacing: '-0.04em', lineHeight: 1.0 }}>
-          <div style={{ display: 'flex', alignItems: 'baseline' }}>
-            <span>We engineer the</span>
-            <span style={{ marginLeft: 26, fontFamily: 'Serif', fontStyle: 'italic', fontWeight: 400, color: C.accent, letterSpacing: '-0.01em' }}>feel</span>
+      <div style={{ width: '100%', height: '100%', display: 'flex', position: 'relative', background: C.bg, color: C.ink, fontFamily: 'Bricolage' }}>
+        {/* 60px grid, faded in from the top-left like the brand card. Drawn as
+            lines because Satori doesn't tile layered background gradients. */}
+        {Array.from({ length: 20 }, (_, i) => (
+          <div key={`v${i}`} style={{ position: 'absolute', top: 0, bottom: 0, left: i * 60, width: 1, background: C.grid }} />
+        ))}
+        {Array.from({ length: 11 }, (_, i) => (
+          <div key={`h${i}`} style={{ position: 'absolute', left: 0, right: 0, top: i * 60, height: 1, background: C.grid }} />
+        ))}
+        <div style={{ position: 'absolute', top: 0, left: 0, width: 1200, height: 630, backgroundImage: `linear-gradient(120deg, ${C.bg} 30%, rgba(11,11,10,0) 100%)` }} />
+
+        <div style={{ position: 'relative', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', width: '100%', padding: '72px 80px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 18 }}>
+            <img src={mark} width={64} height={64} alt="" />
+            <div style={{ display: 'flex', alignItems: 'center', fontFamily: 'Mono', fontWeight: 600, fontSize: 34, letterSpacing: '-0.04em' }}>
+              uxe.fyi
+              {/* block cursor: .5em × .72em, sitting on the baseline */}
+              <div style={{ width: 17, height: 24, marginLeft: 2, marginTop: 6, background: C.accent }} />
+            </div>
           </div>
-          <span>of software.</span>
+
+          <div style={{ display: 'flex', flexDirection: 'column' }}>
+            <div style={{ display: 'flex', fontFamily: 'Mono', fontSize: 20, color: C.accent, textTransform: 'uppercase', letterSpacing: '0.12em', marginBottom: 22 }}>
+              {eyebrow}
+            </div>
+            <div style={{ display: 'flex', fontSize: size, fontWeight: 500, letterSpacing: '-0.035em', lineHeight: 0.98, maxWidth: 1000 }}>{t}</div>
+            <div style={{ display: 'flex', marginTop: 24, fontSize: 28, lineHeight: 1.35, color: C.dim, maxWidth: 940 }}>{clamp(description, 130)}</div>
+          </div>
+
+          <div style={{ display: 'flex', justifyContent: 'space-between', fontFamily: 'Mono', fontSize: 22, color: C.muted }}>
+            <span>{footer}</span>
+            <span>uxe.fyi</span>
+          </div>
         </div>
-        <div style={{ display: 'flex', marginTop: 28, fontSize: 30, lineHeight: 1.35, color: C.dim, maxWidth: 940 }}>
-          {lead ?? 'A living handbook, a career bridge, and a community for the craft between engineering and design.'}
-        </div>
-      </Frame>
+      </div>
     ),
-    { ...OG_SIZE, fonts: await fonts() },
+    { ...OG_SIZE, fonts },
   );
 }

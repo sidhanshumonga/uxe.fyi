@@ -1,4 +1,5 @@
-Static font instances used to render link-preview (Open Graph) images in
+Static font instances (Bricolage 400/500, Instrument Serif italic,
+JetBrains Mono 500/600) used to render link-preview (Open Graph) images in
 `src/lib/og.tsx`. They match the site's fonts, which `next/font` loads for
 pages but which the image renderer can't use.
 

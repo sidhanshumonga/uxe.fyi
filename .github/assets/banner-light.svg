@@ -50,8 +50,14 @@
     <rect width="1280" height="560" filter="url(#grain)" opacity="0.05"/>
 
     <!-- top bar -->
-    <text x="72" y="78" font-family="'Bricolage Grotesque', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="26" font-weight="700" letter-spacing="-0.5" fill="#16140F">uxe.fyi</text>
-    <rect class="caret" x="161" y="58" width="10" height="26" rx="1.5" fill="#FF3D88"/>
+    <!-- logo mark (brand/logo-mark-glyph.svg, 64-unit grid scaled to 40px) -->
+    <g transform="translate(66 50) scale(0.625)">
+      <path d="M15 18V33A10.5 10.5 0 0 0 36 33V18M36 33V47" fill="none" stroke="#16140F" stroke-width="7"/>
+      <rect x="43" y="18" width="10" height="29" fill="#FF3D88"/>
+    </g>
+    <!-- wordmark: JetBrains Mono 600 + block cursor -->
+    <text x="114" y="79" font-family="'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace" font-size="24" font-weight="600" letter-spacing="-1" fill="#16140F">uxe.fyi</text>
+    <rect class="caret" x="211" y="62" width="12" height="18" fill="#FF3D88"/>
     <text x="1208" y="76" text-anchor="end" font-family="'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace" font-size="14" fill="#6F6C61"><tspan fill="#FF3D88">●</tspan>  open source · built in public</text>
     <line x1="72" y1="110" x2="1208" y2="110" stroke="rgba(11,11,10,0.12)"/>
 

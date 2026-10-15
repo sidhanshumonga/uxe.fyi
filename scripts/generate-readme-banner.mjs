@@ -68,8 +68,14 @@ for (const [name, t] of Object.entries(themes)) {
     <rect width="${W}" height="${H}" filter="url(#grain)" opacity="${t.grain}"/>
 
     <!-- top bar -->
-    <text x="72" y="78" font-family="${sans}" font-size="26" font-weight="700" letter-spacing="-0.5" fill="${t.ink}">uxe.fyi</text>
-    <rect class="caret" x="161" y="58" width="10" height="26" rx="1.5" fill="${accent}"/>
+    <!-- logo mark (brand/logo-mark-glyph.svg, 64-unit grid scaled to 40px) -->
+    <g transform="translate(66 50) scale(0.625)">
+      <path d="M15 18V33A10.5 10.5 0 0 0 36 33V18M36 33V47" fill="none" stroke="${t.ink}" stroke-width="7"/>
+      <rect x="43" y="18" width="10" height="29" fill="${accent}"/>
+    </g>
+    <!-- wordmark: JetBrains Mono 600 + block cursor -->
+    <text x="114" y="79" font-family="${mono}" font-size="24" font-weight="600" letter-spacing="-1" fill="${t.ink}">uxe.fyi</text>
+    <rect class="caret" x="211" y="62" width="12" height="18" fill="${accent}"/>
     <text x="${W - 72}" y="76" text-anchor="end" font-family="${mono}" font-size="14" fill="${t.muted}"><tspan fill="${accent}">●</tspan>  open source · built in public</text>
     <line x1="72" y1="110" x2="${W - 72}" y2="110" stroke="${t.border}"/>
 

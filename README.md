@@ -105,7 +105,8 @@ src/
 ├── lib/content/         # loads and validates content/ (frontmatter schemas in schema.ts)
 └── data/                # wishlist data not yet moved to content/
 content/                 # essays, lessons, roadmaps, resources, breakdowns (MDX + Demo.tsx), plus _templates/
-context/                 # the original prototype and the gap roadmap (roadmap.md)
+context/                 # design reference: the prototype, page designs and the Brand Kit
+public/brand/             # logo mark + wordmark (SVG/PNG) for press, social, README
 scripts/                 # repo tooling
 ```
 
