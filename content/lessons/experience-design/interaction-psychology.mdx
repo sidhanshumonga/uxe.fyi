@@ -1,0 +1,40 @@
+---
+title: Interaction psychology
+description: Perception, anticipation, recovery.
+authors: [sidhanshumonga]
+status: published
+track: experience-design
+level: mid
+date: 2026-10-15
+learn:
+  - Use response-time thresholds to decide what feedback an action needs
+  - Design for what users expect to happen next
+  - Make recovery from mistakes cheap
+exercise: Time five common actions in your product from click to visible response. Sort them into under 100ms, under 1s and over 1s, and check that each gets the feedback its bucket needs.
+takeaways:
+  - Response time is felt in thresholds, not milliseconds
+  - Meet expectations first, then surprise
+  - Mistakes are normal; recovery should be cheap
+---
+
+People don't experience interfaces as code paths. They experience waiting, expectation and mistakes. A few well-established findings about perception explain a lot of what makes an interface feel good.
+
+## Thresholds of time
+
+Jakob Nielsen's [response time limits](https://www.nngroup.com/articles/response-times-3-important-limits/) are a useful rule of thumb:
+
+- **About 0.1 s** — feels instant. A pressed state or toggle should respond within this.
+- **About 1 s** — the user notices the delay but keeps their train of thought. No special feedback needed beyond showing that something is happening.
+- **About 10 s** — the limit of attention. Longer tasks need progress, an estimate, and a way to do something else.
+
+## Anticipation
+
+Users act on what they expect to happen next. Conventions (a logo that goes home, a chevron that expands) are expectations you can rely on. Breaking one should buy something significant. You can also anticipate on their behalf: prefetch the next page on hover, pre-fill what you already know.
+
+## Perception of change
+
+People notice change more than state. Motion, contrast and position changes draw the eye, which is why animation should be reserved for changes that matter, and why important changes elsewhere on the screen need a visible cue.
+
+## Recovery
+
+Errors are inevitable, so the cost of a mistake matters more than its probability. Make actions reversible, keep users' input when something fails, and put the fix next to the problem. [Undo](/breakdowns/undo-systems) is often kinder than a warning.

@@ -1,0 +1,46 @@
+---
+title: Designing for failure
+description: Offline, timeouts, partial data, retries.
+authors: [sidhanshumonga]
+status: published
+track: experience-design
+level: mid
+date: 2026-10-15
+learn:
+  - List the ways a screen can fail and design each one
+  - Keep users' work safe when the network isn't
+  - Retry without making things worse
+exercise: Open your product with DevTools throttled to "Slow 3G", then switch to "Offline" halfway through a task. Write down everything that broke, lost data or left you without feedback, and fix the worst one.
+takeaways:
+  - Failure states are part of the design, not edge cases
+  - Never lose what the user typed
+  - Say what still works, not just what doesn't
+---
+
+Networks drop, servers time out and data arrives half-complete. Users on trains, in lifts and on cheap mobile plans see these states every day. Designing for failure means deciding what they should see and do when it happens.
+
+## The failure list
+
+For any screen, walk through:
+
+- **Slow** — a request takes 5 or 10 seconds
+- **Failed** — a request returns an error
+- **Offline** — the connection drops mid-task
+- **Partial** — some data loaded, some didn't
+- **Stale** — the data shown is out of date
+
+Each needs a design, even if the design is "show the cached version with a note".
+
+## Keep the user's work
+
+The worst failure is losing input. Save drafts locally, keep form values after an error, and queue changes made offline so they sync later. Saving in the background, and saying so quietly, removes the fear of losing work:
+
+<Demo name="debounced-autosave" caption="Save after the typing stops, and say so quietly." />
+
+## Retry carefully
+
+Retry transient failures automatically with increasing delays (exponential backoff) so you don't hammer a struggling server. Make retried actions idempotent, so that retrying a payment or a message can't do it twice. When automatic retries give up, offer a clear manual retry.
+
+## Communicate calmly
+
+Say what happened, what still works, and what will happen next: "You're offline. Changes will sync when you reconnect." Avoid alarming language for temporary problems, and don't block the whole screen for a failure in one part of it.
