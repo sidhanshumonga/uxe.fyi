@@ -1,0 +1,63 @@
+---
+title: Undo systems
+description: Don't ask "are you sure?" before every delete. Act now, and make it effortless to take back.
+authors: [sidhanshumonga]
+status: published
+tags: [trust]
+seen: Gmail
+date: 2026-10-14
+---
+
+## What it is
+
+Two ways to protect people from a destructive action. A **confirm dialog** stops them before the action: "Delete this email? This can't be undone." An **undo toast** lets the action happen immediately, then offers a few seconds to take it back.
+
+Delete a few emails in each mode above. With the dialog, every delete costs two clicks and a moment of reading. With the toast, deleting is one click, and the safety net only appears when you need it.
+
+## Why it works
+
+Confirm dialogs fail in a predictable way: people learn to click through them. After the third "Are you sure?", the dialog stops being a decision and becomes a speed bump, so it no longer catches the one delete that was a mistake. It also asks the user to predict a mistake *before* they've made it.
+
+Undo works the other way round. The user acts at full speed, sees the result, and gets a clear, short window to change their mind once they've noticed the mistake. Making the destructive action reversible is what lets it feel safe.
+
+## How it's built
+
+The core is a **pending deletion**: remove the item from the UI immediately, remember where it was, and only make the deletion permanent when the window closes.
+
+```tsx
+const remove = (item: Item) => {
+  const index = items.findIndex((i) => i.id === item.id);
+  setItems((list) => list.filter((i) => i.id !== item.id));
+  setPending({ item, index });
+  timer.current = setTimeout(() => {
+    api.delete(item.id); // only now is it permanent
+    setPending(null);
+  }, 5000);
+};
+
+const undo = () => {
+  clearTimeout(timer.current);
+  setItems((list) => {
+    const next = [...list];
+    next.splice(pending.index, 0, pending.item); // back where it was
+    return next;
+  });
+  setPending(null);
+};
+```
+
+A few details make it trustworthy:
+
+- **Restore in place.** Put the item back at its old index, not at the top or bottom of the list.
+- **Say what happened.** "Deleted 'Design review notes'" beats "Item deleted", so the user can tell which delete they're undoing.
+- **Announce it.** Put the toast in an `aria-live="polite"` region so screen reader users hear that the action happened and that undo is available.
+- **Show the window.** A countdown bar makes the deadline visible. Drop the animation when `prefers-reduced-motion` is set; the toast still works without it.
+- **Don't trap focus.** The toast shouldn't steal focus from what the user was doing, but its Undo button should be reachable by keyboard.
+
+On the server, the same idea is often a **soft delete**: mark the record as deleted, hide it, and purge it later. That makes undo possible even after the toast is gone, for example from a trash folder.
+
+## When not to use it
+
+Undo only works if the action is genuinely reversible. Keep a confirmation step for actions that can't be taken back: sending money, emailing a thousand customers, deleting an account, or anything with side effects outside your system. For those, make the confirmation specific ("Delete 'Acme Inc' and its 42 projects?"), and for the most serious ones, ask the user to type the name.
+
+Undo also needs to survive a fast user. If someone deletes three emails in a row, decide whether the toast undoes only the last one (as here) or all three, and make that obvious.
