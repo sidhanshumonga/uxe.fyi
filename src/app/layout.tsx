@@ -44,7 +44,8 @@ export default function RootLayout({
   const fontClasses = `${bricolage.variable} ${instrumentSerif.variable} ${jetbrainsMono.variable}`;
 
   return (
-    <html lang="en" className={fontClasses}>
+    // suppressHydrationWarning: the inline theme script adds .theme-light before hydration
+    <html lang="en" className={fontClasses} suppressHydrationWarning>
       <head>
         <script
           dangerouslySetInnerHTML={{
