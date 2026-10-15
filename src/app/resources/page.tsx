@@ -19,6 +19,7 @@ export default function ResourcesPage() {
         text: r.frontmatter.verdict ?? r.frontmatter.description,
         by: r.frontmatter.authors.map(authorName).join(', '),
         draft: r.frontmatter.status !== 'published',
+        cover: r.frontmatter.cover,
       },
     ]),
   );

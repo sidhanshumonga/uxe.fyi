@@ -4,12 +4,14 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { Icon } from '@/components/Icon';
 import { RESOURCES, KIND_LABEL, KIND_COLOR } from '@/data/resources';
+import { CardCover } from '@/components/CardCover';
 
 export interface WrittenReview {
   slug: string;
   text: string;
   by: string;
   draft: boolean;
+  cover?: string;
 }
 
 type KindFilter = 'all' | keyof typeof KIND_LABEL;
@@ -54,6 +56,7 @@ export function ResourcesList({ reviewed }: { reviewed: Record<string, WrittenRe
               const rv = reviewed[r.t.trim().toLowerCase()];
               return rv ? (
               <Link key={i} href={`/resources/${rv.slug}`} className="card hov pub-card" style={{ minHeight: 180 }}>
+                {rv.cover && <CardCover src={rv.cover} title={r.t} book={r.kind === 'book'} />}
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                   <span className="mono" style={{ fontSize: 10.5, color: KIND_COLOR[r.kind], textTransform: 'uppercase', letterSpacing: '0.1em' }}>{KIND_LABEL[r.kind]}</span>
                   {rv.draft ? <span className="draft-pill">in review</span> : <span className="pub-pill">reviewed</span>}

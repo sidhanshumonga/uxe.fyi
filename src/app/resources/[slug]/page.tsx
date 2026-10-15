@@ -9,6 +9,7 @@ import { Mdx } from '@/components/Mdx';
 import { AuthorAvatar } from '@/components/AuthorAvatar';
 import { LevelDot } from '@/components/LevelDot';
 import { Icon } from '@/components/Icon';
+import { CardCover } from '@/components/CardCover';
 
 // Resource review reader — layout from context/readers.jsx (ReviewPage).
 
@@ -125,6 +126,7 @@ export default async function ReviewPage({ params }: Props) {
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: 12 }}>
               {related.map((x) => (
                 <Link key={x.slug} href={`/resources/${x.slug}`} className="card hov pub-card">
+                  {x.frontmatter.cover && <CardCover src={x.frontmatter.cover} title={x.frontmatter.title} book={x.frontmatter.kind === 'book'} />}
                   <span className="mono" style={{ fontSize: 10.5, color: KIND_COLOR[x.frontmatter.kind], textTransform: 'uppercase', letterSpacing: '0.1em' }}>{KIND_LABEL[x.frontmatter.kind]}</span>
                   <div style={{ fontSize: 17, fontWeight: 500 }}>{x.frontmatter.title}</div>
                   <div className="serif-italic" style={{ fontSize: 13.5, color: 'var(--ink-dim)' }}>{x.frontmatter.creator}</div>
