@@ -46,6 +46,7 @@ const UndoDemo = () => {
   const [confirming, setConfirming] = useState<Item | null>(null);
   const [pending, setPending] = useState<{ item: Item; index: number; at: number } | null>(null);
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const seq = useRef(0); // bumps per delete, so the countdown bar restarts
   const cancelRef = useRef<HTMLButtonElement>(null);
   const reduced = usePrefersReducedMotion();
 
@@ -66,7 +67,8 @@ const UndoDemo = () => {
     setItems((list) => list.filter((i) => i.id !== item.id));
     if (mode === 'undo') {
       clearTimer();
-      setPending({ item, index, at: Date.now() });
+      seq.current += 1;
+      setPending({ item, index, at: seq.current });
       timer.current = setTimeout(() => setPending(null), UNDO_MS);
     }
   };
