@@ -69,7 +69,7 @@ export function ResourcesList({ reviewed }: { reviewed: Record<string, WrittenRe
               ) : (
               <a
                 key={i}
-                href="https://github.com/sidhanshumonga/uxe.fyi/issues/new?template=3-claim-a-piece.yml"
+                href={r.issue ? `https://github.com/sidhanshumonga/uxe.fyi/issues/${r.issue}` : 'https://github.com/sidhanshumonga/uxe.fyi/issues/new?template=3-claim-a-piece.yml'}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="draft-card"

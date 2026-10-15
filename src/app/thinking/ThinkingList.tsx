@@ -71,7 +71,7 @@ export function ThinkingList({ published, wishlist }: { published: PublishedRow[
         {wish.map((e) => (
           <a
             key={e.num}
-            href="https://github.com/sidhanshumonga/uxe.fyi/issues/new?template=3-claim-a-piece.yml"
+            href={e.issue ? `https://github.com/sidhanshumonga/uxe.fyi/issues/${e.issue}` : 'https://github.com/sidhanshumonga/uxe.fyi/issues/new?template=3-claim-a-piece.yml'}
             target="_blank"
             rel="noopener noreferrer"
             className="row-essay essay-draft"

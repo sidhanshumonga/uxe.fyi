@@ -2,22 +2,23 @@
 // (check before adding). Once a review exists at content/resources/<slug>.mdx
 // with the same title, the card links to it at /resources/<slug>.
 
-export const RESOURCES = [
+// `issue` (optional) links the wishlist card to its claimable GitHub issue.
+export const RESOURCES: { kind: 'book' | 'talk' | 'tool' | 'podcast' | 'article' | 'course' | 'site' | 'system'; t: string; who: string; d: string; tags: string[]; issue?: number }[] = [
   { kind: 'book' as const, t: 'About Face', who: 'Alan Cooper', d: 'The bible of interaction design — dense, opinionated, foundational.', tags: ['interaction', 'foundations'] },
   { kind: 'book' as const, t: 'Refactoring UI', who: 'Adam Wathan & Steve Schoger', d: 'Practical visual design heuristics for engineers.', tags: ['visual', 'starter'] },
   { kind: 'book' as const, t: 'Designing for the Digital Age', who: 'Kim Goodwin', d: 'The longest, most thorough book on UX you might ever read.', tags: ['process'] },
   { kind: 'book' as const, t: 'The Design of Everyday Things', who: 'Don Norman', d: 'Where affordances came from. Required reading.', tags: ['classic'] },
-  { kind: 'book' as const, t: 'Don’t Make Me Think', who: 'Steve Krug', d: 'Short, funny and still right about usability. Readable in an afternoon.', tags: ['usability', 'starter'] },
+  { kind: 'book' as const, t: 'Don’t Make Me Think', who: 'Steve Krug', d: 'Short, funny and still right about usability. Readable in an afternoon.', tags: ['usability', 'starter'], issue: 14 },
   { kind: 'book' as const, t: 'Inclusive Components', who: 'Heydon Pickering', d: 'Accessible patterns for real components — tabs, menus, toggles — reasoned through from scratch.', tags: ['a11y', 'components'] },
   { kind: 'book' as const, t: 'Designing Interfaces', who: 'Jenifer Tidwell, Charles Brewer & Aynne Valencia', d: 'A pattern language for interaction design, with the trade-offs spelled out.', tags: ['patterns'] },
   { kind: 'talk' as const, t: 'Have Single-Page Apps Ruined the Web?', who: 'Rich Harris', d: 'Coins “transitional apps” and argues for the middle ground between SPAs and MPAs.', tags: ['platform', 'architecture'] },
-  { kind: 'talk' as const, t: 'Inventing on Principle', who: 'Bret Victor', d: 'Creators need an immediate connection to what they create. The talk behind a generation of live-feedback tools.', tags: ['classic', 'tools'] },
+  { kind: 'talk' as const, t: 'Inventing on Principle', who: 'Bret Victor', d: 'Creators need an immediate connection to what they create. The talk behind a generation of live-feedback tools.', tags: ['classic', 'tools'], issue: 16 },
   { kind: 'article' as const, t: 'Invisible Details of Interaction Design', who: 'Rauno Freiberg', d: 'Why some interactions feel right: metaphors, kinetics, fidgetability, and robustness under stress.', tags: ['interaction', 'craft'] },
-  { kind: 'article' as const, t: 'An Interactive Guide to CSS Transitions', who: 'Josh W. Comeau', d: 'Timing functions, delays and hardware acceleration, explained with playgrounds.', tags: ['motion', 'css'] },
-  { kind: 'article' as const, t: 'Response Times: The 3 Important Limits', who: 'Jakob Nielsen', d: 'The 0.1s / 1s / 10s thresholds behind every loading-state decision.', tags: ['performance', 'classic'] },
+  { kind: 'article' as const, t: 'An Interactive Guide to CSS Transitions', who: 'Josh W. Comeau', d: 'Timing functions, delays and hardware acceleration, explained with playgrounds.', tags: ['motion', 'css'], issue: 18 },
+  { kind: 'article' as const, t: 'Response Times: The 3 Important Limits', who: 'Jakob Nielsen', d: 'The 0.1s / 1s / 10s thresholds behind every loading-state decision.', tags: ['performance', 'classic'], issue: 17 },
   { kind: 'course' as const, t: 'Animations on the Web', who: 'Emil Kowalski', d: 'Easing, timing and taste, with interactive exercises. From the author of Sonner and Vaul.', tags: ['motion'] },
   { kind: 'course' as const, t: 'CSS for JavaScript Developers', who: 'Josh W. Comeau', d: 'Builds the mental model of CSS that most engineers never got.', tags: ['css', 'foundations'] },
-  { kind: 'site' as const, t: 'Laws of UX', who: 'Jon Yablonski', d: 'Fitts, Hick, Jakob and friends — one illustrated page per law.', tags: ['psychology', 'starter'] },
+  { kind: 'site' as const, t: 'Laws of UX', who: 'Jon Yablonski', d: 'Fitts, Hick, Jakob and friends — one illustrated page per law.', tags: ['psychology', 'starter'], issue: 15 },
   { kind: 'site' as const, t: 'Web Interface Guidelines', who: 'Vercel', d: 'A checklist of interaction, a11y and performance details for web UIs.', tags: ['checklist', 'craft'] },
   { kind: 'tool' as const, t: 'Polypane', who: 'Kilian Valkhof', d: 'A multi-pane responsive browser built for designers and a11y.', tags: ['a11y', 'devtools'] },
   { kind: 'tool' as const, t: 'Motion', who: 'Matt Perry', d: 'Animation library for React and vanilla JS with springs and layout animations.', tags: ['motion'] },

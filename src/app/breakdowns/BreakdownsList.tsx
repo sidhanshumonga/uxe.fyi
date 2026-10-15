@@ -93,7 +93,7 @@ export function BreakdownsList({ live, queue }: { live: BreakdownCard[]; queue: 
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 10 }}>
             {queuedFiltered.map((b) => (
-              <a key={b.t} href={PROPOSE_URL} target="_blank" rel="noopener noreferrer" className="card hov" style={{ display: 'flex', flexDirection: 'column', gap: 10, padding: 18 }}>
+              <a key={b.t} href={b.issue ? `https://github.com/sidhanshumonga/uxe.fyi/issues/${b.issue}` : PROPOSE_URL} target="_blank" rel="noopener noreferrer" className="card hov" style={{ display: 'flex', flexDirection: 'column', gap: 10, padding: 18 }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
                   <span className="mono" style={{ fontSize: '10.5px', color: 'var(--accent)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
                     {b.kicker}
