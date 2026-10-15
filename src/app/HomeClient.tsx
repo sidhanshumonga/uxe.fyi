@@ -556,7 +556,7 @@ function ThinkingSection({ essays }: { essays: HomeEssay[] }) {
             <h2>Less <span className="serif-italic">"how"</span>,<br/>more <span className="serif-italic" style={{ color: 'var(--accent)' }}>"why does this feel right?"</span></h2>
           </div>
           <div className="lead">
-            The intellectual core of UX Engineering — short, opinionated essays on the ideas that shape how interfaces feel. Updated weekly.
+            The intellectual core of UX Engineering — short, opinionated essays on the ideas that shape how interfaces feel. New ones land as people write them, and the next one could be yours.
           </div>
         </div>
 
@@ -656,7 +656,7 @@ function CommunitySection({ community, activity }: { community: HomeCommunity; a
             <h2>An open notebook<br/>waiting for <span className="serif-italic" style={{ color: 'var(--accent)' }}>its&nbsp;people.</span></h2>
           </div>
           <div className="lead">
-            uxe.fyi is open-source and brand new. The structure is here — the handbook, the roadmaps, the breakdowns. Most of it is scaffolding, waiting for people who care about this stuff to fill it in.
+            uxe.fyi is open source and still young. The handbook and the breakdowns are live; essays, roadmaps and reviews are where most of the open work is. Pick something up — no permission needed.
           </div>
         </div>
 
