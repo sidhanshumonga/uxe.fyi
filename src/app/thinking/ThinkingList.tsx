@@ -10,10 +10,12 @@ export interface PublishedRow {
   title: string;
   description: string;
   tags: string[];
-  authors: string[];
+  by: string;
   readingMinutes: number;
   draft: boolean;
 }
+
+const pad = (n: number) => String(n).padStart(2, '0');
 
 const TAGS = ['all', 'attention', 'time', 'trust', 'craft', 'motion'] as const;
 type Tag = (typeof TAGS)[number];
@@ -53,55 +55,37 @@ export function ThinkingList({ published, wishlist }: { published: PublishedRow[
         ))}
       </div>
 
-      {pub.length > 0 && (
-        <div style={{ borderTop: '1px solid var(--border)', marginBottom: wish.length ? 56 : 0 }}>
-          {pub.map((e, i) => (
-            <Link key={e.slug} href={`/thinking/${e.slug}`} className="row-essay essay-published" style={{ borderBottom: '1px solid var(--border)' }}>
-              <span className="mono" style={{ fontSize: 12, color: 'var(--muted)' }}>{String(i + 1).padStart(2, '0')}</span>
-              <span className="mono" style={{ fontSize: '10.5px', color: 'var(--accent)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
-                {e.tags[0]}
-              </span>
-              <span className="display" style={{ fontSize: 'clamp(20px, 2.4vw, 28px)', fontWeight: 500, letterSpacing: '-0.02em', color: 'var(--ink)' }}>
-                {e.title}
-              </span>
-              <span style={{ fontSize: 13.5, color: 'var(--ink-dim)', lineHeight: 1.5 }}>{e.description}</span>
-              <span className={e.draft ? 'draft-pill' : 'mono'} style={e.draft ? undefined : { fontSize: 12, color: 'var(--muted)', whiteSpace: 'nowrap' }}>
-                {e.draft ? 'draft' : `${e.readingMinutes} min`}
-              </span>
-              <span className="arr" style={{ color: 'var(--accent)' }}><Icon name="arrow" size={14} /></span>
-            </Link>
-          ))}
-        </div>
-      )}
-
-      {wish.length > 0 && (
-        <>
-          {published.length > 0 && <div className="eyebrow" style={{ marginBottom: 18 }}>Still on the wishlist</div>}
-          <div style={{ borderTop: '1px solid var(--border)' }}>
-            {wish.map((e) => (
-              <a
-                key={e.num}
-                href="https://github.com/sidhanshumonga/uxe.fyi/issues/new?template=3-claim-a-piece.yml"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="row-essay essay-draft"
-                style={{ borderBottom: '1px dashed var(--border)' }}
-              >
-                <span className="mono" style={{ fontSize: 12, color: 'var(--muted)' }}>{e.num}</span>
-                <span className="mono" style={{ fontSize: '10.5px', color: 'var(--accent)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
-                  {e.kicker}
-                </span>
-                <span className="display" style={{ fontSize: 'clamp(20px, 2.4vw, 28px)', fontWeight: 500, letterSpacing: '-0.02em', color: 'var(--ink-dim)' }}>
-                  {e.t}
-                </span>
-                <span style={{ fontSize: 13.5, color: 'var(--muted)', lineHeight: 1.5 }}>{e.d}</span>
-                <span className="draft-pill">unclaimed</span>
-                <Icon name="github" size={14} />
-              </a>
-            ))}
-          </div>
-        </>
-      )}
+      {/* One list, as in the design: written essays (solid rows) first, then
+          wishlist ideas (dashed rows). Numbering continues across both. */}
+      <div style={{ borderTop: '1px solid var(--border)' }}>
+        {pub.map((e) => (
+          <Link key={e.slug} href={`/thinking/${e.slug}`} className="row-essay essay-published" style={{ borderBottom: '1px solid var(--border)' }}>
+            <span className="mono" style={{ fontSize: 12, color: 'var(--muted)' }}>{pad(published.indexOf(e) + 1)}</span>
+            <span className="mono" style={{ fontSize: '10.5px', color: 'var(--accent)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>{e.tags[0]}</span>
+            <span className="display" style={{ fontSize: 'clamp(20px, 2.4vw, 28px)', fontWeight: 500, letterSpacing: '-0.02em', color: 'var(--ink)' }}>{e.title}</span>
+            <span style={{ fontSize: 13.5, color: 'var(--ink-dim)', lineHeight: 1.5 }}>{e.description}</span>
+            {e.draft ? <span className="draft-pill">in review</span> : <span className="pub-meta">{e.readingMinutes} min · {e.by}</span>}
+            <Icon name="arrow" size={14} />
+          </Link>
+        ))}
+        {wish.map((e) => (
+          <a
+            key={e.num}
+            href="https://github.com/sidhanshumonga/uxe.fyi/issues/new?template=3-claim-a-piece.yml"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="row-essay essay-draft"
+            style={{ borderBottom: '1px dashed var(--border)' }}
+          >
+            <span className="mono" style={{ fontSize: 12, color: 'var(--muted)' }}>{pad(published.length + wishlist.indexOf(e) + 1)}</span>
+            <span className="mono" style={{ fontSize: '10.5px', color: 'var(--accent)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>{e.kicker}</span>
+            <span className="display" style={{ fontSize: 'clamp(20px, 2.4vw, 28px)', fontWeight: 500, letterSpacing: '-0.02em', color: 'var(--ink-dim)' }}>{e.t}</span>
+            <span style={{ fontSize: 13.5, color: 'var(--muted)', lineHeight: 1.5 }}>{e.d}</span>
+            <span className="draft-pill">drafting</span>
+            <Icon name="github" size={14} />
+          </a>
+        ))}
+      </div>
 
       {pub.length === 0 && wish.length === 0 && (
         <p className="dim" style={{ fontSize: 15 }}>Nothing filed under #{filter} yet.</p>
