@@ -23,7 +23,6 @@ export const ESSAY_WISHLIST: WishlistEssay[] = [
   { num: '06', kicker: 'craft',     t: 'Affordance is a verb', d: 'A button is not affordance. Looking like something you can press at this moment — that is.' },
   { num: '07', kicker: 'craft',     t: 'On the cursor', d: 'A meditation on the most important pixel on the screen — and how rarely we design for it.' },
   { num: '08', kicker: 'trust',     t: 'Undo as a feeling', d: 'The best feature you can add to a destructive action is the courage to do it.', issue: 6 },
-  { num: '09', kicker: 'time',      t: 'The 100ms budget', d: 'A tenth of a second is the line between instant and waiting. What to do on each side of it.', issue: 7 },
   { num: '10', kicker: 'craft',     t: 'Motion is a sentence', d: 'Animation has grammar: a subject, a verb, a direction. Most interfaces mumble.' },
   { num: '11', kicker: 'craft',     t: 'Defaults are decisions', d: 'Every default is a choice made on behalf of millions of people who will never change it.' },
   { num: '12', kicker: 'trust',     t: 'Errors are interface', d: 'An error message arrives at the moment users trust you least. Write it like you know that.' },
