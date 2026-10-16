@@ -1007,27 +1007,3 @@ section.tight { padding: clamp(32px, 5vw, 64px) 0; }
 .pub-card:hover .card-cover img{transform:translateY(-2px)}
 @media (prefers-reduced-motion: reduce){.card-cover img{transition:none}.pub-card:hover .card-cover img{transform:none}}
 
-/* Medium export page (/thinking/<slug>/medium) — plain, readable, not the reader design */
-.medium-export{max-width:calc(760px + 2 * clamp(20px, 4vw, 56px))}
-.medium-tools{padding-bottom:28px;margin-bottom:36px;border-bottom:1px solid var(--border)}
-.medium-images{margin-top:18px;font-size:13.5px;color:var(--ink-dim)}
-.medium-images summary{cursor:pointer;color:var(--ink)}
-.medium-images ol{display:flex;flex-direction:column;gap:12px;margin:12px 0 0;padding-left:20px}
-.medium-images code{font-family:var(--font-mono);font-size:12px;color:var(--muted)}
-.medium-article{font-size:18px;line-height:1.65;color:var(--ink-dim)}
-.medium-article h1{font-family:var(--font-display);font-size:40px;line-height:1.1;color:var(--ink);margin:0 0 8px}
-.medium-article h2{font-size:22px;font-weight:400;color:var(--muted);margin:0 0 32px}
-.medium-article h3{font-family:var(--font-display);font-size:26px;color:var(--ink);margin:40px 0 8px}
-.medium-article h4{font-size:20px;color:var(--ink);margin:28px 0 6px}
-.medium-article a{color:var(--ink);text-decoration:underline;text-decoration-color:var(--accent)}
-.medium-article blockquote{margin:24px 0;padding-left:18px;border-left:3px solid var(--accent);font-style:italic;color:var(--ink)}
-.medium-article pre{background:var(--bg-2);border:1px solid var(--border);border-radius:8px;padding:14px 16px;overflow:auto;font-family:var(--font-mono);font-size:14px;line-height:1.6;color:var(--ink)}
-.medium-article figure{margin:28px 0}
-.medium-article img{max-width:100%;height:auto;border-radius:6px}
-.medium-article figcaption{font-size:14px;color:var(--muted);text-align:center;margin-top:8px}
-.medium-article table{border-collapse:collapse;font-size:15px}
-.medium-article th,.medium-article td{border-bottom:1px solid var(--border);padding:8px 10px;text-align:left}
-.medium-article hr{border:0;border-top:1px solid var(--border);margin:36px 0}
-.medium-steps{margin:0 0 18px;padding-left:20px;display:flex;flex-direction:column;gap:6px;font-size:14.5px;color:var(--ink-dim);line-height:1.5}
-.medium-steps code{font-family:var(--font-mono);font-size:12.5px;background:var(--surface-2);padding:1px 5px;border-radius:4px}
-.medium-code-preview{margin:6px 0 0;padding:10px 12px;background:var(--bg-2);border:1px solid var(--border);border-radius:8px;font-family:var(--font-mono);font-size:12.5px;overflow:auto;color:var(--ink)}
