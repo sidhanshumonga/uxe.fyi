@@ -881,8 +881,10 @@ section.tight { padding: clamp(32px, 5vw, 64px) 0; }
 .reader-body p{margin:20px 0}
 .reader-body h2{font-family:var(--font-display);font-size:26px;font-weight:500;letter-spacing:-.02em;color:var(--ink);margin:44px 0 0}
 .reader-body ul{margin:20px 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:8px}
-.reader-body li{display:flex;gap:12px}
-.reader-body li::before{content:"—";color:var(--accent);flex:none}
+/* Dash bullets: the dash is positioned, so the item itself keeps normal
+   inline flow (bold, links and italics inside a bullet stay on one line). */
+.reader-body ul>li{position:relative;padding-left:24px}
+.reader-body ul>li::before{content:"—";color:var(--accent);position:absolute;left:0;top:0}
 .reader-body blockquote{margin:36px 0;padding:0 0 0 0;font-size:clamp(24px,2.6vw,32px);line-height:1.25;color:var(--accent);max-width:28ch}
 .reader-body pre{background:var(--bg-2);border:1px solid var(--border);border-radius:10px;padding:16px 18px;overflow:auto;font-family:var(--font-mono);font-size:13.5px;color:var(--ink)}
 .reader-foot{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;margin-top:32px;padding-top:24px;border-top:1px solid var(--border)}
@@ -925,7 +927,7 @@ section.tight { padding: clamp(32px, 5vw, 64px) 0; }
 .essay-head h1{font-size:clamp(52px,8vw,112px);line-height:.95;letter-spacing:-.02em;margin:0;font-weight:400;color:var(--ink)}
 .essay-head p{font-size:clamp(17px,1.6vw,21px);color:var(--ink-dim);line-height:1.5;max-width:48ch;margin:0;text-wrap:balance}
 .essay-byline{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:center;font-family:var(--font-mono);font-size:12px;color:var(--muted)}
-.essay-col{max-width:640px;margin:0 auto;padding-top:24px}
+.essay-col{max-width:720px;margin:0 auto;padding-top:24px}
 .essay-col .reader-body p,.essay-col .reader-body li{font-size:19px;line-height:1.75}
 .essay-col .reader-body h2{font-size:22px;margin-top:52px}
 .essay-col .reader-body blockquote{text-align:center;max-width:none;margin:56px -40px;padding:28px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);font-size:clamp(28px,3.4vw,40px)}
