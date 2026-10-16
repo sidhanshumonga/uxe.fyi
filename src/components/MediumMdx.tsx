@@ -47,8 +47,19 @@ function Blockquote({ children }: ComponentProps<'blockquote'>) {
   return <blockquote>{inner}</blockquote>;
 }
 
+// Medium keeps a pasted/imported <pre> only if: lines are separated by <br>,
+// no line is truly empty (a blank line ends the block, so use a lone NBSP),
+// indentation can't collapse (runs of spaces and NBSPs both do, figure
+// spaces U+2007 don't, and JS still reads them as whitespace), and there's
+// no trailing <br> (that drops the block).
+const FIGURE_SPACE = '\u2007';
+const mediumLine = (line: string) =>
+  line.trim() === ''
+    ? '\u00a0'
+    : line.replace(/^ +/, (sp) => FIGURE_SPACE.repeat(sp.length)).replace(/ {2,}/g, (sp) => ' ' + FIGURE_SPACE.repeat(sp.length - 1));
+
 function Pre({ children }: ComponentProps<'pre'>) {
-  const lines = textOf(children).replace(/\n+$/, '').split('\n');
+  const lines = textOf(children).replace(/\s+$/, '').split('\n').map(mediumLine);
   return (
     <pre>
       {lines.map((line, i) => (
@@ -111,6 +122,11 @@ const components = { a: A, img: Img, p: P, blockquote: Blockquote, pre: Pre, tab
 
 export function MediumMdx({ source }: { source: string }) {
   return <MDXRemote source={source} components={components} options={{ mdxOptions: { remarkPlugins: [remarkGfm] } }} />;
+}
+
+/** The essay's code blocks as plain text, for pasting into Medium code blocks by hand. */
+export function codeBlocksIn(source: string) {
+  return [...source.matchAll(/```[\w-]*\n([\s\S]*?)```/g)].map((m) => m[1].replace(/\s+$/, ''));
 }
 
 /** Alt text and captions, for adding by hand in Medium's editor. */
