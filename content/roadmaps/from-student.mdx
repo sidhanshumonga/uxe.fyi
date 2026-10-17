@@ -1,47 +1,114 @@
 ---
 title: From student to UX engineer
-description: "An outline for students and new graduates: the platform deeply, a design eye, one real project, and a public presence."
+description: "For students and recent graduates starting from scratch: HTML, CSS and JavaScript, a design eye, one real project, a portfolio of details and open-source contribution."
 authors: [sidhanshumonga]
-status: draft
-date: 2026-06-06
+status: published
+date: 2026-10-17
 from: Student / Graduate
 icon: book
 months: 9–18 months
-order: 3
+order: 4
+note: No moat. Just taste and reps.
+issue: 59
+keep:
+  - "Time and energy to practise"
+  - "Willingness to learn in public"
+  - "Fresh eyes on existing products"
+gain:
+  - "Solid frontend fundamentals"
+  - "A trained visual eye"
+  - "Experience shipping something real"
+  - "A portfolio that shows how you think"
 phases:
-  - title: "The triple stack"
-    weeks: wk 1–8
+  - title: "HTML, CSS, JS"
+    weeks: wk 1–12
+    goal: "You can build a responsive, accessible page and add behaviour to it with JavaScript."
     items:
-      - "HTML, CSS, JS — deeply"
-      - "Read MDN as bedtime reading"
-      - "Build one thing end-to-end"
+      - "Build ten small pages in plain HTML and CSS"
+      - "Learn flexbox, grid and responsive layout properly"
+      - "Add interactivity with JavaScript: events, state and fetching data"
+      - "Make every page usable with the keyboard"
+    lessons: [frontend-fundamentals, accessibility]
+    resources: ["CSS for JavaScript Developers"]
+    ship: "A small set of pages on a public URL, each one responsive and keyboard friendly."
   - title: "A design eye"
-    weeks: wk 9–20
+    weeks: wk 13–24
+    goal: "You can explain why one interface feels better than another and apply that to your own work."
     items:
-      - "Daily.dev / Refactoring UI"
-      - "Recreate 10 polished interfaces"
-      - "Write critiques of your own work"
+      - "Copy three interfaces you admire, then write down what makes them work"
+      - "Learn the basics of spacing, type, colour and hierarchy"
+      - "Redesign one of your earlier pages and compare before and after"
+      - "Ask for crit from a designer or a design community"
+    lessons: [ux-principles, interaction-design, crit-and-feedback]
+    resources: ["Refactoring UI", "The Design of Everyday Things", "Laws of UX"]
+    ship: "A before-and-after redesign of one of your own pages, with a note on each change."
   - title: "One real project"
-    weeks: wk 21–36
+    weeks: wk 25–40
+    goal: "You can take one product from idea to shipped, for real users, and keep improving it."
     items:
-      - "Pick something useful to 1 person"
-      - "Ship it. Maintain it."
-      - "Polish ruthlessly."
-  - title: "Open source presence"
-    weeks: wk 37+
+      - "Pick a problem someone you know actually has"
+      - "Build it in a modern framework and ship it"
+      - "Design every state: loading, error, empty and success"
+      - "Watch someone use it and fix what confuses them"
+    lessons: [product-thinking, state-for-ux, designing-for-failure]
+    resources: ["Don’t Make Me Think"]
+    ship: "A live product that real people use, with a short write-up of what you learned from them."
+  - title: "A portfolio of details"
+    weeks: wk 41–56
+    goal: "You can show the small interaction details that separate polished work from working work."
     items:
-      - "Contribute to a small repo"
-      - "Write 1 essay/month"
-      - "Be online; be findable."
+      - "Build three small interaction studies, each focused on one detail"
+      - "Add motion that explains cause and effect, and respect reduced motion"
+      - "Write up each study as interaction, constraint and decision"
+    lessons: [animations, perceived-performance, a-uxe-portfolio]
+    resources: ["Animations on the Web", "An Interactive Guide to CSS Transitions"]
+    ship: "A portfolio site with three playable interaction studies and your one real project."
+  - title: "Open-source contribution"
+    weeks: wk 57+
+    goal: "You can work in someone else's codebase, take review and land changes."
+    items:
+      - "Find an open-source UI project and read its contributing guide"
+      - "Fix a small accessibility or UI bug and open a pull request"
+      - "Respond to review feedback and get it merged"
+    lessons: [design-systems, working-with-designers]
+    resources: ["Radix Primitives"]
+    ship: "At least one merged pull request to an open-source UI project, linked from your portfolio."
 ---
 
-{/* An outline waiting for someone who has walked this path. Mark it `status: published`
-   once the sections below tell a real story, and it becomes a "final" roadmap. */}
+## Who this is for
 
-## Where I started
+You are studying, recently graduated or teaching yourself. You don't have years of experience in engineering or design yet. Maybe you have built a few projects and noticed that you care more about how they feel than most of your classmates do. That is a good sign.
 
-## What I learned, in order
+Your advantage is time and a blank slate. You don't have habits to unlearn, and you can build both the engineering and the design skills together from the start. You can also learn in public without much risk.
 
-## What I’d skip
+The honest gap is that you have no moat. Without work experience, your portfolio carries all the weight. That is why this is the longest path. You need real fundamentals, a trained eye and proof that you can ship something people use. There are no shortcuts here, only taste and reps.
 
-## What I wish I’d known
+## How the work changes
+
+At school, work is usually graded on whether it meets the brief. In UX engineering, work is judged by how it feels to the people using it. That means caring about the parts no assignment asks for: the empty state, the slow network, the keyboard user, the error message.
+
+Your learning also changes shape. Instead of finishing a course and moving on, you build, show, take feedback and rebuild. Small projects done carefully teach more than big projects done quickly.
+
+Expect to work in two modes. Some days you will focus on engineering fundamentals. Other days you will study interfaces, copy them and train your eye. Both matter, and the role sits where they meet.
+
+You will also learn to work with other people's code and opinions. That is why the last phase is open source. A merged pull request shows that you can read an unfamiliar codebase, follow its conventions and take review well. Those are the same habits a team will look for on your first day.
+
+Finally, keep a simple log of what you build and what you learn each week. It helps you see progress on slow weeks, and it becomes raw material for your portfolio write-ups later. Short notes are enough: what you tried, what surprised you and what you would change next time.
+
+## Common traps
+
+- **Tutorial loops.** Following tutorials feels like progress, but building your own things is where you learn. After each tutorial, build something different without it.
+- **Too many shallow projects.** Ten half-finished apps say less than three careful ones. Go deep on fewer things.
+- **Ignoring design.** Strong code with weak visual judgement is not enough for this role. Practise your eye on purpose.
+- **Waiting until you feel ready.** Share work early. Feedback is how you improve, and nobody feels ready.
+- **Chasing every new tool.** The fundamentals last. Learn HTML, CSS, JavaScript and accessibility well before collecting frameworks.
+
+## How to show it
+
+Your portfolio is everything, so make it playable. Every project should have a live demo or a short recording, and the code should be public.
+
+Use the structure in [A UXE portfolio](/learning/a-uxe-portfolio): the interaction, the constraint and the decision. A strong graduate portfolio usually has one real project that people use, three small interaction studies that show care for detail, and a link to at least one open-source contribution. The [breakdowns](/breakdowns), such as [easing curves](/breakdowns/easing-curves), [hover intent](/breakdowns/hover-intent) and [fuzzy search](/breakdowns/fuzzy-search), are good models for small, deep studies.
+
+In interviews, talk about what you learned and changed, not just what you built. Explain a decision you made, what you tried first and why you changed it. Show that you take feedback well. Curiosity and care are what make a junior candidate stand out.
+
+The other [roadmaps](/roadmaps) and the [resources](/resources) list are there when you want more.

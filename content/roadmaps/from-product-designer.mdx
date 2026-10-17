@@ -1,47 +1,111 @@
 ---
 title: From product designer to UX engineer
-description: "An outline for designers who want to ship what they design: the web platform first, then a framework, then engineering habits."
+description: "For product designers who want to build what they design: HTML and CSS depth, JavaScript and React, component architecture, performance and the constraints engineers work within."
 authors: [sidhanshumonga]
-status: draft
-date: 2026-06-06
+status: published
+date: 2026-10-17
 from: Product Designer
 icon: sparkle
 months: 6–12 months
 order: 2
+note: You already design. Now learn to ship.
+issue: 58
+keep:
+  - "A trained eye for spacing, type and hierarchy"
+  - "Designing flows and states"
+  - "Running crit and taking feedback"
+  - "Talking to users and stakeholders"
+gain:
+  - "Writing production-quality HTML, CSS and JavaScript"
+  - "Thinking in components, props and state"
+  - "Measuring and fixing performance"
+  - "Working inside a codebase and its review process"
 phases:
-  - title: "HTML & CSS depth"
-    weeks: wk 1–6
+  - title: "HTML / CSS depth"
+    weeks: wk 1–8
+    goal: "You can build any static screen you design, responsive and accessible, without a framework."
     items:
-      - "Semantic HTML"
-      - "Flexbox & Grid"
-      - "Modern CSS: cascade layers, container queries"
-  - title: "JavaScript foundations"
-    weeks: wk 7–14
+      - "Rebuild three of your own designs in plain HTML and CSS"
+      - "Learn flexbox and grid well enough to explain when to use each"
+      - "Use semantic elements for every structure you build"
+      - "Make each rebuild work at phone width with no horizontal scroll"
+    lessons: [frontend-fundamentals, accessibility]
+    resources: ["CSS for JavaScript Developers", "Inclusive Components"]
+    ship: "A pixel-close coded version of one of your real designs, live on a public URL."
+  - title: "JavaScript & React"
+    weeks: wk 9–18
+    goal: "You can add behaviour to an interface: events, state, data loading and transitions between states."
     items:
-      - "Variables, control flow, functions"
-      - "DOM & events"
-      - "Promises & async"
-  - title: "React or your framework"
-    weeks: wk 15–24
+      - "Learn the JavaScript you need for the DOM, events and async code"
+      - "Build one interaction in vanilla JavaScript before building it in React"
+      - "Model loading, error and empty states for a component that fetches data"
+      - "Prototype one design question in code instead of in a design tool"
+    lessons: [state-for-ux, prototyping-in-code, interaction-design]
+    resources: ["An Interactive Guide to CSS Transitions", "Motion"]
+    ship: "A coded prototype of a real flow, with every state working and a note on what the prototype taught you."
+  - title: "Component architecture"
+    weeks: wk 19–28
+    goal: "You can design a component API that other engineers can use without breaking the design."
     items:
-      - "Components & props"
-      - "State & effects"
-      - "Routing"
-  - title: "Engineering instincts"
-    weeks: wk 25+
+      - "Turn one of your design system components into a React component with sensible props"
+      - "Read the source of one headless component library"
+      - "Write tokens in code and use them instead of hard-coded values"
+      - "Get one real code review from an engineer and act on it"
+    lessons: [design-systems, frontend-architecture, systems-thinking]
+    resources: ["Radix Primitives", "Polaris"]
+    ship: "A small component library built from your own designs, with tokens and usage docs."
+  - title: "Performance"
+    weeks: wk 29–38
+    goal: "You can measure why an interface feels slow and fix the causes that matter to users."
     items:
-      - "Read other people’s code"
-      - "Code review etiquette"
-      - "Performance budgets"
+      - "Profile a page in browser dev tools and find the slowest thing users notice"
+      - "Fix one layout shift and one slow interaction on a real project"
+      - "Choose between a skeleton, a spinner and optimistic UI for three cases"
+    lessons: [performance, perceived-performance]
+    resources: ["Response Times: The 3 Important Limits"]
+    ship: "A before-and-after performance write-up of one screen, with measurements and the changes you made."
+  - title: "Engineering constraints"
+    weeks: wk 39+
+    goal: "You can ship a feature through a real codebase and make trade-offs engineers respect."
+    items:
+      - "Ship one change to a production codebase, from ticket to merge"
+      - "Pair with an engineer on a feature and take notes on how they decide"
+      - "Write a short design doc that names the trade-offs, not just the solution"
+    lessons: [speed-vs-quality, working-with-pms, a-uxe-portfolio]
+    resources: ["Thanks for Making It", "Clearleft Podcast: Design Engineering"]
+    ship: "A case study of one shipped feature that shows the design, the code and the trade-off you made."
 ---
 
-{/* An outline waiting for someone who has walked this path. Mark it `status: published`
-   once the sections below tell a real story, and it becomes a "final" roadmap. */}
+## Who this is for
 
-## Where I started
+You design product interfaces. You run crit, you think in flows, and you notice when something is off by a few pixels. Maybe you are tired of handing off a careful design and seeing a rougher version ship. Or you want to prototype the interactions that static mockups can't show. That is a strong reason to move toward UX engineering.
 
-## What I learned, in order
+Your advantage is taste and judgement. You already know what good feels like, and you know how to talk to users, product managers and other designers. Many engineers spend years building that eye.
 
-## What I’d skip
+The gap is the engineering. Building something that looks right in a demo is not the same as building something that works in a real codebase, on slow phones, with real data and for every user. Code that ships also has to be readable, reviewable and maintainable by other people. This path is long because that part takes reps.
 
-## What I wish I’d known
+## How the work changes
+
+Today your output is a design that describes what should happen. In UX engineering, your output is the thing that actually happens. That moves the hard questions earlier. You will find out quickly which parts of a design are cheap to build and which are expensive, and you will start to design with that in mind.
+
+Day to day, you will spend most of your time in an editor, a browser and a terminal. You will read other people's code more than you write your own. You will open pull requests, get reviewed and review others. You will learn to break a screen into components and decide what each one owns.
+
+Your design skills don't go away. They show up in new places: in the API of a component, in how a loading state is sequenced, in the copy of an error message. You will often be the person in the room who can say both "this is better for users" and "here is how we build it".
+
+## Common traps
+
+- **Learning frameworks before the platform.** React is easier when you understand HTML, CSS and the DOM underneath it. Start with the platform, then add the framework.
+- **Building only the happy path.** Designs often show the ideal state. Code has to handle loading, errors, empty data, long text and slow networks. Build those first.
+- **Treating code review as criticism of your taste.** Reviewers are checking that code is safe and maintainable. Ask questions, learn the conventions and save design arguments for design questions.
+- **Staying in prototype mode.** Prototypes are great for answering questions, but the role needs code that ships. Make sure at least one project reaches production.
+- **Hiding the design work.** Your design background is an advantage. Show it alongside your code instead of trying to look like a pure engineer.
+
+## How to show it
+
+Your portfolio needs to prove you can ship, so make everything playable. Link live demos and code, not just screenshots. Pick a few projects that show the full arc from a design decision to working code.
+
+Use the structure in [A UXE portfolio](/learning/a-uxe-portfolio): the interaction, the constraint and the decision. A strong designer-turned-UXE portfolio often includes one detailed interaction built in code, one component or small system with its API and docs, and one piece about performance or another engineering constraint that changed your design. The [breakdowns](/breakdowns), like [form choreography](/breakdowns/form-choreography) or [empty states](/breakdowns/empty-states), show one way to present the thinking behind a single interaction.
+
+In interviews, expect to write or talk through code. Practise explaining a component you built: how you split it, what props it takes, how it handles state and failure. Then talk about a time engineering reality changed your design and what you did about it. That story shows you can hold both sides of the work.
+
+Keep going with the other [roadmaps](/roadmaps) and the [resources](/resources) list.

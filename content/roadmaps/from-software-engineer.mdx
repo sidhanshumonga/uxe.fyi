@@ -1,47 +1,111 @@
 ---
 title: From software engineer to UX engineer
-description: "An outline for engineers moving toward the feel of the interface: perception, accessibility, systems, then polish."
+description: "For working engineers who want to own how an interface feels: interaction design, accessibility, design systems, visual literacy and user empathy, in that order."
 authors: [sidhanshumonga]
-status: draft
-date: 2026-06-06
+status: published
+date: 2026-10-17
 from: Software Engineer
 icon: code
 months: 4–9 months
 order: 1
+note: You already engineer. Now learn to design.
+issue: 19
+keep:
+  - "Shipping production code"
+  - "Debugging and reading unfamiliar code"
+  - "Thinking in components and state"
+  - "Code review and team habits"
+gain:
+  - "Seeing spacing, type and hierarchy"
+  - "Designing states and transitions"
+  - "Accessibility as a default"
+  - "Arguing from the user, not the code"
 phases:
-  - title: "Visual & interaction literacy"
+  - title: "Interaction design"
     weeks: wk 1–4
+    goal: "You can describe every state an interface moves through and why each transition exists."
     items:
-      - "Read about Hick’s, Fitts’s, Miller’s"
-      - "Study 5 great interfaces in depth"
-      - "Learn type, color, spacing"
+      - "Map the states of one feature you built: idle, hover, loading, error, empty, success"
+      - "Study the interaction laws and apply two of them to a real screen"
+      - "Rebuild one interaction you admire and note every detail you missed at first"
+      - "Write down what feedback the user gets within the first 100ms of each action"
+    lessons: [ux-principles, interaction-design, interaction-psychology]
+    resources: ["Laws of UX", "Invisible Details of Interaction Design"]
+    ship: "A small coded demo of one interaction, with every state visible and a short write-up of the choices."
   - title: "Accessibility"
     weeks: wk 5–10
+    goal: "You can build components that work with a keyboard and a screen reader without being reminded."
     items:
-      - "Keyboard nav for everything you build"
-      - "aria-* fundamentals"
-      - "Color contrast & motion"
+      - "Use everything you build with the keyboard only for a week"
+      - "Learn the semantic HTML element before reaching for ARIA"
+      - "Test one flow with a screen reader and fix what breaks"
+      - "Check contrast and add reduced-motion handling to your animations"
+    lessons: [accessibility, focus-management]
+    resources: ["Inclusive Components"]
+    ship: "An accessible dialog or menu, with notes on focus, roles and keyboard behaviour."
   - title: "Design systems"
-    weeks: wk 11–18
+    weeks: wk 11–16
+    goal: "You can explain how tokens, primitives and patterns fit together and build a small system yourself."
     items:
-      - "Read 3 famous system docs"
-      - "Build a small one yourself"
-      - "Tokens → primitives → patterns"
-  - title: "Craft polish"
-    weeks: wk 19+
+      - "Read the docs of two public design systems end to end"
+      - "Define tokens for colour, spacing and type, then build three primitives on them"
+      - "Write usage guidance for one component, including when not to use it"
+    lessons: [design-systems, systems-thinking, frontend-architecture]
+    resources: ["Radix Primitives", "GOV.UK Design System", "Polaris"]
+    ship: "A tiny design system with tokens, three components and a docs page someone else could use."
+  - title: "Visual literacy"
+    weeks: wk 17–24
+    goal: "You can spot and fix weak spacing, hierarchy and type in a screen without a designer pointing it out."
     items:
-      - "One delightful detail per ship"
-      - "Learn motion grammar"
-      - "Write about what you change"
+      - "Redesign one of your old screens using only spacing, type and weight"
+      - "Copy three interfaces you like pixel for pixel, then explain their choices"
+      - "Learn one easing curve deeply and use it consistently"
+      - "Ask a designer for a crit on your redesign"
+    lessons: [animations, motion-systems, crit-and-feedback]
+    resources: ["Refactoring UI", "An Interactive Guide to CSS Transitions"]
+    ship: "A before-and-after of a real screen, with the reasoning for each visual change."
+  - title: "User empathy"
+    weeks: wk 25+
+    goal: "You can make a case for a change from what users actually do, not from what is easy to build."
+    items:
+      - "Watch real people use something you built and write down where they hesitate"
+      - "Pair with a designer on a feature from brief to ship"
+      - "Turn one usability finding into a shipped fix"
+    lessons: [product-thinking, cognitive-load, working-with-designers, a-uxe-portfolio]
+    resources: ["The Design of Everyday Things", "Don’t Make Me Think"]
+    ship: "A case study of one change you made after watching users, told as interaction, constraint and decision."
 ---
 
-{/* An outline waiting for someone who has walked this path. Mark it `status: published`
-   once the sections below tell a real story, and it becomes a "final" roadmap. */}
+## Who this is for
 
-## Where I started
+You write production code for a living. You know how to break down a feature, keep a codebase healthy and ship without drama. Maybe you are the engineer who always ends up fixing the hover state, arguing about loading spinners or asking why a button jumps by two pixels. That instinct is the start of UX engineering.
 
-## What I learned, in order
+Your advantage is real. Most of the role is still engineering, and you already have the hardest part to fake: you can build the thing, in the real stack, under real constraints. Designers and product managers will trust you quickly because what you show them works.
 
-## What I’d skip
+The gap is just as real. Engineering training rewards correctness, and an interface can be correct and still feel wrong. You may not yet have the words for why a layout feels cramped, or the habit of asking what the user sees during the 400ms the request takes. This path is about building that eye and that habit.
 
-## What I wish I’d known
+## How the work changes
+
+The main shift is in what counts as done. Today, done probably means the tests pass and the feature behaves to spec. In UX engineering, done also means every state has been designed: the empty list, the slow network, the error that comes back halfway through, the keyboard user, the person who has turned motion off.
+
+Day to day, you will spend more time in conversation with designers, often before a ticket exists. You will prototype in code to answer design questions, not just to build agreed designs. You will review pull requests for feel as well as structure: does the focus land in the right place, does the transition match the rest of the product, does the copy explain what went wrong.
+
+You will also start to argue differently. "This is simpler to build" stops being enough. You will need to say why a choice is better for the person using it, and sometimes you will choose the harder build because the easier one makes the product worse.
+
+## Common traps
+
+- **Treating design as decoration.** Visual choices carry meaning. Spacing groups things, weight shows priority, motion shows cause and effect. Learn the reasons, not just the values.
+- **Reaching for ARIA first.** Most accessibility problems are solved by the right HTML element. Extra roles on the wrong element often make things worse.
+- **Over-engineering the design system.** A system with three well-documented components that people use beats a sprawling library nobody trusts. Start small and grow from real needs.
+- **Polishing alone.** Craft built in isolation drifts from what the product needs. Show work early to designers and ask for crit, even when it feels unfinished.
+- **Skipping the boring states.** Loading, error and empty states are where users judge your product. They are also where you can stand out fastest.
+
+## How to show it
+
+Your portfolio does not need to prove you can code. It needs to prove you care about how things feel and can make good calls. Pick three projects at most and make them playable: a live demo, a coded prototype or a short recording.
+
+For each one, follow the structure in [A UXE portfolio](/learning/a-uxe-portfolio): the interaction, the constraint and the decision. A strong engineer-turned-UXE piece usually shows one accessible component with its keyboard and screen reader behaviour, one small system with tokens and docs, and one before-and-after where you improved a real screen. The [breakdowns](/breakdowns), such as [optimistic UI](/breakdowns/optimistic-ui) or [skeleton vs spinner](/breakdowns/skeleton-vs-spinner), are a good model for how to present a single interaction in depth.
+
+In interviews, lead with judgement. Talk about a time you pushed back on a design for a user reason, or changed your own build after watching someone struggle. Be clear about what you did and what the designer did. Interviewers want to see that you can hold both sides of the work, not that you have replaced the designer.
+
+When you are ready for the next step, the rest of the [roadmaps](/roadmaps) and the [resources](/resources) list are good places to keep going.

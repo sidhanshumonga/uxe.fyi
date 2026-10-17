@@ -3,13 +3,15 @@ import { PageHeader } from '@/components/PageHeader';
 import { EmptyState } from '@/components/EmptyState';
 import { Icon, IconName } from '@/components/Icon';
 import { Avatar, ActivityFeed } from '@/components/CommunityComponents';
-import { getContributors, getRecentActivity } from '@/lib/github';
+import { getContributors, getOpenIssues, getRecentActivity } from '@/lib/github';
+import { IssueBoard } from '@/components/IssueBoard';
+import { REPO_URL } from '@/lib/site';
 import { AUTHORS } from '@/data/authors';
 
 const MAINTAINER = 'sidhanshumonga';
 
 export default async function CommunityPage() {
-  const [people, activity] = await Promise.all([getContributors(), getRecentActivity(8)]);
+  const [people, activity, issues] = await Promise.all([getContributors(), getRecentActivity(8), getOpenIssues()]);
   const contributors = people.map((c) => ({ name: c.login, avatarUrl: c.avatarUrl, contributions: c.contributions }));
 
   return (
@@ -30,12 +32,12 @@ export default async function CommunityPage() {
           
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 12, marginBottom: 56 }}>
             {[
-              { i: 'plus' as IconName, t: 'Raise an issue', d: 'Spot a missing topic, a typo, a broken link, a bad take? Open an issue. Someone — maybe you — will pick it up.', cta: 'New issue' },
-              { i: 'github' as IconName, t: 'Pick up an issue', d: 'Browse open issues labeled "good first issue" or "help wanted". Comment to claim it, then send a PR.', cta: 'Browse issues' },
-              { i: 'sparkle' as IconName, t: 'Submit a breakdown', d: 'Took apart a great interaction in the wild? Open a PR with a new entry. The community will review it.', cta: 'Open PR' },
-              { i: 'book' as IconName, t: 'Write a guide', d: 'Have a strong opinion on a topic? Draft a guide in your fork, open a PR, and we’ll edit it together.', cta: 'Start draft' },
-              { i: 'eye' as IconName, t: 'Review or translate', d: 'Help review incoming PRs, or translate existing content. Issues tagged "review" and "translation" are how it happens.', cta: 'See open PRs' },
-              { i: 'flask' as IconName, t: 'Propose a direction', d: 'Bigger ideas live in RFC-style issues. Open one, sketch the shape, and invite people to argue with you.', cta: 'Open RFC' },
+              { i: 'plus' as IconName, t: 'Raise an issue', d: 'Spot a missing topic, a typo, a broken link, a bad take? Open an issue. Someone — maybe you — will pick it up.', cta: 'New issue', href: `${REPO_URL}/issues/new/choose` },
+              { i: 'github' as IconName, t: 'Pick up an issue', d: 'Browse open issues labeled "good first issue" or "help wanted". Comment to claim it, then send a PR.', cta: 'Browse issues', href: '#open-issues' },
+              { i: 'sparkle' as IconName, t: 'Submit a breakdown', d: 'Took apart a great interaction in the wild? Open a PR with a new entry. The community will review it.', cta: 'Open PR', href: `${REPO_URL}/blob/main/CONTRIBUTING.md#building-a-breakdown` },
+              { i: 'book' as IconName, t: 'Write a guide', d: 'Have a strong opinion on a topic? Draft a guide in your fork, open a PR, and we’ll edit it together.', cta: 'Start draft', href: `${REPO_URL}/blob/main/CONTRIBUTING.md` },
+              { i: 'eye' as IconName, t: 'Review or translate', d: 'Help review incoming PRs, or translate existing content. Issues tagged "review" and "translation" are how it happens.', cta: 'See open PRs', href: `${REPO_URL}/pulls` },
+              { i: 'flask' as IconName, t: 'Propose a direction', d: 'Bigger ideas live in RFC-style issues. Open one, sketch the shape, and invite people to argue with you.', cta: 'Open RFC', href: `${REPO_URL}/issues/new?template=2-suggest-a-topic.yml` },
             ].map((w, i) => (
               <div key={i} className="card hov">
                 <div style={{ width: 38, height: 38, borderRadius: 10, background: 'var(--surface-2)', color: 'var(--accent)', display: 'grid', placeItems: 'center', marginBottom: 14 }}>
@@ -44,9 +46,8 @@ export default async function CommunityPage() {
                 <div className="display" style={{ fontSize: 19, fontWeight: 500, letterSpacing: '-0.02em', marginBottom: 8 }}>{w.t}</div>
                 <div style={{ fontSize: 13.5, color: 'var(--ink-dim)', lineHeight: 1.55, marginBottom: 14 }}>{w.d}</div>
                 <a
-                  href="https://github.com/sidhanshumonga/uxe.fyi"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href={w.href}
+                  {...(w.href.startsWith('#') ? {} : { target: '_blank', rel: 'noopener noreferrer' })}
                   className="mono"
                   style={{ fontSize: '11.5px', color: 'var(--accent)', display: 'inline-flex', alignItems: 'center', gap: 6 }}
                 >
@@ -56,6 +57,16 @@ export default async function CommunityPage() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      <section id="open-issues" style={{ paddingTop: 0 }}>
+        <div className="container">
+          <div className="eyebrow" style={{ marginBottom: 18 }}>Open for contributors</div>
+          <p style={{ fontSize: 16, color: 'var(--ink-dim)', maxWidth: '60ch', lineHeight: 1.55, marginBottom: 28 }}>
+            Every open issue on GitHub, live. Comment on one to claim it, then open a pull request. Drafts and questions are welcome.
+          </p>
+          <IssueBoard issues={issues} />
         </div>
       </section>
 

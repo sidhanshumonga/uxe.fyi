@@ -71,8 +71,30 @@ export const schemas = {
     months: z.string().trim().min(1),
     /** Tab position on /roadmaps (lowest first). */
     order: z.number().int().optional(),
+    /** One-line pitch, shown on the home page's career bridges. */
+    note: z.string().trim().max(80).optional(),
+    /** GitHub issue collecting real stories for this path. */
+    issue: z.number().int().positive().optional(),
+    /** Skills that transfer from the starting role. */
+    keep: z.array(z.string().trim().min(1)).optional(),
+    /** What's genuinely new to learn. */
+    gain: z.array(z.string().trim().min(1)).optional(),
     phases: z
-      .array(z.strictObject({ title: z.string().trim().min(1), weeks: z.string().trim().min(1), items: z.array(z.string().trim().min(1)).min(1) }))
+      .array(
+        z.strictObject({
+          title: z.string().trim().min(1),
+          weeks: z.string().trim().min(1),
+          /** What you can do by the end of the phase. */
+          goal: z.string().trim().min(1).optional(),
+          items: z.array(z.string().trim().min(1)).min(1),
+          /** Lesson slugs (/learning/<slug>). */
+          lessons: z.array(z.string()).optional(),
+          /** Resource titles from src/data/resources.ts. */
+          resources: z.array(z.string()).optional(),
+          /** Something concrete to build and show at the end. */
+          ship: z.string().trim().min(1).optional(),
+        }),
+      )
       .min(1),
     tags: z.array(z.string()).optional(),
   }),

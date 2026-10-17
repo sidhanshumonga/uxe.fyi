@@ -20,9 +20,49 @@ const DEFINITIONS = [
     src: { label: 'Google Design', href: 'https://design.google/library/why-google-needs-ux-engineers' },
   },
   {
+    co: 'Adobe',
+    def: 'Design engineers work where design and engineering overlap: prototyping to test design assumptions, building design systems and infrastructure, and sweating the details of craft.',
+    src: { label: 'Adobe Design, 2024', href: 'https://adobe.design/ideas/should-you-pursue-a-career-in-design-engineering' },
+  },
+  {
+    co: 'Atlassian',
+    def: 'Design technologists sit between design and engineering, thinking like a designer but coding like an engineer, and build real prototypes teams can try before committing.',
+    src: { label: 'Atlassian blog, 2026', href: 'https://www.atlassian.com/blog/how-we-build/design-technologists-the-role-that-turns-creativity-into-code' },
+  },
+  {
+    co: 'Slack',
+    def: 'Dedicated design engineering roles focus on prototyping new ideas, building tools and advising feature teams, grown from bringing front-end engineers into design.',
+    src: { label: 'Slack Design', href: 'https://slack.design/articles/prototyping-the-path-to-design-engineering/' },
+  },
+  {
+    co: 'GitHub',
+    def: 'A Design Engineering team, with Design Infrastructure, builds and maintains Primer: the design system, its components, Octicons and the front-end tooling behind them.',
+    src: { label: 'Primer docs', href: 'https://primer.style/about/' },
+  },
+  {
+    co: 'Salesforce',
+    def: 'UX Engineering bridges the gap between design and development, giving designers engineering support through living design systems and prototypes in code.',
+    src: { label: 'Salesforce UX, 2016', href: 'https://medium.com/salesforce-ux/interning-as-a-ux-engineer-290e9115a034' },
+  },
+  {
+    co: 'Indeed',
+    def: 'Design technologists are designers who see beauty in code and engineers who appreciate great UX, shipping early interactive prototypes and supporting the design system.',
+    src: { label: 'Indeed Design, 2019', href: 'https://medium.com/indeed-design/what-is-a-design-technologist-6431531f0d48' },
+  },
+  {
     co: 'GOV.UK',
     def: 'Its frontend developers bridge technology and design, a cross between an interaction designer and a software developer, and champion accessibility in the team.',
     src: { label: 'GDS technology blog, 2020', href: 'https://technology.blog.gov.uk/2020/07/24/why-you-should-hire-a-frontend-developer/' },
+  },
+  {
+    co: '18F',
+    def: 'Front-end designers design and implement the presentational layer and design systems in semantic HTML and CSS, separate from developers who architect the client-side code.',
+    src: { label: '18F engineering guide', href: 'https://guides.18f.org/engineering/our-approach/frontend/' },
+  },
+  {
+    co: 'Epsilon',
+    def: 'UX engineers are software engineers who belong to the UX team rather than a product team, sitting with designers and bridging design and technology.',
+    src: { label: 'Epsilon blog, 2019', href: 'https://www.epsilon.com/us/about-us/epic-blog/ux-engineering-at-epsilon' },
   },
   {
     co: 'Clearleft',
@@ -54,13 +94,13 @@ export default function ExplorePage() {
         eyebrow="Explore"
         title="What is"
         italic="UX Engineering, really?"
-        lead="UX Engineering is one role with many shapes. Here's how different teams define it, how it differs from adjacent roles, and what a real day looks like."
+        lead="UX Engineering is one role with many shapes. Here's how a dozen teams define it in their own words, how it differs from adjacent roles, and what a real day looks like."
       />
 
       <section>
         <div className="container">
           <div className="eyebrow" style={{ marginBottom: 18 }}>How teams define it</div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 340px), 1fr))', gap: 14, maxWidth: 1000 }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 300px), 1fr))', gap: 14 }}>
             {DEFINITIONS.map((d, i) => (
               <div key={i} className="card hov" style={{ display: 'flex', flexDirection: 'column' }}>
                 <div className="display" style={{ fontSize: 22, fontWeight: 500, letterSpacing: '-0.02em', marginBottom: 10 }}>{d.co}</div>

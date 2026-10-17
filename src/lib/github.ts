@@ -64,3 +64,28 @@ export async function getRecentActivity(limit = 8): Promise<ActivityItem[]> {
     };
   });
 }
+
+export interface OpenIssue {
+  number: number;
+  title: string;
+  url: string;
+  labels: string[];
+  /** Someone commented to claim it, or it's assigned. */
+  claimed: boolean;
+}
+
+/** Open issues (not pull requests), newest first. */
+export async function getOpenIssues(): Promise<OpenIssue[]> {
+  const data = await gh<
+    { number: number; title: string; html_url: string; labels: { name: string }[]; pull_request?: unknown; assignees?: unknown[] }[]
+  >('/issues?state=open&per_page=100');
+  return (data ?? [])
+    .filter((i) => !i.pull_request)
+    .map((i) => ({
+      number: i.number,
+      title: i.title,
+      url: i.html_url,
+      labels: i.labels.map((l) => l.name),
+      claimed: (i.assignees?.length ?? 0) > 0,
+    }));
+}

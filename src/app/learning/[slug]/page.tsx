@@ -4,7 +4,7 @@ import { notFound } from 'next/navigation';
 import { getEntries } from '@/lib/content/loader';
 import { h2Headings } from '@/lib/content/headings';
 import { SHOW_DRAFTS, REPO_URL, editUrl, formatDate } from '@/lib/site';
-import { LEARNING_TRACKS } from '@/data/learning';
+import { LEARNING_TRACKS, PRACTICE_WANTED } from '@/data/learning';
 import { authorName } from '@/data/authors';
 import { Mdx } from '@/components/Mdx';
 import { AuthorAvatar } from '@/components/AuthorAvatar';
@@ -128,6 +128,20 @@ export default async function LessonPage({ params }: Props) {
                   <span className="mono" style={{ fontSize: 11, textTransform: 'uppercase', letterSpacing: '0.1em' }}>Try it</span>
                 </div>
                 <p>{fm.exercise}</p>
+              </div>
+            )}
+
+            {PRACTICE_WANTED[slug] && !/<Practice\b/.test(lesson.body) && (
+              <div className="practice-wanted">
+                <Icon name="flask" size={15} />
+                <div>
+                  <strong>This lesson needs a hands-on exercise.</strong>{' '}
+                  The idea is sketched in{' '}
+                  <a href={`${REPO_URL}/issues/${PRACTICE_WANTED[slug]}`} target="_blank" rel="noopener noreferrer">
+                    issue #{PRACTICE_WANTED[slug]}
+                  </a>
+                  . Build it and it ships here, with your name on it.
+                </div>
               </div>
             )}
 

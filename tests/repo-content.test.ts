@@ -8,6 +8,7 @@ import remarkGfm from 'remark-gfm';
 import { describe, expect, it } from 'vitest';
 import { checkAllContent, getEntries } from '@/lib/content/loader';
 import { COLLECTIONS } from '@/lib/content/schema';
+import { RESOURCES } from '@/data/resources';
 
 const all = COLLECTIONS.flatMap((c) => getEntries(c, { includeDrafts: true }));
 const slugs = (c: (typeof COLLECTIONS)[number]) => new Set(getEntries(c, { includeDrafts: true }).map((e) => e.slug));
@@ -16,13 +17,23 @@ const ROUTE: Record<string, Set<string>> = {
   learning: slugs('lessons'),
   resources: slugs('resources'),
   breakdowns: slugs('breakdowns'),
+  roadmaps: slugs('roadmaps'),
 };
 const STATIC_PAGES = new Set(['/', '/explore', '/learning', '/roadmaps', '/thinking', '/breakdowns', '/community', '/resources']);
 const PRACTICE = new Set(['fitts', 'contrast', 'states']);
+const roadmaps = getEntries('roadmaps', { includeDrafts: true });
 
 describe('content/', () => {
   it('passes the content check', () => {
     expect(checkAllContent().problems).toEqual([]);
+  });
+
+  it.each(roadmaps.map((e) => [e.file, e] as const))('%s: phases link real lessons and resources', (_f, e) => {
+    const titles = new Set(RESOURCES.map((r) => r.t));
+    for (const p of e.frontmatter.phases) {
+      for (const l of p.lessons ?? []) expect(ROUTE.learning.has(l), `lesson "${l}" in ${p.title}`).toBe(true);
+      for (const r of p.resources ?? []) expect(titles.has(r), `resource "${r}" in ${p.title} (use the exact title from src/data/resources.ts)`).toBe(true);
+    }
   });
 
   it.each(all.map((e) => [e.file, e] as const))('%s: body compiles as MDX', async (_f, e) => {

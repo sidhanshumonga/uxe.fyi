@@ -67,3 +67,13 @@ export const LEARNING_TRACKS: LearningTrack[] = [
     ],
   },
 ];
+
+/** Lessons waiting for a hands-on <Practice> exercise: slug → GitHub issue. */
+export const PRACTICE_WANTED: Record<string, number> = {
+  'focus-management': 65,
+  animations: 66,
+  'cognitive-load': 67,
+  'perceived-performance': 68,
+  'designing-for-failure': 69,
+  'writing-ui-copy': 70,
+};

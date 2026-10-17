@@ -1,0 +1,113 @@
+---
+title: From QA engineer to UX engineer
+description: "For QA and test engineers who want to build interfaces, not just break them: frontend foundations, interaction edges, accessibility testing, UI state modelling and user empathy."
+authors: [sidhanshumonga]
+status: published
+date: 2026-10-17
+from: QA / Test Engineer
+icon: flask
+months: 6–12 months
+order: 3
+note: You already see failure modes. Translate them.
+issue: 72
+keep:
+  - "Finding edge cases others miss"
+  - "Writing clear, reproducible bug reports"
+  - "Test automation and tooling"
+  - "Thinking about the whole flow"
+gain:
+  - "Building interfaces, not just testing them"
+  - "Design and visual judgement"
+  - "Turning failure modes into designed states"
+  - "Proposing solutions, not only problems"
+phases:
+  - title: "Frontend foundations"
+    weeks: wk 1–8
+    goal: "You can build and change real UI components in HTML, CSS, JavaScript and a framework."
+    items:
+      - "Build a small app in plain HTML, CSS and JavaScript"
+      - "Rebuild it in the framework your team uses"
+      - "Fix three small UI bugs in a real codebase instead of only reporting them"
+      - "Read the component code behind the screens you test most"
+    lessons: [frontend-fundamentals, frontend-architecture]
+    resources: ["CSS for JavaScript Developers"]
+    ship: "A small working app on a public URL, with a short note on what you would test first."
+  - title: "Interaction edges"
+    weeks: wk 9–16
+    goal: "You can design and build the edges of an interaction: slow networks, double clicks, interrupted flows and undo."
+    items:
+      - "List every edge case for one form and design a response for each"
+      - "Build a submit flow that handles double clicks, timeouts and retries"
+      - "Add undo to one destructive action"
+      - "Throttle the network and fix what feels broken"
+    lessons: [interaction-design, designing-for-failure, perceived-performance]
+    resources: ["Invisible Details of Interaction Design", "Web Interface Guidelines"]
+    ship: "A coded form or flow that handles its edge cases gracefully, with a list of the cases you designed for."
+  - title: "A11y testing"
+    weeks: wk 17–24
+    goal: "You can test for accessibility and also fix what you find."
+    items:
+      - "Test one product flow with keyboard only and with a screen reader"
+      - "Add automated accessibility checks to a test suite"
+      - "Fix focus order and labelling in one component yourself"
+      - "Learn where automated checks stop and manual testing has to start"
+    lessons: [accessibility, focus-management]
+    resources: ["Inclusive Components", "Polypane"]
+    ship: "An accessibility audit of one flow, paired with the pull requests that fix the top issues."
+  - title: "UI state modeling"
+    weeks: wk 25–32
+    goal: "You can model every state of a component explicitly so impossible states can't happen."
+    items:
+      - "Draw the state diagram for one complex component"
+      - "Rebuild it so each state is explicit and tested"
+      - "Design the loading, error and empty states as carefully as the success state"
+    lessons: [state-for-ux, systems-thinking, design-systems]
+    resources: ["Radix Primitives"]
+    ship: "A component with an explicit state model, a diagram and tests that cover every state."
+  - title: "User empathy"
+    weeks: wk 33+
+    goal: "You can argue for a change from what users feel, not only from what fails."
+    items:
+      - "Watch real users try a flow and note where they hesitate, not just where it breaks"
+      - "Rewrite three error messages so they explain what happened and what to do"
+      - "Pair with a designer on one feature from brief to ship"
+    lessons: [ux-principles, writing-ui-copy, cognitive-load, a-uxe-portfolio]
+    resources: ["The Design of Everyday Things", "Don’t Make Me Think"]
+    ship: "A case study of one flow you improved, covering the failure modes, the design and the shipped fix."
+---
+
+## Who this is for
+
+You test software. You find the bugs other people miss, you know what happens when a user clicks twice or loses signal halfway through, and you write bug reports that engineers can act on. Maybe you have started to care less about whether something passes and more about whether it feels right. That shift is the bridge to UX engineering.
+
+Your advantage is that you already see failure modes. Much of good interface work lives at the edges: slow networks, empty data, interrupted flows, keyboard users and screen readers. Many engineers and designers only think about those cases late. You think about them first.
+
+The gap is in building and in design judgement. Finding a problem is not the same as designing a good response to it and shipping the code. You will also need a visual eye and the confidence to propose solutions, not just report issues. This path covers both.
+
+## How the work changes
+
+Today you mostly work after something is built. In UX engineering, you work before and during. Instead of finding that an error state is missing, you design and build it. Instead of filing a ticket about focus order, you fix it and explain the fix in review.
+
+Day to day, you will write product code, not just test code. You will join design reviews and ask the questions you already ask: what happens when this fails, what does a keyboard user do here, what if the list is empty. The difference is that you will also bring an answer.
+
+Your mindset shifts from "is this broken?" to "is this good?". Something can pass every test and still confuse people. You will learn to judge an interface by how it feels to use, and to explain that judgement to designers and engineers.
+
+Your test skills keep paying off. You can write tests for the components you build, catch regressions before review and help your team treat states like loading and error as part of the design, not an afterthought.
+
+## Common traps
+
+- **Staying in reporting mode.** Your value grows when you fix what you find. Start making small UI changes in real code as early as you can.
+- **Treating accessibility as a checklist.** Automated tools catch some issues but not all. Learn to test with real assistive technology and understand why each rule exists.
+- **Designing only for failure.** Edge cases matter, but so does the main path. Make sure your work also shows taste in the everyday flow, not just in error handling.
+- **Undervaluing your background.** Your testing experience is rare in this role. Frame it as a strength rather than something to move away from.
+- **Skipping visual practice.** You will need a design eye. Spend time on spacing, type and hierarchy, even if it feels less natural at first.
+
+## How to show it
+
+Your portfolio should show that you can turn failure modes into designed experiences. Make every piece playable: a live demo, a coded prototype or a short recording.
+
+Follow the structure in [A UXE portfolio](/learning/a-uxe-portfolio): the interaction, the constraint and the decision. A strong QA-to-UXE portfolio might include one flow with its edge cases designed and built, one accessibility audit paired with the fixes, and one component with an explicit state model. The [breakdowns](/breakdowns), such as [undo systems](/breakdowns/undo-systems) and [autosave](/breakdowns/debounced-autosave), are good examples of how to present an interaction that has to survive failure.
+
+In interviews, tell stories where you found a problem and then designed and shipped the answer. Explain how you decided what users should see when something went wrong. Be honest about where your design skills are still growing, and show what you are doing to build them.
+
+Explore the other [roadmaps](/roadmaps) and the [resources](/resources) list as you go.

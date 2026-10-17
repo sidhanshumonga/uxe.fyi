@@ -424,23 +424,18 @@ function RoleMap() {
 }
 
 // ── Careers Accordion Bridge Transitions ───────────────────────────────────
-interface TransitionType {
+/** A row in Career bridges: one roadmap from content/roadmaps, built on the
+ *  server in page.tsx. Steps are the roadmap's phase titles. */
+export interface HomeBridge {
   from: string;
   icon: IconName;
   steps: string[];
   time: string;
   note: string;
+  href: string;
 }
 
-const TRANSITIONS: TransitionType[] = [
-  { from: 'Software Engineer', icon: 'code', steps: ['Interaction design', 'Accessibility', 'Design systems', 'Visual literacy', 'User empathy'], time: '4–9 months', note: 'You already engineer. Now learn to design.' },
-  { from: 'Product Designer',   icon: 'sparkle', steps: ['HTML / CSS depth', 'JavaScript & React', 'Component architecture', 'Performance', 'Engineering constraints'], time: '6–12 months', note: 'You already design. Now learn to ship.' },
-  { from: 'QA / Test Engineer', icon: 'flask', steps: ['Frontend foundations', 'Interaction edges', 'A11y testing', 'UI state modeling', 'User empathy'], time: '6–12 months', note: 'You already see failure modes. Translate them.' },
-  { from: 'Student / Graduate', icon: 'book', steps: ['HTML, CSS, JS', 'A design eye', 'One real project', 'A portfolio of details', 'Open-source contribution'], time: '9–18 months', note: 'No moat. Just taste and reps.' },
-  { from: 'Product Manager',    icon: 'map', steps: ['Visual fluency', 'Frontend basics', 'Prototyping in code', 'Systems thinking', 'A specialty'], time: '12+ months', note: 'You already know users. Add craft.' },
-];
-
-function TransitionsSection() {
+function TransitionsSection({ bridges }: { bridges: HomeBridge[] }) {
   const [open, setOpen] = useState(0);
 
   return (
@@ -457,7 +452,7 @@ function TransitionsSection() {
         </div>
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: 0, border: '1px solid var(--border)', borderRadius: 16, overflow: 'hidden', background: 'var(--bg)' }}>
-          {TRANSITIONS.map((t, i) => {
+          {bridges.map((t, i) => {
             const isOpen = open === i;
             return (
               <div key={i} style={{ borderTop: i ? '1px solid var(--border)' : 0 }}>
@@ -517,7 +512,7 @@ function TransitionsSection() {
                         </React.Fragment>
                       ))}
                     </div>
-                    <Link href="/roadmaps" className="btn" style={{ padding: '8px 14px', fontSize: 13 }}>
+                    <Link href={t.href} className="btn" style={{ padding: '8px 14px', fontSize: 13 }}>
                       Open full roadmap
                       <Icon name="arrow" size={13} />
                     </Link>
@@ -744,7 +739,7 @@ function CommunitySection({ community, activity }: { community: HomeCommunity; a
 }
 
 // ── Main Page Component Assembly ───────────────────────────────────────────
-export default function HomeClient({ essays, community, activity }: { essays: HomeEssay[]; community: HomeCommunity; activity: ActivityItem[] }) {
+export default function HomeClient({ essays, bridges, community, activity }: { essays: HomeEssay[]; bridges: HomeBridge[]; community: HomeCommunity; activity: ActivityItem[] }) {
   const coffeeUrl = "https://buymeacoffee.com/sidhanshu";
 
   return (
@@ -768,7 +763,7 @@ export default function HomeClient({ essays, community, activity }: { essays: Ho
         </div>
       </section>
 
-      <TransitionsSection />
+      <TransitionsSection bridges={bridges} />
       <ThinkingSection essays={essays} />
       <BreakdownsSection />
       <CommunitySection community={community} activity={activity} />

@@ -1,9 +1,11 @@
 'use client';
 
 import { useState } from 'react';
+import type React from 'react';
 import Link from 'next/link';
 import { Icon, type IconName } from '@/components/Icon';
 import { authorName } from '@/data/authors';
+import { REPO_URL } from '@/lib/site';
 
 export interface RoadmapTab {
   slug: string;
@@ -13,6 +15,7 @@ export interface RoadmapTab {
   /** status: published — solid cards, "final" pill, author credit. */
   final: boolean;
   authors: string[];
+  issue?: number;
   phases: { title: string; weeks: string; items: string[] }[];
 }
 
@@ -57,7 +60,7 @@ export function RoadmapTabs({ roadmaps }: { roadmaps: RoadmapTab[] }) {
         ))}
       </div>
 
-      <div className="grid-roadmap">
+      <div className="grid-roadmap" style={{ '--phases': r.phases.length } as React.CSSProperties}>
         {r.phases.map((p, i) => (
           <div
             key={i}
@@ -93,13 +96,22 @@ export function RoadmapTabs({ roadmaps }: { roadmaps: RoadmapTab[] }) {
 
       <div className="mono" style={{ fontSize: 12, color: 'var(--muted)', marginTop: 18, textAlign: 'center' }}>
         Estimated time: <span style={{ color: 'var(--ink)' }}>{r.months}</span>
-        {r.final && (
-          <>
-            {' '}· written by <span style={{ color: 'var(--ink)' }}>{names(r.authors)}</span> ·{' '}
-            <Link href={`/roadmaps/${r.slug}`} style={{ color: 'var(--accent)' }}>read the full story →</Link>
-          </>
-        )}
+        {r.final && <> · written by <span style={{ color: 'var(--ink)' }}>{names(r.authors)}</span></>}
         {' '}· roadmaps are guides, not contracts — adjust to your life
+      </div>
+
+      <div style={{ display: 'flex', justifyContent: 'center', gap: 10, marginTop: 22, flexWrap: 'wrap' }}>
+        {r.final ? (
+          <Link href={`/roadmaps/${r.slug}`} className="btn primary">
+            Open the full roadmap <Icon name="arrow" size={13} />
+          </Link>
+        ) : (
+          r.issue && (
+            <a href={`${REPO_URL}/issues/${r.issue}`} className="btn" target="_blank" rel="noopener noreferrer">
+              <Icon name="github" size={13} /> Walked this path? Help write it
+            </a>
+          )
+        )}
       </div>
     </>
   );

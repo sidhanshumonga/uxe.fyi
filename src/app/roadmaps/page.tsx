@@ -22,6 +22,7 @@ export default function RoadmapsPage() {
     months: fm.months,
     final: fm.status === 'published',
     authors: fm.authors,
+    issue: fm.issue,
     phases: fm.phases,
   }));
   const finals = tabs.filter((t) => t.final).length;
@@ -33,11 +34,11 @@ export default function RoadmapsPage() {
       <PageHeader
         eyebrow="Roadmaps"
         title={`${count} paths,`}
-        italic="being drafted."
+        italic={finals === 0 ? 'being drafted.' : `${(NUMBERS[finals] ?? String(finals)).toLowerCase()} mapped out.`}
         lead={
           finals === 0
-            ? "The shape of three journeys into UX Engineering: from engineering, from design, from school. None of these is finished yet — they're outlines waiting for people who've walked them to fill in the details."
-            : `The shape of ${count.toLowerCase()} journeys into UX Engineering. ${finals === 1 ? 'One is' : `${NUMBERS[finals] ?? finals} are`} finished. The others are outlines waiting for people who've walked them to fill in the details.`
+            ? `The shape of ${count.toLowerCase()} journeys into UX Engineering. None of these is finished yet — they're outlines waiting for people who've walked them to fill in the details.`
+            : `The shape of ${count.toLowerCase()} journeys into UX Engineering. ${finals === 1 ? 'One has' : `${NUMBERS[finals] ?? finals} have`} a full guide: phases, steps you can tick off, and the lessons for each. The others are outlines waiting for people who've walked them to fill in the details.`
         }
       />
 
