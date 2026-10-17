@@ -5,12 +5,30 @@ import { PageHeader } from '@/components/PageHeader';
 
 export const metadata: Metadata = sectionMetadata('explore');
 
+// Each definition paraphrases a public source from the team itself, linked on
+// the card. Add one only with a source that says it (job postings expire, so
+// prefer blog posts, docs and talks).
 const DEFINITIONS = [
-  { co: 'Vercel', def: 'engineers who work at the intersection of design and frontend, focused on the craft of the interface itself.' },
-  { co: 'Linear', def: 'engineers who build the product’s expressive layer — animation, interaction, polish.' },
-  { co: 'Stripe', def: 'engineers embedded with design who specialize in implementation quality and interaction fidelity.' },
-  { co: 'Google', def: 'a hybrid role split between design systems engineering and prototype engineering for experiences.' },
-  { co: 'Figma',  def: 'design engineers who think in components and ship the system the rest of the product is built on.' },
+  {
+    co: 'Vercel',
+    def: 'Design engineers blend aesthetic sensibility with technical skill, and work alongside designers from the start instead of waiting for a handoff.',
+    src: { label: 'Vercel blog, 2024', href: 'https://vercel.com/blog/design-engineering-at-vercel' },
+  },
+  {
+    co: 'Google',
+    def: 'UX engineers are creative all-rounders who bridge engineering and design, across every stage of a project from intent to implementation.',
+    src: { label: 'Google Design', href: 'https://design.google/library/why-google-needs-ux-engineers' },
+  },
+  {
+    co: 'GOV.UK',
+    def: 'Its frontend developers bridge technology and design, a cross between an interaction designer and a software developer, and champion accessibility in the team.',
+    src: { label: 'GDS technology blog, 2020', href: 'https://technology.blog.gov.uk/2020/07/24/why-you-should-hire-a-frontend-developer/' },
+  },
+  {
+    co: 'Clearleft',
+    def: 'A design engineer translates between visual design, systems thinking and engineering, and is there to help both the designer and the engineer.',
+    src: { label: 'Clearleft Podcast', href: 'https://podcast.clearleft.com/season03/episode02/' },
+  },
 ];
 
 const COMPARE = [
@@ -41,12 +59,21 @@ export default function ExplorePage() {
 
       <section>
         <div className="container">
-          <div className="eyebrow" style={{ marginBottom: 18 }}>How companies define it</div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 14 }}>
+          <div className="eyebrow" style={{ marginBottom: 18 }}>How teams define it</div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 340px), 1fr))', gap: 14, maxWidth: 1000 }}>
             {DEFINITIONS.map((d, i) => (
-              <div key={i} className="card hov">
+              <div key={i} className="card hov" style={{ display: 'flex', flexDirection: 'column' }}>
                 <div className="display" style={{ fontSize: 22, fontWeight: 500, letterSpacing: '-0.02em', marginBottom: 10 }}>{d.co}</div>
-                <div style={{ fontSize: 14.5, color: 'var(--ink-dim)', lineHeight: 1.55 }}>{d.def}</div>
+                <div style={{ fontSize: 14.5, color: 'var(--ink-dim)', lineHeight: 1.55, marginBottom: 14 }}>{d.def}</div>
+                <a
+                  className="mono"
+                  href={d.src.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ marginTop: 'auto', fontSize: 11.5, color: 'var(--muted)' }}
+                >
+                  {d.src.label} ↗
+                </a>
               </div>
             ))}
           </div>
