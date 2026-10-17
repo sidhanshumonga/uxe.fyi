@@ -47,8 +47,8 @@ If two or more of those landed, **this project is for you.** UX Engineering is t
 | 🔭 | [**Explore**](https://uxe.fyi/explore) | What UX Engineering is, how it differs from frontend, design and product engineering, and a day in the life | ✅ live |
 | 🧪 | [**Breakdowns**](https://uxe.fyi/breakdowns) | Real interactions taken apart, with **live demos you can play with**: optimistic UI, skeletons vs spinners, fuzzy search, easing curves, form choreography, empty states, undo, hover intent, rubber-band edges, autosave | ✅ 10 live with write-ups · 22 queued |
 | 📚 | [**Learning**](https://uxe.fyi/learning) | A handbook of short, finishable lessons across foundations, engineering and experience design | ✅ All 27 published, with practice exercises |
-| 🗺️ | [**Roadmaps**](https://uxe.fyi/roadmaps) | Three paths into the role: from engineering, from design, from school | ✍️ 3 drafting |
-| 💭 | [**Thinking**](https://uxe.fyi/thinking) | Short, opinionated essays: *invisible friction*, *emotional latency*, *undo as a feeling* | ✅ 2 published · 12 on the wishlist |
+| 🗺️ | [**Roadmaps**](https://uxe.fyi/roadmaps) | Three paths into the role: from engineering, from design, from school | ✍️ 3 outlines, waiting for real stories |
+| 💭 | [**Thinking**](https://uxe.fyi/thinking) | Short, opinionated essays: *invisible friction*, *emotional latency*, *undo as a feeling* | ✅ 3 published · 11 on the wishlist |
 | 📦 | [**Resources**](https://uxe.fyi/resources) | Books, talks, tools and podcasts, each with a short write-up on why it matters | ✅ 6 reviewed · 18 on the wishlist |
 | 🫶 | [**Community**](https://uxe.fyi/community) | Who's building this, live from GitHub | ✅ live |
 

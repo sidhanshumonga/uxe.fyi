@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import type { Entry } from './loader';
 
 /** Page metadata + OpenGraph for a long-form content entry. */
-export function articleMetadata(entry: Entry<'essays'> | Entry<'breakdowns'>, path: string): Metadata {
+export function articleMetadata(entry: Entry<'essays'> | Entry<'breakdowns'> | Entry<'roadmaps'>, path: string): Metadata {
   const { title, description, authors, date, updated, tags } = entry.frontmatter;
   return {
     title: `${title} — uxe.fyi`,

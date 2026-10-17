@@ -11,6 +11,7 @@ export const STATUSES = ['draft', 'review', 'published'] as const;
 export const ESSAY_TAGS = ['attention', 'time', 'trust', 'craft', 'motion'] as const;
 export const LESSON_TRACKS = ['foundations', 'engineering', 'experience-design', 'real-world'] as const;
 export const LEVELS = ['starter', 'mid', 'advanced'] as const;
+export const ROADMAP_ICONS = ['code', 'sparkle', 'book', 'map', 'flask', 'users', 'eye', 'bolt', 'heart'] as const; // names from components/Icon.tsx
 export const RESOURCE_KINDS = ['book', 'talk', 'tool', 'podcast', 'article', 'course', 'site', 'system'] as const;
 
 // GitHub's own rules: alphanumeric or single hyphens, no leading/trailing hyphen, max 39 chars.
@@ -63,6 +64,16 @@ export const schemas = {
   }),
   roadmaps: z.strictObject({
     ...base,
+    /** Starting point, shown as "<from> → UXE" on the tab. */
+    from: z.string().trim().min(1).max(40),
+    icon: z.enum(ROADMAP_ICONS),
+    /** Rough total time, e.g. "4–9 months". */
+    months: z.string().trim().min(1),
+    /** Tab position on /roadmaps (lowest first). */
+    order: z.number().int().optional(),
+    phases: z
+      .array(z.strictObject({ title: z.string().trim().min(1), weeks: z.string().trim().min(1), items: z.array(z.string().trim().min(1)).min(1) }))
+      .min(1),
     tags: z.array(z.string()).optional(),
   }),
   // A resource review. title/creator/kind describe the thing being reviewed;

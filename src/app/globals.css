@@ -1006,4 +1006,11 @@ section.tight { padding: clamp(32px, 5vw, 64px) 0; }
 .card-cover.book img{height:100%}
 .pub-card:hover .card-cover img{transform:translateY(-2px)}
 @media (prefers-reduced-motion: reduce){.card-cover img{transition:none}.pub-card:hover .card-cover img{transform:none}}
+/* Roadmap reader: the phases above the story */
+.roadmap-phases{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.roadmap-phases>li{padding:20px;display:flex;flex-direction:column;gap:10px}
+.roadmap-phase-n{font-size:11px;color:var(--accent);letter-spacing:.1em;text-transform:uppercase}
+.roadmap-phases strong{font-size:18px;font-weight:500;letter-spacing:-.02em;line-height:1.2}
+.roadmap-phases ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:6px;font-size:13px;color:var(--ink-dim);line-height:1.5}
+.roadmap-phases ul li::before{content:"— ";color:var(--accent)}
 

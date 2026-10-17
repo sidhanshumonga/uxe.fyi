@@ -18,7 +18,7 @@ const siteName = (url: string) => {
 const Sep = () => <span className="sep" aria-hidden="true">·</span>;
 
 interface ArticleShellProps {
-  entry: Entry<'essays'> | Entry<'breakdowns'>;
+  entry: Entry<'essays'> | Entry<'breakdowns'> | Entry<'roadmaps'>;
   back: { href: string; label: string };
   /** Rendered between the header and the body, e.g. a live demo. */
   feature?: ReactNode;
@@ -28,7 +28,8 @@ interface ArticleShellProps {
 
 export function ArticleShell({ entry, back, feature, actions }: ArticleShellProps) {
   const fm = entry.frontmatter;
-  const { title, description, authors, status, date, updated, tags, original } = fm;
+  const { title, description, authors, status, date, updated, original } = fm;
+  const tags = fm.tags ?? [];
   const seen = 'seen' in fm ? fm.seen : undefined;
 
   return (
@@ -44,9 +45,11 @@ export function ArticleShell({ entry, back, feature, actions }: ArticleShellProp
           </div>
         )}
 
-        <div className="article-tags mono">
-          {tags.map((t) => <span key={t}>#{t}</span>)}
-        </div>
+        {tags.length > 0 && (
+          <div className="article-tags mono">
+            {tags.map((t) => <span key={t}>#{t}</span>)}
+          </div>
+        )}
         <h1 className="display article-title">{title}</h1>
         <p className="article-lead">{description}</p>
 

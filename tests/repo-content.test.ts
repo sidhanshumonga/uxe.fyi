@@ -3,6 +3,8 @@
 
 import fs from 'node:fs';
 import path from 'node:path';
+import { compile } from '@mdx-js/mdx';
+import remarkGfm from 'remark-gfm';
 import { describe, expect, it } from 'vitest';
 import { checkAllContent, getEntries } from '@/lib/content/loader';
 import { COLLECTIONS } from '@/lib/content/schema';
@@ -21,6 +23,11 @@ const PRACTICE = new Set(['fitts', 'contrast', 'states']);
 describe('content/', () => {
   it('passes the content check', () => {
     expect(checkAllContent().problems).toEqual([]);
+  });
+
+  it.each(all.map((e) => [e.file, e] as const))('%s: body compiles as MDX', async (_f, e) => {
+    // e.g. an HTML comment (<!-- -->) is a syntax error in MDX; use {/* */}.
+    await expect(compile(e.body, { remarkPlugins: [remarkGfm] })).resolves.toBeDefined();
   });
 
   it.each(all.map((e) => [e.file, e] as const))('%s: internal links point at real pages', (_f, e) => {
